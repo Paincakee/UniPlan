@@ -7,6 +7,30 @@
     <title>Register</title>
 </head>
 <body>
-    
+    <form action="/account/login" method="post">
+        <label>First name
+            <input type="text" name="firstName" value="<%= locals.firstName %>">
+        </label>
+        <label>Last name
+            <input type="text" name="lastName" value="<%= locals.lastName %>">
+        </label>
+        <label>Email
+            <input type="email" name="email" value="<%= locals.email %>">
+        </label>
+        <label>Student Number
+            <input type="text" name="studentNumber" value="<%= locals.studentNumber %>">
+        </label>
+        <label>Password
+            <input type="password" name="password" value="<%= locals.password %>">
+        </label>
+        <label for="accountType">sign up as:</label>
+        <select name="accountType">
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <option value="company">Company</option>
+        </select>
+        
+        <button type="submit">Register</button>
+    </form>
 </body>
 </html>
