@@ -9,22 +9,22 @@
 <body>
     <form action="/account/login" method="post">
         <label>First name
-            <input type="text" name="firstName" value="<%= locals.firstName %>">
+            <input type="text" name="firstName" value="<%= locals.firstName %>" required>
         </label>
         <label>Last name
-            <input type="text" name="lastName" value="<%= locals.lastName %>">
+            <input type="text" name="lastName" value="<%= locals.lastName %>" required>
         </label>
         <label>Email
-            <input type="email" name="email" value="<%= locals.email %>">
+            <input type="email" name="email" value="<%= locals.email %>" required>
         </label>
         <label>Student Number
-            <input type="text" name="studentNumber" value="<%= locals.studentNumber %>">
+            <input type="text" name="studentNumber" value="<%= locals.studentNumber %>" required>
         </label>
         <label>Password
-            <input type="password" name="password" value="<%= locals.password %>">
+            <input type="password" name="password" value="<%= locals.password %>" required>
         </label>
         <label for="accountType">sign up as:</label>
-        <select name="accountType">
+        <select name="accountType" required>
             <option value="student">Student</option>
             <option value="teacher">Teacher</option>
             <option value="company">Company</option>
