@@ -135,9 +135,16 @@ const sql = async (file, obj) => {
             data = await query(result)
         }
 
+        let success = false
+        if (typeof data === 'object' && Object.prototype.toString.call(data) === '[object Object]') {
+          success = data.affectedRows > 0
+        }
+
+        if (!success) success = data.length > 0 ? true : false
+
         return {
-            success: data.length > 0 ? true : false,
-            data: data.length > 0 ? data : []
+            success: success,
+            data: success ? [data] : []
         }
 
     } catch (err) {
