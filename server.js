@@ -12,9 +12,9 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 
-const account = require("./routes/account")
 
-app.use("/account", account)
+
+app.use("/account", require("./routes/account"))
 
 app.listen(3000)
 

@@ -4,6 +4,10 @@ const bcrypt = require('bcrypt')
 
 const saltRounds = 10 // Time for hashing algorithm
 
+router.get('/', (req, res) => {
+  res.send("Bozo")
+})
+
 router.get('/new', (req, res) => {
   res.render('account/register')
 })
