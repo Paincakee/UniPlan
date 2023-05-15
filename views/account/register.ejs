@@ -7,7 +7,7 @@
     <title>Register</title>
 </head>
 <body>
-    <form action="/account/login" method="post">
+    <form action="/account/new" method="post">
         <label>First name
             <input type="text" name="firstName" value="<%= locals.firstName %>" required>
         </label>
@@ -18,7 +18,7 @@
             <input type="email" name="email" value="<%= locals.email %>" required>
         </label>
         <label>Student Number
-            <input type="text" name="studentNumber" value="<%= locals.studentNumber %>" required>
+            <input type="text" name="studentNumber" value="<%= locals.studentNumber %>" pattern="[0-9]{5}" maxlength="5" inputmode="numeric" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
         </label>
         <label>Password
             <input type="password" name="password" value="<%= locals.password %>" required>
@@ -31,6 +31,7 @@
         </select>
         
         <button type="submit">Register</button>
+        <span class="ERROR"><%= locals.error %></span>
     </form>
 </body>
 </html>
