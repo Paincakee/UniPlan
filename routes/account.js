@@ -15,10 +15,10 @@ router.get('/new', (req, res) => {
 router.post('/new', async (req, res) => {
   try {
     // Check if email or student number already exists
-    const get_studentNumber = await db.sql('auth/get_student', {
+    const get_studentNumber = await db.sql('account/get_student', {
       studentNumber: req.body.studentNumber
     })
-    const get_email = await db.sql('auth/get_mail', {
+    const get_email = await db.sql('account/get_mail', {
       email: req.body.email
     })
 
@@ -35,7 +35,7 @@ router.post('/new', async (req, res) => {
     bcrypt.genSalt(saltRounds, function(err, salt) { 
       bcrypt.hash(password, salt, async function(err, hash) { //Hasher
         // Create new account
-        const result = await db.sql("auth/register", {
+        const result = await db.sql("account/register", {
           firstName: req.body.firstName, 
           lastName: req.body.lastName,
           studentNumber: req.body.studentNumber,
@@ -71,7 +71,7 @@ router.post('/login', async (req, res) => {
 
     bcrypt.genSalt(saltRounds, function(err, salt) { 
       bcrypt.hash(password, salt, async function(err, hash) { //Hasher
-        const login = await db.sql('auth/login', {
+        const login = await db.sql('account/login', {
           email: req.body.email,
           password: hash
         })

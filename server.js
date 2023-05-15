@@ -15,6 +15,7 @@ app.use(express.json())
 
 
 app.use("/account", require("./routes/account"))
+app.use("/project", require("./routes/project.js"))
 
 app.listen(3000)
 
