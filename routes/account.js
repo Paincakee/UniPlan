@@ -96,6 +96,7 @@ router
 
       // Successful login
       req.session.email = req.body.email; // Set session variable
+      req.session.id = req.body.id; // Set session variable
 
       res.redirect('./admin')
     } catch (error) {
