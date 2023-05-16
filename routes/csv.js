@@ -15,9 +15,26 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", upload.single('csv'), (req, res) => {
-  var b = req.file["buffer"]
-  console.log(b.toString())
-  res.send(b.toString())
+  var buff = req.file["buffer"]
+  var buffstring = buff.toString()
+  const mailarray = buffstring.split("\r\n")
+  console.log(mailarray)
+  res.send(mailarray)
+  mailSend(mailarray)
 });
 
 module.exports = router;
+
+
+async function mailSend(list){
+        // send mail with defined transport object
+        let info = await global.sender.sendMail({
+          from: '"pixeltrading" pixeltrading@outlook.com', // sender address
+          to: list, // list of receivers
+          subject: "UniPlan account creation", // Subject line
+          text: "Create your account here", // plain text body
+          html: "<a href='localhost:3000/account/new'>", // html body
+        });
+          
+        console.log("Message sent: %s", info.messageId);
+}
