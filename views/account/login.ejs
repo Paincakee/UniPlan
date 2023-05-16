@@ -8,12 +8,13 @@
 </head>
 <body>
     <form action="/account/login" method="post">
-        <label>Student Number
-            <input type="text" name="studentNumber" value="<%= locals.studentNumber %>" placeholder="23401" r>
+        <label>Email
+            <input type="text" name="email" value="<%= locals.email %>" required>        
         </label>
         <label>Password
             <input type="password" name="password" placeholder="Password" required>
         </label>
+        <span class="ERROR"><%= locals.error %></span>
         <button type="submit">Login</button>
     </form>
 </body>

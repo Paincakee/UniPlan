@@ -11,12 +11,9 @@ app.use(express.static("public"))
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
+app.use("/account", require("./routes/account"))
+app.use("/project", require("./routes/project.js"))
 
-const account = require("./routes/account")
-const csvImport = require("./routes/csv")
-
-app.use("/account", account)
-app.use("/csv", csvImport)
 
 app.listen(3000)
 
