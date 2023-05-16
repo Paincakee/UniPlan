@@ -1,0 +1,1 @@
+SELECT `password` FROM `accounts` WHERE `email` = '%email%'
