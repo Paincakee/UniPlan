@@ -90,4 +90,14 @@ router.post('/login', async (req, res) => {
   }
 })
 
+router.get('/admin', async (req, res) =>{
+  try {
+    const result = await db.sql('account/get_all') 
+    res.json(result)
+    console.log(result);
+  } catch (error) {
+    
+  }
+})
+
 module.exports = router

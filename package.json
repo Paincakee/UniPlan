@@ -10,13 +10,13 @@
   "author": "Fabian, Richard, Stan, Thom",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "mysql": "^2.18.1"
   },
   "devDependencies": {
+    "bcrypt": "^5.1.0",
     "nodemon": "^2.0.22"
   }
 }
