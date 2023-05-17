@@ -4,33 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
     <title>Register</title>
 </head>
-<body>
-    <form action="/account/new" method="post">
-        <label>First name
-            <input type="text" name="firstName" value="<%= locals.firstName %>" required>
+<body id="bodyregister">
+    <form action="/account/new" method="post" id="formregister">
+        <label id="texttopreg">Register</label>
+        <label id="loginbartop"></label>
+        <label class="lblregform">First name
+            <input type="text" name="firstName" id="firstnamereg" value="<%= locals.firstName %>" required>
         </label>
-        <label>Last name
-            <input type="text" name="lastName" value="<%= locals.lastName %>" required>
+        <label  class="lblregform">Last name
+            <input type="text" name="lastName" id="firstnamereg" value="<%= locals.lastName %>" required>
         </label>
-        <label>Email
-            <input type="email" name="email" value="<%= locals.email %>" required>
+        <label  class="lblregform">Email
+            <input type="email" name="email" id="firstnamereg" value="<%= locals.email %>" required>
         </label>
-        <label>Student Number
-            <input type="text" name="studentNumber" value="<%= locals.studentNumber %>" pattern="[0-9]{5}" maxlength="5" inputmode="numeric" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+        <label  class="lblregform">Student Number
+            <input type="text" name="studentNumber" id="firstnamereg" value="<%= locals.studentNumber %>" pattern="[0-9]{5}" maxlength="5" inputmode="numeric" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
         </label>
-        <label>Password
-            <input type="password" name="password" value="<%= locals.password %>" required>
+        <label  class="lblregform">Password
+            <input type="password" name="password" id="firstnamereg" value="<%= locals.password %>" required>
         </label>
-        <label for="accountType">sign up as:</label>
-        <select name="accountType" required>
+        <label  class="lblregform" for="accountType">sign up as:</label>
+        <select id="selecReg" name="accountType" required>
             <option value="student">Student</option>
             <option value="teacher">Teacher</option>
             <option value="company">Company</option>
         </select>
         
-        <button type="submit">Register</button>
+        <button id="submreg" type="submit">Register</button>
+        <label id="bottomlabellogin">Already have an account?<a href="./login"> Log in here!</a></label>
         <span class="ERROR"><%= locals.error %></span>
     </form>
 </body>
