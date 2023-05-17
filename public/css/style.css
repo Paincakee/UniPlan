@@ -98,14 +98,14 @@ background-color: #fff;
 display: flex;
 flex-direction: column;
 height: 60%;
-width: 40%;
+width: 35%;
 margin: 0 auto;
 border-radius: 12px;
     
     
 }
 #firstnamereg{
-border: #ccc solid;
+border: #ccc 1px solid;
 border-top: hidden;
 border-left: hidden;
 border-right: hidden;
@@ -124,7 +124,7 @@ width: 60%;
 }
 #selecReg{
     margin-top: 10px;
-border: 3px solid #ccc;
+border: 1px solid #ccc;
 border-left: hidden;
 border-right: hidden;
 border-top: hidden;
