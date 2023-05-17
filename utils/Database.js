@@ -136,15 +136,18 @@ const sql = async (file, obj) => {
         }
 
         let success = false
+        let isArray = false
         if (typeof data === 'object' && Object.prototype.toString.call(data) === '[object Object]') {
           success = data.affectedRows > 0
+        } else {
+          isArray = true
         }
 
         if (!success) success = data.length > 0 ? true : false
 
         return {
             success: success,
-            data: success ? [data] : []
+            data: success ? (isArray ? data : [data]) : []
         }
 
     } catch (err) {
