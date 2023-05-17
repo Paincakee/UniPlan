@@ -12,16 +12,6 @@ background-size: cover;
 background-position: center;
 }
 
-.loginFormContainer {
-
-/* height: 907px; */
-/* padding-right: 40px;
-background-color: #87BFC0;
-border-radius: 10px;
-box-shadow: 0 0 5px rgba(0, 0, 0, 1);
-padding-top: 20px; */
-}
-
 .loginForm {
 
 display: flex;
