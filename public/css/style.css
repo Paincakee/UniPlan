@@ -1,3 +1,55 @@
-  body {
-    background-color: rgb(102, 136, 174);
-  }
+
+/*#region Login Page*/
+body.login-page {
+display: flex;
+align-items: center;
+justify-content: center;
+height: 97vh;
+width: 97vw;
+background-image: url('images/LoginBackground.jpg');
+background-size: cover;
+background-position: center;
+}
+
+.loginFormContainer {
+width: 600px;
+padding-right: 40px;
+background-color: #87BFC0;
+border-radius: 10px;
+box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+padding-top: 20px;
+}
+
+.loginForm {
+width: 600px;
+padding: 20px;
+background-color: #fff;
+border-radius: 10px;
+}
+
+.loginForm input[type="text"],
+.loginForm input[type="password"] {
+width: 94%;
+padding: 10px;
+margin-bottom: 25px;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+
+.loginForm button {
+width: 100%;
+padding-top: 50px;
+padding: 10px;
+background-color: #87BFC0;
+color: #fff;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-weight: bold;
+font-size: 1.5em;
+}
+
+.loginForm button:hover {
+background-color: #6CB0B2;
+}
+/*#endregion */
