@@ -60,6 +60,7 @@ width: 98%;
 .loginForm button:hover {
 background-color: #6CB0B2;
 }
+
 #loginbartop{
 width: 100%;
 height: 3px;
@@ -70,11 +71,13 @@ margin-bottom: 40px;
 font-size: large
 
 }
+
 #logintoptext{
 font-size: large;
 text-align: center;
 margin: 5px;
 }
+
 #bottomlabellogin{
 margin-top: 10px;
 text-align: center;
