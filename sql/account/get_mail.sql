@@ -1,1 +1,0 @@
-SELECT `email` FROM `accounts` WHERE `email` = '%email%'
