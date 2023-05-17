@@ -1,158 +1,166 @@
 
 /*#region Login Page*/
 body.login-page {
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-display: flex;
-align-items: center;
-justify-content: center;
-height: 97vh;
-width: 97vw;
-background-image: url('images/LoginBackground.jpg');
-background-size: cover;
-background-position: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 97vh;
+  width: 97vw;
+  background-image: url('images/LoginBackground.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 .loginForm {
-display: flex;
-flex-direction: column;
-text-align: center;
-width: 35%;
-height: 60%;
-padding: 20px;
-background-color: #fff;
-border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 35%;
+  height: 60%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
 }
-
 
 .loginForm input[type="text"],
 .loginForm input[type="password"] {
-height: 20px;
-width: 94%;
-padding: 10px;
-margin-bottom: 25px;
-border: 1px solid #ccc;
-border-top: hidden;
-border-left: hidden;
-border-right: hidden;
-border-radius: 4px;
-text-align: center;
-user-select: hidden;
-
-}
-textarea:focus, input:focus{
-outline: none;
+  height: 20px;
+  width: 94%;
+  padding: 10px;
+  margin-bottom: 25px;
+  border: 1px solid #ccc;
+  border-top: hidden;
+  border-left: hidden;
+  border-right: hidden;
+  border-radius: 4px;
+  text-align: center;
+  user-select: none;
 }
 
+textarea:focus,
+input:focus {
+  outline: none;
+}
 
 .loginForm button {
-align-self: center;
-padding: 10px;
-background-color: #87BFC0;
-color: #fff;
-border: none;
-border-radius: 4px;
-cursor: pointer;
-font-weight: bold;
-font-size: 1.5em;
-width: 98%;
+  align-self: center;
+  padding: 10px;
+  background-color: #87BFC0;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.5em;
+  width: 98%;
 }
 
 .loginForm button:hover {
-background-color: #6CB0B2;
+  background-color: #6CB0B2;
 }
 
-#loginbartop{
-width: 100%;
-height: 3px;
-background-color: grey;
-opacity: 50%;
-margin-top: 10px;
-margin-bottom: 40px;
-font-size: large
-
+#loginbartop {
+  width: 100%;
+  height: 3px;
+  background-color: grey;
+  opacity: 50%;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  font-size: large;
 }
 
-#logintoptext{
-font-size: large;
-text-align: center;
-margin: 5px;
+#logintoptext {
+  font-size: large;
+  text-align: center;
+  margin: 5px;
 }
 
-#bottomlabellogin{
-margin-top: 10px;
-text-align: center;
-}
-#bodyregister{
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-display: flex;
-align-items: center;
-justify-content: center;
-height: 97vh;
-width: 97vw;
-background-image: url('images/LoginBackground.jpg');
-background-size: cover;
-background-position: center;
-}
-#formregister{
-background-color: #fff;
-display: flex;
-flex-direction: column;
-height: 60%;
-width: 40%;
-margin: 0 auto;
-border-radius: 12px;
-    
-    
-}
-#firstnamereg{
-border: #ccc solid;
-border-top: hidden;
-border-left: hidden;
-border-right: hidden;
-margin-top: 30px;
-display: flex;
-text-align: center;
-margin: 0 auto;
-flex-direction: column;
-padding: 2px;
-width: 60%; 
-  
-}
-.lblregform{
-    text-align: center;
-    margin-bottom: 3px;
-}
-#selecReg{
-    margin-top: 10px;
-border: 3px solid #ccc;
-border-left: hidden;
-border-right: hidden;
-border-top: hidden;
-text-align: center;
-width: 60%;
-align-self: center;
+#bottomlabellogin {
+  margin-top: 10px;
+  text-align: center;
 }
 
-#submreg{
-align-self: center;
-padding: 10px;
-background-color: #87BFC0;
-color: #fff;
-border: 3px solid;
-border-radius: 4px;
-cursor: pointer;
-font-weight: bold;
-font-size: 1.5em;
-width: 30%;
-margin-top: 20px;
-}
-#submreg:hover {
-    background-color: #6CB0B2;
-}
-#texttopreg{
-    margin-top: 15px;
-    text-align: center;
-    font-size: larger;
-}
 /*#endregion */
+
+/*#region Register Page*/
+#bodyregister {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 97vh;
+  width: 97vw;
+  background-image: url('images/LoginBackground.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+#formregister {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 60%;
+  width: 40%;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+#firstnamereg {
+  border: #ccc solid;
+  border-top: hidden;
+  border-left: hidden;
+  border-right: hidden;
+  margin-top: 30px;
+  display: flex;
+  text-align: center;
+  margin: 0 auto;
+  flex-direction: column;
+  padding: 2px;
+  width: 60%;
+}
+
+.lblregform {
+  text-align: center;
+  margin-bottom: 3px;
+}
+
+#selecReg {
+  margin-top: 10px;
+  border: 3px solid #ccc;
+  border-left: hidden;
+  border-right: hidden;
+  border-top: hidden;
+  text-align: center;
+  width: 60%;
+  align-self: center;
+}
+
+#submreg {
+  align-self: center;
+  padding: 10px;
+  background-color: #87BFC0;
+  color: #fff;
+  border: 3px solid;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.5em;
+  width: 30%;
+  margin-top: 20px;
+}
+
+#submreg:hover {
+  background-color: #6CB0B2;
+}
+
+#texttopreg {
+  margin-top: 15px;
+  text-align: center;
+  font-size: larger;
+}
+
+  /*#endregion */
+
+
 
