@@ -1,6 +1,7 @@
 
 /*#region Login Page*/
 body.login-page {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -12,33 +13,50 @@ background-position: center;
 }
 
 .loginFormContainer {
-width: 600px;
-padding-right: 40px;
+
+/* height: 907px; */
+/* padding-right: 40px;
 background-color: #87BFC0;
 border-radius: 10px;
 box-shadow: 0 0 5px rgba(0, 0, 0, 1);
-padding-top: 20px;
+padding-top: 20px; */
 }
 
 .loginForm {
-width: 600px;
+
+display: flex;
+flex-direction: column;
+text-align: center;
+width: 35%;
+height: 60%;
 padding: 20px;
 background-color: #fff;
 border-radius: 10px;
 }
 
+
 .loginForm input[type="text"],
 .loginForm input[type="password"] {
+height: 20px;
 width: 94%;
 padding: 10px;
 margin-bottom: 25px;
 border: 1px solid #ccc;
+border-top: hidden;
+border-left: hidden;
+border-right: hidden;
 border-radius: 4px;
+text-align: center;
+user-select: hidden;
+
+}
+textarea:focus, input:focus{
+outline: none;
 }
 
+
 .loginForm button {
-width: 100%;
-padding-top: 50px;
+align-self: center;
 padding: 10px;
 background-color: #87BFC0;
 color: #fff;
@@ -47,9 +65,26 @@ border-radius: 4px;
 cursor: pointer;
 font-weight: bold;
 font-size: 1.5em;
+width: 98%;
 }
 
 .loginForm button:hover {
 background-color: #6CB0B2;
+}
+#loginbartop{
+width: 100%;
+height: 3px;
+background-color: grey;
+opacity: 50%;
+margin-top: 10px;
+margin-bottom: 60px;
+font-size: large
+
+}
+#logintoptext{
+font-size: large;
+}
+#bottomlabellogin{
+    margin-top: 10px;
 }
 /*#endregion */

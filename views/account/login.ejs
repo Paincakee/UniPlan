@@ -9,14 +9,17 @@
 </head>
 <body class="login-page">
     <form class="loginForm" action="/account/login" method="post">
+        <label id="logintoptext">Log in</label>
+        <label id="loginbartop"></label>
         <label>Email
-            <input type="text" name="email" placeholder="Email" value="<%= locals.email %>" required>        
+            <input type="text" name="email" placeholder="example@gmail.com" value="<%= locals.email %>" required>        
         </label>
         <label>Password
             <input type="password" name="password" placeholder="Password" required>
         </label>
         <span class="ERROR"><%= locals.error %></span>
         <button type="submit">Login</button>
+        <label id="bottomlabellogin">Don't have an account?<a href="./new"> Register here!</a></label>
     </form>
     </body>
 </body>
