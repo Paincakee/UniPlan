@@ -5,7 +5,7 @@ const router = express.Router();
 
 const upload = multer({ dest: __dirname + '/../resources/upload/' });
 
-router.post('/new', upload.array(['files', 'fotos']), async (req, res) => {
+router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
   // Access the uploaded files via req.files
   // Iterate over the files and save them to a folder
   req.files.forEach((file) => {
