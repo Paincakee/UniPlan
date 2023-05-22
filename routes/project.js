@@ -8,7 +8,7 @@ const upload = multer({ dest: __dirname + '/../resources/upload/' });
 router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
   // Access the uploaded files via req.files
   // Iterate over the files and save them to a folder
-  if(req.session.email == 'undefined'){
+  if(req.session.email == null){
     res.render('account/login')
   }
   else{
@@ -19,17 +19,18 @@ router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
     fs.mkdirSync(folderPath, {recursive: true})
     fs.renameSync(file.path, folderPath + file.originalname);
   });
-  }
+  
 
   const result = await db.sql("project/createProject", {
     table: "projects",
-    user_id: req.session.email,
+    userId: req.session.email,
     title: req.body.title,
     description: req.body.description,
     contact_info: req.body.contact_info
   })
 
   res.render('project/home');
+  }
 });
 
 router.get('/', function(req, res) {
