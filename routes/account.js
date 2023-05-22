@@ -9,9 +9,9 @@ router.get('/', (req, res) => {
   res.send("Bozo")
 })
 
-////////////////
-///"/account"///
-////////////////
+///////////////
+///"account"///
+///////////////
 
 //REGISTER ROUTER
 router
@@ -22,6 +22,7 @@ router
   .post(async (req, res) => {
     try {
       let email = req.body.email
+      req.session.email = email
       let studentNumber = req.body.studentNumber
       // Check if email or student number already exists
       const get_studentNumber = await db.sql('account/get_studentNumbers', {
