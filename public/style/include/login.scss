@@ -1,0 +1,80 @@
+#login-body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 97vh;
+    width: 97vw;
+    background-image: url("images/LoginBackground.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 35%;
+    height: 48%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+
+    input[type="text"],
+    input[type="password"] {
+        height: 20px;
+        width: 94%;
+        padding: 10px;
+        margin-bottom: 25px;
+        border: 1px solid #ccc;
+        border-top: hidden;
+        border-left: hidden;
+        border-right: hidden;
+        border-radius: 4px;
+        text-align: center;
+        user-select: none;
+    }
+
+    textarea:focus,
+    input:focus {
+        outline: none;
+    }
+
+    button {
+        align-self: center;
+        padding: 10px;
+        background-color: #87bfc0;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1.5em;
+        width: 98%;
+
+        &:hover {
+            background-color: #6cb0b2;
+        }
+    }
+}
+
+#loginbartop {
+    width: 100%;
+    height: 3px;
+    background-color: grey;
+    opacity: 50%;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    font-size: large;
+}
+
+#logintoptext {
+    font-size: large;
+    text-align: center;
+    margin: 5px;
+}
+
+#bottomlabellogin {
+    margin-top: 5px;
+    text-align: center;
+}
