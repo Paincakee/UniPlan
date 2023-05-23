@@ -1,2 +1,2 @@
-INSERT INTO `%table%`(`id`, `user_id`, `title`, `description`, `contact_info`) 
-VALUES (null, '%user_id%', '%title%', '%description%', '%contact_info%');
+INSERT INTO `%table%`(`id`, `userId`, `title`, `description`, `contactInfo`) 
+VALUES (null, '%userId%', '%title%', '%description%', '%contact_info%');
