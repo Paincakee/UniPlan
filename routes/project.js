@@ -13,12 +13,8 @@ router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
   try {
     let email = req.session.email
     if(email == ""){
-      throw new Error("Email not set")
-    }
-    // Access the uploaded files via req.files
-    // Iterate over the files and save them to a folder
-    if (req.session.email == null) {
       res.render('account/login')
+      throw new Error("Email not set")
     }
     else {
       req.files.forEach((file) => {
@@ -29,8 +25,13 @@ router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
         fs.renameSync(file.path, folderPath + file.originalname);
       });
 
+      const result = await db.sql("account/get_user_info", {
+        table: "projects",
+        type: "id",
+        typeValue: ""
+      })
 
-      const result = await db.sql("project/createProject", {
+      await db.sql("project/createProject", {
         table: "projects",
         userId: email,
         title: req.body.title,
