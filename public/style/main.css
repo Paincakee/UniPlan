@@ -22,6 +22,11 @@
   background-color: #fff;
   border-radius: 10px;
 }
+.loginForm #logintoptext {
+  font-size: large;
+  text-align: center;
+  margin: 0 auto;
+}
 .loginForm input[type=text],
 .loginForm input[type=password] {
   height: 20px;
@@ -64,12 +69,6 @@
   margin-top: 10px;
   margin-bottom: 40px;
   font-size: large;
-}
-
-#logintoptext {
-  font-size: large;
-  text-align: center;
-  margin: 5px;
 }
 
 #bottomlabellogin {
