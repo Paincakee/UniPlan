@@ -73,12 +73,117 @@ input:focus {
 #logintoptext {
   font-size: large;
   text-align: center;
-  margin: 5px;
+  margin: 5px auto;
 }
 
 #bottomlabellogin {
   margin-top: 10px;
   text-align: center;
+}
+
+/* For Mobile Devices - 320px — 480px */
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  body.login-page {
+    height: 98.4vh;
+    width: 95vw;
+  }
+
+  .loginForm {
+    width: 80%;
+    height:50%;
+  }
+
+  .loginForm input[type="text"],
+  .loginForm input[type="password"],
+  .loginForm label {
+    display: block;
+    margin: 0 auto;
+    width: 80%
+  }
+}
+
+/* For iPads and Tablets - 481px — 768px */
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  body.login-page {
+    height: 98.4vh;
+    width: 95vw;
+  }
+
+  .loginForm {
+    width: 60%;
+    height: 50%;
+  }
+
+  .loginForm input[type="text"],
+  .loginForm input[type="password"],
+  .loginForm label {
+    display: block;
+    margin: 0 auto;
+    width: 95%
+  }
+}
+
+/* For Laptops and small screens - 769px — 1024px */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  body.login-page {
+    height: 98.4vh;
+    width: 95vw;
+  }
+
+  .loginForm {
+    width: 50%;
+    height: 50%;
+  }
+
+  .loginForm input[type="text"],
+  .loginForm input[type="password"],
+  .loginForm label {
+    display: block;
+    margin: 0 auto;
+    width: 80%
+  }
+}
+
+/* For Large screens and Desktops - 1025px — 1200px */
+@media only screen and (min-width: 1025px) and (max-width: 1200px) {
+  body.login-page {
+    height: 98.4vh;
+    width: 95vw;
+  }
+
+  .loginForm {
+    width: 40%;
+    height: 50%;
+  }
+
+  .loginForm input[type="text"],
+  .loginForm input[type="password"],
+  .loginForm label {
+    display: block;
+    margin: 0 auto;
+    width: 80%
+  }
+}
+
+/* For TV and Extra Large Screens - 1201px and more */
+@media only screen and (min-width: 1201px) {
+  body.login-page {
+    height: 98.4vh;
+    width: 95vw;
+  }
+
+  .loginForm {
+    width: 30%;
+    height: 50%;
+  }
+
+  .loginForm input[type="text"],
+  .loginForm input[type="password"],
+  .loginForm label {
+    display: block;
+    margin: 0 auto;
+    width: 80%
+  }
 }
 
 /*#endregion */
@@ -159,6 +264,7 @@ input:focus {
   text-align: center;
   font-size: larger;
 }
+
 
   /*#endregion */
 
