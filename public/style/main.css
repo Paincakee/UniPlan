@@ -1,14 +1,14 @@
-
-/*#region Login Page*/
-body.login-page {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+@charset "UTF-8";
+#login-body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 97vh;
   width: 97vw;
-  background-image: url('images/LoginBackground.jpg');
+  background-image: url("images/LoginBackground.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
 }
 
@@ -17,14 +17,18 @@ body.login-page {
   flex-direction: column;
   text-align: center;
   width: 35%;
-  height: 60%;
+  height: 48%;
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
 }
-
-.loginForm input[type="text"],
-.loginForm input[type="password"] {
+.loginForm #logintoptext {
+  font-size: large;
+  text-align: center;
+  margin: 0 auto;
+}
+.loginForm input[type=text],
+.loginForm input[type=password] {
   height: 20px;
   width: 94%;
   padding: 10px;
@@ -37,16 +41,14 @@ body.login-page {
   text-align: center;
   user-select: none;
 }
-
-textarea:focus,
-input:focus {
+.loginForm textarea:focus,
+.loginForm input:focus {
   outline: none;
 }
-
 .loginForm button {
   align-self: center;
   padding: 10px;
-  background-color: #87BFC0;
+  background-color: #87bfc0;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -55,9 +57,8 @@ input:focus {
   font-size: 1.5em;
   width: 98%;
 }
-
 .loginForm button:hover {
-  background-color: #6CB0B2;
+  background-color: #6cb0b2;
 }
 
 #loginbartop {
@@ -70,133 +71,109 @@ input:focus {
   font-size: large;
 }
 
-#logintoptext {
-  font-size: large;
-  text-align: center;
-  margin: 5px auto;
-}
-
 #bottomlabellogin {
-  margin-top: 10px;
+  margin-top: 5px;
   text-align: center;
 }
 
 /* For Mobile Devices - 320px — 480px */
 @media only screen and (min-width: 320px) and (max-width: 480px) {
-  body.login-page {
-    height: 98.4vh;
+  #login-body {
+    height: 100vh;
     width: 95vw;
   }
-
   .loginForm {
     width: 80%;
-    height:50%;
+    height: 50%;
   }
-
-  .loginForm input[type="text"],
-  .loginForm input[type="password"],
+  .loginForm input[type=text],
+  .loginForm input[type=password],
   .loginForm label {
     display: block;
     margin: 0 auto;
-    width: 80%
+    width: 80%;
   }
 }
-
 /* For iPads and Tablets - 481px — 768px */
 @media only screen and (min-width: 481px) and (max-width: 768px) {
-  body.login-page {
-    height: 98.4vh;
+  #login-body {
+    height: 100vh;
     width: 95vw;
   }
-
   .loginForm {
     width: 60%;
     height: 50%;
   }
-
-  .loginForm input[type="text"],
-  .loginForm input[type="password"],
+  .loginForm input[type=text],
+  .loginForm input[type=password],
   .loginForm label {
     display: block;
     margin: 0 auto;
-    width: 95%
+    width: 95%;
   }
 }
-
 /* For Laptops and small screens - 769px — 1024px */
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
-  body.login-page {
-    height: 98.4vh;
+  #login-body {
+    height: 100vh;
     width: 95vw;
   }
-
   .loginForm {
     width: 50%;
     height: 50%;
   }
-
-  .loginForm input[type="text"],
-  .loginForm input[type="password"],
+  .loginForm input[type=text],
+  .loginForm input[type=password],
   .loginForm label {
     display: block;
     margin: 0 auto;
-    width: 80%
+    width: 80%;
   }
 }
-
 /* For Large screens and Desktops - 1025px — 1200px */
 @media only screen and (min-width: 1025px) and (max-width: 1200px) {
-  body.login-page {
-    height: 98.4vh;
+  #login-body {
+    height: 100vh;
     width: 95vw;
   }
-
   .loginForm {
     width: 40%;
     height: 50%;
   }
-
-  .loginForm input[type="text"],
-  .loginForm input[type="password"],
+  .loginForm input[type=text],
+  .loginForm input[type=password],
   .loginForm label {
     display: block;
     margin: 0 auto;
-    width: 80%
+    width: 80%;
   }
 }
-
 /* For TV and Extra Large Screens - 1201px and more */
 @media only screen and (min-width: 1201px) {
-  body.login-page {
-    height: 98.4vh;
+  #login-body {
+    height: 100vh;
     width: 95vw;
   }
-
   .loginForm {
     width: 30%;
     height: 50%;
   }
-
-  .loginForm input[type="text"],
-  .loginForm input[type="password"],
+  .loginForm input[type=text],
+  .loginForm input[type=password],
   .loginForm label {
     display: block;
     margin: 0 auto;
-    width: 80%
+    width: 80%;
   }
 }
-
-/*#endregion */
-
-/*#region Register Page*/
-#bodyregister {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+#register-body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 97vh;
   width: 97vw;
-  background-image: url('images/LoginBackground.jpg');
+  background-image: url("images/LoginBackground.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -206,13 +183,13 @@ input:focus {
   display: flex;
   flex-direction: column;
   height: 60%;
-  width: 40%;
+  width: 35%;
   margin: 0 auto;
   border-radius: 12px;
 }
 
 #firstnamereg {
-  border: #ccc solid;
+  border: #ccc solid 1px;
   border-top: hidden;
   border-left: hidden;
   border-right: hidden;
@@ -221,18 +198,13 @@ input:focus {
   text-align: center;
   margin: 0 auto;
   flex-direction: column;
-  padding: 2px;
+  /* padding: 2px; */
   width: 60%;
-}
-
-.lblregform {
-  text-align: center;
-  margin-bottom: 3px;
 }
 
 #selecReg {
   margin-top: 10px;
-  border: 3px solid #ccc;
+  border: 1px solid #ccc;
   border-left: hidden;
   border-right: hidden;
   border-top: hidden;
@@ -244,7 +216,7 @@ input:focus {
 #submreg {
   align-self: center;
   padding: 10px;
-  background-color: #87BFC0;
+  background-color: #87bfc0;
   color: #fff;
   border: 3px solid;
   border-radius: 4px;
@@ -254,19 +226,21 @@ input:focus {
   width: 30%;
   margin-top: 20px;
 }
-
 #submreg:hover {
-  background-color: #6CB0B2;
+  background-color: #6cb0b2;
 }
 
 #texttopreg {
   margin-top: 15px;
   text-align: center;
   font-size: larger;
+  color: #436f70;
 }
 
+.lblregform {
+  text-align: center;
+  margin-bottom: 3px;
+  margin-top: 6px;
+}
 
-  /*#endregion */
-
-
-
+/*# sourceMappingURL=main.css.map */

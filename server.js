@@ -1,9 +1,16 @@
 const express = require('express')
-const db = require('./utils/Database.js')
-const nodemailer = require("nodemailer");
 const app = express()
+const db = require('./utils/Database.js')
+const nodemailer = require("nodemailer")
 const session = require('express-session')
 const dotenv = require("dotenv")
+const http = require('http');
+const socketIO = require('socket.io')
+const { log } = require('console')
+
+const server = http.createServer(app);
+const io = socketIO(server);
+
 dotenv.config()
 db.connect()
 
@@ -15,6 +22,7 @@ app.use(session({
 
 app.set('view engine', 'ejs')
 
+app.use(express.static(__dirname));
 app.use(express.static("public"))
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
@@ -22,6 +30,7 @@ app.use(express.json())
 app.use("/csv", require("./routes/csv.js"))
 app.use("/account", require("./routes/account"))
 app.use("/project", require("./routes/project.js"))
+app.use("/chat", require("./routes/chat.js"))
 
 
 let transporter = nodemailer.createTransport({
@@ -34,8 +43,26 @@ let transporter = nodemailer.createTransport({
     },
 });
 
-app.listen(3000)
+const users = {}
 
+io.on('connection', (socket) => {
+
+  // socket.emit('chat-message', 'bozo')
+  socket.on('new-user', user => {
+    users[socket.id] = user
+    console.log(user);
+  })
+  socket.on('send-chat-message', message => {
+
+    socket.broadcast.emit('chat-message', {message: message, user: users[socket.id]})
+  })
+
+  
+
+});
+
+const port = 3000;
+server.listen(port);
 
 global.db = db
 global.sender = transporter
