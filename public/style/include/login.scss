@@ -1,0 +1,188 @@
+
+#login-body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 97vh;
+    width: 97vw;
+    background-image: url("images/LoginBackground.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 35%;
+    height: 48%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+
+    #logintoptext {
+        font-size: large;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        height: 20px;
+        width: 94%;
+        padding: 10px;
+        margin-bottom: 25px;
+        border: 1px solid #ccc;
+        border-top: hidden;
+        border-left: hidden;
+        border-right: hidden;
+        border-radius: 4px;
+        text-align: center;
+        user-select: none;
+    }
+
+    textarea:focus,
+    input:focus {
+        outline: none;
+    }
+
+    button {
+        align-self: center;
+        padding: 10px;
+        background-color: #87bfc0;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1.5em;
+        width: 98%;
+
+        &:hover {
+            background-color: #6cb0b2;
+        }
+    }
+}
+
+#loginbartop {
+    width: 100%;
+    height: 3px;
+    background-color: grey;
+    opacity: 50%;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    font-size: large;
+}
+
+
+
+#bottomlabellogin {
+    margin-top: 5px;
+    text-align: center;
+}
+
+/* For Mobile Devices - 320px — 480px */
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    #login-body {
+        height: 100vh;
+        width: 95vw;
+    }
+
+    .loginForm {
+        width: 80%;
+        height: 50%;
+        input[type="text"],
+        input[type="password"],
+        label {
+            display: block;
+            margin: 0 auto;
+            width: 80%;
+        }
+    }
+}
+
+/* For iPads and Tablets - 481px — 768px */
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    #login-body {
+        height: 100vh;
+        width: 95vw;
+    }
+
+    .loginForm {
+        width: 60%;
+        height: 50%;
+
+        input[type="text"],
+        input[type="password"],
+        label {
+            display: block;
+            margin: 0 auto;
+            width: 95%;
+        }
+    }
+}
+
+/* For Laptops and small screens - 769px — 1024px */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    #login-body {
+        height: 100vh;
+        width: 95vw;
+    }
+
+    .loginForm {
+        width: 50%;
+        height: 50%;
+
+        input[type="text"],
+        input[type="password"],
+        label {
+            display: block;
+            margin: 0 auto;
+            width: 80%;
+        }
+    }
+}
+
+/* For Large screens and Desktops - 1025px — 1200px */
+@media only screen and (min-width: 1025px) and (max-width: 1200px) {
+    #login-body {
+        height: 100vh;
+        width: 95vw;
+    }
+
+    .loginForm {
+        width: 40%;
+        height: 50%;
+
+        input[type="text"],
+        input[type="password"],
+        label {
+            display: block;
+            margin: 0 auto;
+            width: 80%;
+        }
+    }
+}
+
+/* For TV and Extra Large Screens - 1201px and more */
+@media only screen and (min-width: 1201px) {
+    #login-body {
+        height: 100vh;
+        width: 95vw;
+    }
+
+    .loginForm {
+        width: 30%;
+        height: 50%;
+
+        input[type="text"],
+        input[type="password"],
+        label {
+            display: block;
+            margin: 0 auto;
+            width: 80%;
+        }
+    }
+}

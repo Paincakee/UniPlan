@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/style/style.css" rel="stylesheet" type="text/css">
+    <link href="/style/main.css" rel="stylesheet" type="text/css">
     <title>Log in</title>
 </head>
 <body id="login-body">
@@ -12,13 +12,13 @@
         <label id="logintoptext">Log in</label>
         <label id="loginbartop"></label>
         <label>Email
-            <input type="text" name="email" placeholder="example@gmail.com" value="<%= locals.email %>" required>        
+            <input class="lblregform" type="text" name="email" placeholder="example@gmail.com" value="<%= locals.email %>" required>        
         </label>
         <label>Password
-            <input type="password" name="password" placeholder="Password" required>
+            <input class="lblregform" type="password" name="password" placeholder="Brandweerwagen2" required>
         </label>
         <span class="ERROR"><%= locals.error %></span>
-        <button type="submit">Login</button>
+        <button type="submit" id="submreg">Login</button>
         <label id="bottomlabellogin">Don't have an account?<a href="./new"> Register here!</a></label>
     </form>
     </body>
