@@ -12,31 +12,40 @@ router.get('/new', (req, res) => {
 router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
   try {
     let email = req.session.email
-    if(email == ""){
+    if(email == null){
       res.render('account/login')
       throw new Error("Email not set")
     }
     else {
-      req.files.forEach((file) => {
-        // Save the file to a specific folder using the file.originalname property
-        const fieldname = file.fieldname;
-        const folderPath = __dirname + `/../resources/upload/${req.session.email}/${req.body.title}/${fieldname}/`;
-        fs.mkdirSync(folderPath, { recursive: true })
-        fs.renameSync(file.path, folderPath + file.originalname);
+      const resultAccount = await db.sql("account/get_user_info", {
+        table: "accounts",
+        type: "email",
+        typeValue: email
       });
-
-      // const result = await db.sql("account/get_user_info", {
-      //   table: "accounts",
-      //   type: "email",
-      //   typeValue: email
-      // });
 
       await db.sql("project/createProject", {
         table: "projects",
-        userId: "poep",
-        title: "poep",
-        description: "poep",
-        contact_info: "poep"
+        userId: `${resultAccount.data[0].id}`,
+        title: req.body.title,
+        description: req.body.description,
+        contact_info: req.body.contact
+      });
+
+      const resultProject = await db.sql("account/get_user_info", {
+        table: "projects",
+        type: "userId",
+        typeValue: `${resultAccount.data[0].id}`
+      });
+
+      const lastIndex = resultProject.data.slice(-1);
+      console.log(lastIndex[0].id);
+
+      req.files.forEach((file) => {
+        // Save the file to a specific folder using the file.originalname property
+        const fieldname = file.fieldname;
+        const folderPath = __dirname + `/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
+        fs.mkdirSync(folderPath, { recursive: true })
+        fs.renameSync(file.path, folderPath + file.originalname);
       });
 
       res.redirect("./")
