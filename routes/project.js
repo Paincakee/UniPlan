@@ -25,19 +25,19 @@ router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
         fs.renameSync(file.path, folderPath + file.originalname);
       });
 
-      const result = await db.sql("account/get_user_info", {
-        table: "projects",
-        type: "id",
-        typeValue: ""
-      })
+      // const result = await db.sql("account/get_user_info", {
+      //   table: "accounts",
+      //   type: "email",
+      //   typeValue: email
+      // });
 
       await db.sql("project/createProject", {
         table: "projects",
-        userId: email,
-        title: req.body.title,
-        description: req.body.description,
-        contact_info: req.body.contact
-      })
+        userId: "poep",
+        title: "poep",
+        description: "poep",
+        contact_info: "poep"
+      });
 
       res.redirect("./")
     }
