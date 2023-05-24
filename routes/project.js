@@ -37,13 +37,13 @@ router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
         typeValue: `${resultAccount.data[0].id}`
       });
 
-      console.log(resultProject);
       const lastIndex = resultProject.data.slice(-1);
+      console.log(lastIndex[0].id);
 
       req.files.forEach((file) => {
         // Save the file to a specific folder using the file.originalname property
         const fieldname = file.fieldname;
-        const folderPath = __dirname + `/../resources/upload/${req.session.email}/${lastIndex.id}/${fieldname}/`;
+        const folderPath = __dirname + `/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
         fs.mkdirSync(folderPath, { recursive: true })
         fs.renameSync(file.path, folderPath + file.originalname);
       });
