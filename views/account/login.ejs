@@ -7,18 +7,20 @@
     <link href="/style/main.css" rel="stylesheet" type="text/css">
     <title>Log in</title>
 </head>
-<body id="login-body">
+<body scroll="no" style="overflow: hidden" id="login-body">
     <form class="loginForm" action="/account/login" method="post">
-        <label id="logintoptext">Log in</label>
+        <label id="logintoptext">Login</label>
         <label id="loginbartop"></label>
+        <div class="inputContainer">
         <label>Email
             <input class="lblregform" type="text" name="email" placeholder="example@gmail.com" value="<%= locals.email %>" required>        
         </label>
         <label>Password
             <input class="lblregform" type="password" name="password" placeholder="Brandweerwagen2" required>
         </label>
+        </div>
         <span class="ERROR"><%= locals.error %></span>
-        <button type="submit" id="submreg">Login</button>
+        <button type="submit" id="loginConfirm">Log in</button>
         <label id="bottomlabellogin">Don't have an account?<a href="./new"> Register here!</a></label>
     </form>
     </body>

@@ -10,6 +10,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+
 }
 
 .loginForm {
@@ -45,9 +46,10 @@
 .loginForm input:focus {
   outline: none;
 }
-.loginForm button {
+.loginForm #loginConfirm {
   align-self: center;
   padding: 10px;
+  margin-top: 10px;
   background-color: #87bfc0;
   color: #fff;
   border: none;
@@ -55,7 +57,7 @@
   cursor: pointer;
   font-weight: bold;
   font-size: 1.5em;
-  width: 98%;
+  width: 50%;
 }
 .loginForm button:hover {
   background-color: #6cb0b2;
@@ -77,7 +79,7 @@
 }
 
 /* For Mobile Devices - 320px — 480px */
-@media only screen and (min-width: 320px) and (max-width: 480px) {
+@media only screen and (max-width: 480px) {
   #login-body {
     height: 100vh;
     width: 95vw;
@@ -92,6 +94,9 @@
     display: block;
     margin: 0 auto;
     width: 80%;
+  }
+  #bottomlabellogin {
+   font-size: 14px;
   }
 }
 /* For iPads and Tablets - 481px — 768px */
@@ -164,6 +169,58 @@
     display: block;
     margin: 0 auto;
     width: 80%;
+  }
+}
+
+@media only screen and (max-height: 600px) {
+  #login-body {
+    height: 100vh;
+  }
+  .loginForm {
+    
+    height: 60vh;
+  }
+  .loginForm input[type=text],
+  .loginForm input[type=password],
+  .loginForm label {
+    margin-top: 5px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  #loginbartop {
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (min-height: 601px) and (max-height: 1200px) {
+  #login-body {
+    height: 100vh;
+  }
+  .loginForm {
+    margin-top: -10%;
+    height: 40%;
+  }
+  .loginForm input[type=text],
+  .loginForm input[type=password],
+  .loginForm label {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-height: 1201px) {
+  #login-body {
+    height: 100vh;
+  }
+  .loginForm {
+    height: 50%;
+  }
+  .loginForm input[type=text],
+  .loginForm input[type=password],
+  .loginForm label {
+    display: block;
+    margin: 0 auto;
   }
 }
 #register-body {
