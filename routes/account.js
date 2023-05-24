@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
-const { log } = require('console')
+
 
 const saltRounds = 10 // Time for hashing algorithm
 
@@ -9,9 +9,9 @@ router.get('/', (req, res) => {
   res.send("Bozo")
 })
 
-////////////////
-///"/account"///
-////////////////
+///////////////
+///"account"///
+///////////////
 
 //REGISTER ROUTER
 router
@@ -22,6 +22,7 @@ router
   .post(async (req, res) => {
     try {
       let email = req.body.email
+      req.session.email = email
       let studentNumber = req.body.studentNumber
       // Check if email or student number already exists
       const get_studentNumber = await db.sql('account/get_studentNumbers', {
@@ -96,6 +97,7 @@ router
 
       // Successful login
       req.session.email = req.body.email; // Set session variable
+      req.session.id = req.body.id; // Set session variable
 
       res.redirect('./admin')
     } catch (error) {

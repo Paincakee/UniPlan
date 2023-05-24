@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,15 +8,24 @@
     <title>Create</title>
 </head>
 <body>
-    <form action="/project/create" method="post">
+    <form action="/project/new" method="post" enctype="multipart/form-data">
         <label>Title
             <input type="text" name="title" value="<%= locals.title %>" required>        
         </label>
         <label>Description
             <textarea name="description" id="" cols="30" rows="10" required></textarea>
         </label>
+        <label>Contact info
+            <input type="text" name="contact" required>
+        </label>
+        <label>Foto's
+            <input type="file" name="fotos" id="fotoInput" multiple>
+        </label>
         <span class="ERROR"><%= locals.error %></span>
-        <button type="submit">Create</button>
+        <label>Additional Files
+        <input type="file" name="files" id="fileInput" multiple>
+        </label>
+        <button type="submit" value="Submit">Create</button>
     </form>
 </body>
 </html>
