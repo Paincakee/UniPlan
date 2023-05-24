@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/*#region Login Page*/
 #login-body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
@@ -223,6 +224,8 @@
     margin: 0 auto;
   }
 }
+/*#endregion */
+/*#region Register Page*/
 #register-body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
@@ -305,5 +308,6 @@
 textarea:focus, input:focus {
   outline: none;
 }
+/*#endregion */
 
 /*# sourceMappingURL=main.css.map */
