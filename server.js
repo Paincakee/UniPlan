@@ -50,7 +50,10 @@ io.on('connection', (socket) => {
   // socket.emit('chat-message', 'bozo')
   socket.on('new-user', user => {
     users[socket.id] = user
-    console.log(user);
+    console.log(`user: ${user}`);
+  })
+  socket.on('chat-time', time => {
+    console.log(`time: ${time}`);
   })
   socket.on('send-chat-message', message => {
 

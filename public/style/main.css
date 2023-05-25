@@ -26,6 +26,7 @@
   font-size: large;
   text-align: center;
   margin: 0 auto;
+  color: #436f70;
 }
 .loginForm input[type=text],
 .loginForm input[type=password] {
