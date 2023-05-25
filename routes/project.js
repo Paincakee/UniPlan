@@ -55,8 +55,31 @@ router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
   }
 });
 
-router.get('/', function (req, res) {
-  res.render('project/home');
+router.get('/', async (req, res) => {
+  const email = req.session.email
+  
+  if(email == null){
+    res.render('account/login')
+    throw new Error("Email not set")
+  }
+  else {
+    const resultAccount = await db.sql("account/get_user_info", {
+      table: "accounts",
+      type: "email",
+      typeValue: email
+    });
+
+    const resultProject = await db.sql("account/get_user_info", {
+      table: "projects",
+      type: "userId",
+      typeValue: `${resultAccount.data[0].id}`
+    });
+
+    console.log(resultProject);
+    res.render('project/home', {
+      projects: resultProject
+    });
+  }
 });
 
 

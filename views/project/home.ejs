@@ -7,6 +7,17 @@
     <title>Project</title>
 </head>
 <body>
-    
+    <div id="container">
+        <label></label>
+    </div>
 </body>
 </html>
+
+<script>
+    container = document.getElementById("container");
+    array = [];
+    '<% for (var i=0, len=projects.length; i<len; i++) { %>'
+    array.push('<%- JSON.stringify(projects) %>');
+    '<% } %>'
+    console.log(array);
+</script>
