@@ -8,16 +8,14 @@
 </head>
 <body>
     <div id="container">
-        <label></label>
+        <% resultProject.data.forEach((row) => { %>
+            <li>ID: <%= row.id %></li>
+            <li>User ID: <%= row.userId %></li>
+            <li>Title: <%= row.title %></li>
+            <li>Description: <%= row.description %></li>
+            <li>Contact Info: <%= row.contactInfo %></li>
+            <br>
+          <% }) %>
     </div>
 </body>
 </html>
-
-<script>
-    container = document.getElementById("container");
-    array = [];
-    '<% for (var i=0, len=projects.length; i<len; i++) { %>'
-    array.push('<%- JSON.stringify(projects) %>');
-    '<% } %>'
-    console.log(array);
-</script>

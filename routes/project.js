@@ -76,9 +76,7 @@ router.get('/', async (req, res) => {
     });
 
     console.log(resultProject);
-    res.render('project/home', {
-      projects: resultProject
-    });
+    res.render('project/home', {resultProject});
   }
 });
 
