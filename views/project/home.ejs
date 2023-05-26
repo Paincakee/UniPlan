@@ -9,13 +9,19 @@
 <body>
     <div id="container">
         <% resultProject.data.forEach((row) => { %>
-            <li>ID: <%= row.id %></li>
-            <li>User ID: <%= row.userId %></li>
-            <li>Title: <%= row.title %></li>
-            <li>Description: <%= row.description %></li>
-            <li>Contact Info: <%= row.contactInfo %></li>
+            <div id="<%= row.id %>" class="item" onclick="handleClick('<%= row.id %>')">
+                <li>Title: <%= row.title %></li>
+                <li>Description: <%= row.description %></li>
+                <li>Contact Info: <%= row.contactInfo %></li>
+            </div>
             <br>
           <% }) %>
     </div>
 </body>
 </html>
+
+<script>
+    function handleClick(id){
+        //handle click
+    }
+</script>
