@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
         }
         res.render("chat/chatpage", {
             email: req.session.email,
+            db: db
         })
     } catch (error) {
         res.redirect("./account/login")

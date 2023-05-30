@@ -2,7 +2,7 @@ const socket = io()
 const chatContainer = document.getElementById('chat-container')
 const chatForm = document.getElementById('chat-form')
 const chatInput = document.getElementById('chat-input')
-
+const db = db
 
 const user = email
 socket.emit('new-user', user)
@@ -27,7 +27,7 @@ chatForm.addEventListener('submit', e => {
     const time = `${hour}:${minute}, ${day}-${month}-${year}`
 
     const chat = chatInput.value
-    ChatSave(time, chat)
+    // ChatSave(time, chat)
     AppendChat(`you: ${chat}`)
     socket.emit('send-chat-message', chat)
     socket.emit('chat-time', time)
@@ -40,12 +40,12 @@ function AppendChat(chat) {
     chatContainer.append(chatElement)
 }
 
-async function ChatSave(time, chat) {
-    const save = await db.sql("sql/chat/saveChat", {
-        userId: email,
-        chat: chat,
-        time: time
-    })
+// async function ChatSave(time, chat) {
+//     const save = await db.sql("sql/chat/saveChat", {
+//         userId: email,
+//         chat: chat,
+//         time: time
+//     })
 
-    console.log("send");
-}
+//     console.log("send");
+// }
