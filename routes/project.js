@@ -7,14 +7,19 @@ const router = express.Router();
 const upload = multer({ dest: __dirname + '/../resources/upload/' });
 
 router.get('/new', (req, res) => {
-  res.render('project/create');
+  let email = req.session.email
+    if(email == null){
+      res.render('account/login')
+    }
+    else{
+      res.render('project/create');
+    }
 });
 router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
   try {
     let email = req.session.email
     if(email == null){
       res.render('account/login')
-      throw new Error("Email not set")
     }
     else {
       const resultAccount = await db.sql("account/get_user_info", {
@@ -60,7 +65,6 @@ router.get('/', async (req, res) => {
   
   if(email == null){
     res.render('account/login')
-    throw new Error("Email not set")
   }
   else {
     const resultAccount = await db.sql("account/get_user_info", {
