@@ -7,6 +7,24 @@
     <title>Project</title>
 </head>
 <body>
-    
+    <div id="container">
+        <% resultProject.data.forEach((row) => { %>
+            <div id="<%= row.id %>" class="item" onclick="handleClick('<%= row.id %>')">
+                <li>Title: <%= row.title %></li>
+                <li>Description: <%= row.description %></li>
+                <li>Contact Info: <%= row.contactInfo %></li>
+            </div>
+            <br>
+          <% }) %>
+    </div>
 </body>
 </html>
+
+<script>
+    function handleClick(id){
+        //handle click
+        console.log(id);
+        link = window.location.href
+        window.location.href = link + id;
+    }
+</script>
