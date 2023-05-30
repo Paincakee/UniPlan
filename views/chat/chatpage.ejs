@@ -36,14 +36,16 @@
 </head>
 <body>
     <div id="chat-container"></div>
-    <form id="chat-form">
+    <form id="chat-form" method="post">
         <input type="text" name="" id="chat-input" >
         <button type="submit" id="send-button">Send</button>
+        <input type="hidden" name="time" id="chat-time">
     </form>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         let email = "<%= email %>"
-        const db = "<%= JSON.stringify(db) %>"
+        const data = "<%= database %>"
+        
     </script>
     <script src="script.js"></script>
 </body>

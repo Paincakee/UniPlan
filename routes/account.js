@@ -18,6 +18,7 @@ router
   .route('/new')
   .get((req, res) => {
     res.render('account/register')
+  
   })
   .post(async (req, res) => {
     try {
