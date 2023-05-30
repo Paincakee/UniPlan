@@ -75,9 +75,25 @@ router.get('/', async (req, res) => {
       typeValue: `${resultAccount.data[0].id}`
     });
 
-    console.log(resultProject);
     res.render('project/home', {resultProject});
   }
+});
+
+router.get('/:id', async (req, res) => {
+  const id = req.params.id
+
+  const resultProject = await db.sql("account/get_user_info", {
+    table: "projects",
+    type: "id",
+    typeValue: `${id}`
+  });
+
+  fs.readdir(__dirname + `/../resources/upload/${req.session.email}/${id}/files`, (err, files) => {
+    console.log(resultProject);
+    console.log(files);
+    const mail = req.session.email
+    res.render('project/project', {resultProject, files, mail})
+  });
 });
 
 
