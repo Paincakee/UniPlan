@@ -5,15 +5,19 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // Add this line
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     try {
         // console.log(req.session.email)
         if (!req.session.email) {
             throw new Error("Not logged in")
         }
+        const showChat = await db.sql("account/get_all",{
+            table: "chat_history"
+        })
+
         res.render("chat/chatpage", {
             email: req.session.email,
-            database: db
+            history: showChat.data
         })
     } catch (error) {
         res.redirect("./account/login")
@@ -22,7 +26,7 @@ app.get('/', (req, res) => {
 })
 app.post('/new', async (req, res) => {
     try {
-        if(req.body.chat == "" || req.body.chat == null){
+        if(req.body.chat == "" || req.body.chat == null || req.body.user == "%userId%"  ){
             throw new Error("Chat is empty")
         }
 

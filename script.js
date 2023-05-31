@@ -1,41 +1,46 @@
-const socket = io()
-const chatContainer = document.getElementById('chat-container')
-const chatForm = document.getElementById('chat-form')
-const chatInput = document.getElementById('chat-input')
-const chatTime = document.getElementById('chat-time')
+// Create a socket connection
+const socket = io();
 
-const user = email
+// DOM elements
+const chatContainer = document.getElementById('chat-container');
+const chatForm = document.getElementById('chat-form');
+const chatInput = document.getElementById('chat-input');
+const chatTime = document.getElementById('chat-time');
 
-socket.emit('new-user', user)
+// User email
+const user = email;
 
+// Emit 'new-user' event with user email
+socket.emit('new-user', user);
 
+// Listen for 'chat-message' event
 socket.on('chat-message', data => {
-    AppendChat(`${data.user}: ${data.message}`)
-})
+    appendChatMessage(data.user, data.message);
+});
 
+// Submit form event listener
 chatForm.addEventListener('submit', async e => {
-    e.preventDefault()
-    const currentDate = new Date();
+    e.preventDefault();
+    const chat = chatInput.value.trim();
+    if (chat !== "") {
+        appendChatMessage(user, chat);
+        socket.emit('send-chat-message', chat);
+        socket.emit('chat-time', getCurrentTime());
+        chatInput.value = '';
+        await sendMessageToServer(getCurrentTime(), chat, user);
+    }
+});
 
-    // Get the minute, hour, day, month, and year components
-    const seconds = currentDate.getSeconds()
-    const minute = currentDate.getMinutes()
-    const hour = currentDate.getHours()
-    const day = currentDate.getDate()
-    const month = currentDate.getMonth() + 1 // Months are zero-based, so add 1
-    const year = currentDate.getFullYear()
+// Function to append chat message to the chat container
+function appendChatMessage(user, message) {
+    const chatElement = document.createElement('div');
+    chatElement.innerText = `${user}: ${message}`;
+    chatContainer.append(chatElement);
+}
 
-    // Format the components as "minute-hour, day-month-year"
-    const time = `${hour}:${minute}:${seconds}, ${day}-${month}-${year}`
-
-    const chat = chatInput.value
-    AppendChat(`you: ${chat}`)
-    socket.emit('send-chat-message', chat)
-    socket.emit('chat-time', time)
-    chatInput.value = ''
-    chatTime.value = time
-
-    const sendMessage = async (time, chat, user) => {
+// Function to send chat message to the server
+async function sendMessageToServer(time, chat, user) {
+    try {
         const response = await fetch('/chat/new', {
             method: 'POST',
             headers: {
@@ -46,15 +51,22 @@ chatForm.addEventListener('submit', async e => {
                 chat,
                 user
             })
-        })
+        });
         const data = await response.json();
+        console.log(data); // Optional: Handle the response data
+    } catch (error) {
+        console.error('Failed to send the chat message:', error);
     }
+}
 
-    await sendMessage(time, chat, user)
-})  
-
-function AppendChat(chat) {
-    const chatElement = document.createElement('div')
-    chatElement.innerText = chat
-    chatContainer.append(chatElement)
+// Function to get the current time
+function getCurrentTime() {
+    const currentDate = new Date();
+    const seconds = currentDate.getSeconds();
+    const minute = currentDate.getMinutes();
+    const hour = currentDate.getHours();
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1; // Months are zero-based, so add 1
+    const year = currentDate.getFullYear();
+    return `${hour}:${minute}:${seconds}, ${day}-${month}-${year}`;
 }

@@ -98,7 +98,7 @@ router
       // Successful login
       req.session.email = req.body.email; // Set session variable
 
-      res.redirect('./admin')
+      res.redirect('../chat')
     } catch (error) {
         console.error(error);
         res.status(400).render('account/login', {
