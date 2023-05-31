@@ -51,11 +51,13 @@ router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
 
       const lastIndex = resultProject.data.slice(-1);
       console.log(lastIndex[0].id);
+      fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/files`, { recursive: true })
+      fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/fotos`, { recursive: true })
 
       req.files.forEach((file) => {
         // Save the file to a specific folder using the file.originalname property
         const fieldname = file.fieldname;
-        const folderPath = __dirname + `/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
+        const folderPath = `${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
         fs.mkdirSync(folderPath, { recursive: true })
         fs.renameSync(file.path, folderPath + file.originalname);
       });
@@ -98,18 +100,27 @@ router.get('/:id', async (req, res) => {
     res.render('account/login')
   }
   else {
-
+    const mail = req.session.email
     const resultProject = await db.sql("account/get_user_info", {
       table: "projects",
       type: "id",
       typeValue: `${id}`
     });
+    const courseList = JSON.parse(resultProject.data[0].courses)
+    let courseListFinal = [];
+    await Promise.all(courseList.map(async (course) => {
+      const resultCourse = await db.sql("account/get_user_info", {
+        table: "courses",
+        type: "id",
+        typeValue: `${course}`,
+      });
+      courseListFinal.push(resultCourse.data[0].courseName);
+    }));
+    console.log(courseListFinal);
+
 
     fs.readdir(__dirname + `/../resources/upload/${req.session.email}/${id}/files`, (err, files) => {
-      console.log(resultProject);
-      console.log(files);
-      const mail = req.session.email
-      res.render('project/project', {resultProject, files, mail})
+    res.render('project/project', {resultProject, files, mail, courseListFinal})
     });
   }
 });
