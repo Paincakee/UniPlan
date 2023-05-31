@@ -117,17 +117,6 @@
       overflow-y: auto;
       scrollbar-width: thin;
       scrollbar-color: #ccc #fff;
-
-      button {
-        padding: 10px;
-        font-size: 1.3em;
-        width: 70%;
-        margin-top: 20px;
-
-        &:hover {
-          background-color: #6cb0b2;
-        }
-      }
     }
 
     .lblregform input,
