@@ -1,4 +1,4 @@
-
+<script src="/resources/lib/multiselect-dropdown.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +25,25 @@
         <label>Additional Files
         <input type="file" name="files" id="fileInput" multiple>
         </label>
+        <label>Course(s)</label>
+        <select name="courses" id="courseSelect" multiple
+            multiselect-search="true" 
+            multiselect-select-all="true">
+                <% resultCourse.data.forEach(row => { %>
+                    <option value="<%=row.id%>"><%=row.courseName%></option>
+                <% });%>
+        </select>
         <button type="submit" value="Submit">Create</button>
     </form>
 </body>
 </html>
+<script>
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     console.log('eapdsdad');
+    //     var select = new MultiselectDropdown('#courseSelect', {
+    //         searchEnabled: true,
+    //         selectAllEnabled: true
+    //     });
+    // });
+    
+  </script>
