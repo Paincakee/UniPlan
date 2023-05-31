@@ -32,12 +32,15 @@ router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
         typeValue: email
       });
 
+      console.log(JSON.stringify(req.body.courses));
+
       await db.sql("project/createProject", {
         table: "projects",
         userId: `${resultAccount.data[0].id}`,
         title: req.body.title,
         description: req.body.description,
-        contact_info: req.body.contact
+        contact_info: req.body.contact,
+        courses: JSON.stringify(req.body.courses)
       });
 
       const resultProject = await db.sql("account/get_user_info", {
