@@ -6,13 +6,17 @@ const router = express.Router();
 
 const upload = multer({ dest: __dirname + '/../resources/upload/' });
 
-router.get('/new', (req, res) => {
+router.get('/new', async (req, res) => {
   let email = req.session.email
     if(email == null){
       res.render('account/login')
     }
     else{
-      res.render('project/create');
+      const resultCourse = await db.sql("account/get_all", {
+        table: "courses",
+      });
+
+      res.render('project/create', {resultCourse});
     }
 });
 router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
@@ -85,19 +89,26 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const id = req.params.id
+  const email = req.session.email
+  
+  if(email == null){
+    res.render('account/login')
+  }
+  else {
 
-  const resultProject = await db.sql("account/get_user_info", {
-    table: "projects",
-    type: "id",
-    typeValue: `${id}`
-  });
+    const resultProject = await db.sql("account/get_user_info", {
+      table: "projects",
+      type: "id",
+      typeValue: `${id}`
+    });
 
-  fs.readdir(__dirname + `/../resources/upload/${req.session.email}/${id}/files`, (err, files) => {
-    console.log(resultProject);
-    console.log(files);
-    const mail = req.session.email
-    res.render('project/project', {resultProject, files, mail})
-  });
+    fs.readdir(__dirname + `/../resources/upload/${req.session.email}/${id}/files`, (err, files) => {
+      console.log(resultProject);
+      console.log(files);
+      const mail = req.session.email
+      res.render('project/project', {resultProject, files, mail})
+    });
+  }
 });
 
 
