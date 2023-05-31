@@ -1,5 +1,4 @@
 @charset "UTF-8";
-/*#region Login Page*/
 #login-body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
@@ -11,7 +10,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-
 }
 
 .loginForm {
@@ -24,12 +22,14 @@
   flex-direction: column;
   text-align: center;
 }
+
 .loginForm #logintoptext {
   font-size: large;
   text-align: center;
   margin: 0 auto;
   color: #436f70;
 }
+
 .loginForm input[type=text],
 .loginForm input[type=password] {
   height: 20px;
@@ -44,10 +44,12 @@
   text-align: center;
   user-select: none;
 }
+
 .loginForm textarea:focus,
 .loginForm input:focus {
   outline: none;
 }
+
 .loginForm #loginConfirm {
   align-self: center;
   padding: 10px;
@@ -61,6 +63,7 @@
   font-size: 1.5em;
   width: 50%;
 }
+
 .loginForm button:hover {
   background-color: #6cb0b2;
 }
@@ -81,7 +84,6 @@
   padding-bottom: 15px;
 }
 
-/* For Mobile Devices - 320px — 480px */
 @media only screen and (max-width: 480px) {
   #login-body {
     height: 100vh;
@@ -99,10 +101,9 @@
     width: 80%;
   }
   #bottomlabellogin {
-   font-size: 14px;
+    font-size: 14px;
   }
 }
-/* For iPads and Tablets - 481px — 768px */
 @media only screen and (min-width: 481px) and (max-width: 768px) {
   #login-body {
     height: 100vh;
@@ -120,7 +121,6 @@
     width: 95%;
   }
 }
-/* For Laptops and small screens - 769px — 1024px */
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   #login-body {
     height: 100vh;
@@ -138,7 +138,6 @@
     width: 80%;
   }
 }
-/* For Large screens and Desktops - 1025px — 1200px */
 @media only screen and (min-width: 1025px) and (max-width: 1200px) {
   #login-body {
     height: 100vh;
@@ -156,7 +155,6 @@
     width: 80%;
   }
 }
-/* For TV and Extra Large Screens - 1201px and more */
 @media only screen and (min-width: 1201px) {
   #login-body {
     height: 100vh;
@@ -174,59 +172,6 @@
     width: 80%;
   }
 }
-
-@media only screen and (max-height: 600px) {
-  #login-body {
-    height: 100vh;
-  }
-  .loginForm {
-    
-    height: 70%;
-  }
-  .loginForm input[type=text],
-  .loginForm input[type=password],
-  .loginForm label {
-    margin-top: 5px;
-    display: block;
-    margin: 0 auto;
-  }
-
-  #loginbartop {
-    margin-bottom: 10px;
-  }
-}
-
-@media only screen and (min-height: 601px) and (max-height: 1200px) {
-  #login-body {
-    height: 100vh;
-  }
-  .loginForm {
-    margin-top: -10%;
-    height: 50%;
-  }
-  .loginForm input[type=text],
-  .loginForm input[type=password],
-  .loginForm label {
-    display: block;
-    margin: 0 auto;
-  }
-}
-
-@media only screen and (min-height: 1201px) {
-  #login-body {
-    height: 100vh;
-  }
-  .loginForm {
-    height: 50%;
-  }
-  .loginForm input[type=text],
-  .loginForm input[type=password],
-  .loginForm label {
-    display: block;
-    margin: 0 auto;
-  }
-}
-/*#endregion */
 /*#region Register Page*/
 #register-body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -238,7 +183,7 @@
   background-image: url("images/LoginBackground.jpg");
   background-size: 100% 105%;
   background-position: center top;
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
   margin: 0;
   overflow: hidden;
 }
@@ -291,6 +236,7 @@
   width: auto;
   margin-top: 15px;
 }
+
 #submreg:hover {
   background-color: #6cb0b2;
 }
@@ -314,74 +260,64 @@ textarea:focus, input:focus {
   outline: none;
 }
 
+/* Responsive Styling */
 /* For Mobile Devices - 320px — 480px */
 @media only screen and (max-width: 480px) {
   #formregister {
     width: 90%;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: #ccc #fff; 
+    scrollbar-color: #ccc #fff;
   }
-
   .lblregform input,
   #selecReg {
     width: 100%;
   }
-
   #submreg {
     width: 50%;
   }
 }
-
 /* For iPads and Tablets - 481px — 768px */
 @media only screen and (min-width: 481px) and (max-width: 768px) {
   #formregister {
     width: 70%;
   }
 }
-
 /* For Laptops and small screens - 769px — 1024px */
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   #formregister {
     width: 50%;
   }
 }
-
 /* For Large screens and Desktops - 1025px — 1200px */
 @media only screen and (min-width: 1025px) and (max-width: 1200px) {
   #formregister {
     width: 40%;
   }
 }
-
 /* For TV and Extra Large Screens - 1201px and more */
 @media only screen and (min-width: 1201px) {
   #formregister {
     width: 35%;
   }
 }
-
-
-/* For Max Height up to 600px */
+/* For Max Height up to 550px */
 @media only screen and (max-height: 550px) {
   #register-body {
     height: 97vh;
     padding-top: 20px;
     padding-bottom: 20px;
   }
-
   #formregister {
     overflow-y: auto;
     margin-bottom: 10%;
   }
 }
-
-/* For Min Height 601px — 1200px */
-@media only screen and (min-height: 550px) and (max-height: 1200px) {
+/* For Min Height 551px — 1200px */
+@media only screen and (min-height: 551px) and (max-height: 1200px) {
   #register-body {
     height: 97vh;
   }
-
   #formregister {
     overflow-y: auto;
   }
@@ -397,6 +333,78 @@ textarea:focus, input:focus {
   scrollbar-width: thin;
   scrollbar-color: #ccc #fff;
 }
+
 /*#endregion */
+body {
+  font-family: "Arial", sans-serif;
+}
+
+table {
+  margin-top: 50px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  padding: 5px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+th {
+  background-color: #bcdbdc;
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.approve-button:hover, .decline-button:hover {
+  filter: brightness(85%);
+}
+
+.approve-button {
+  background-color: green;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.decline-button {
+  background-color: red;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.navbar {
+  background-color: #6cb0b2;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 999;
+}
+
+.navbar-left img,
+.navbar-right img {
+  width: 30px;
+  height: 30px;
+}
+
+.navbar-right img {
+  margin-left: 10px;
+}
+
+textarea:focus, input:focus {
+  outline: none;
+}
 
 /*# sourceMappingURL=main.css.map */
