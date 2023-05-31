@@ -1,49 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat app</title>
-    <!-- Dit moet naar css file -->
-    <style>
-        body{
-            padding: 0;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column; 
-        }
-        #chat-container{
-            width: 80%;
-            max-width: 1200px;
-            height: 1000px;
-            border: 1px solid black;
-        }
-        
-        #chat-container div{
-            background-color: #ccc;
-            padding: 5px;
-        }
-        
-        #chat-container div:nth-child(2n){
-            background-color: #fff;
-        }
-        
-        
-    </style>
-</head>
-<body>
-    <div id="chat-container"></div>
-    <form id="chat-form">
-        <input type="text" name="" id="chat-input" >
-        <button type="submit" id="send-button">Send</button>
-    </form>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        let email = "<%= email %>"
-    </script>
-    <script src="script.js"></script>
-</body>
-</html>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chat app</title>
+        <!-- Dit moet naar css file -->
+        <style>
+            body{
+                padding: 0;
+                margin: 0 auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column; 
+            }
+            #chat-container{
+                width: 80%;
+                max-width: 1200px;
+                height: 800px;
+                border: 1px solid black;
+            }
+            
+            #chat-container div{
+                background-color: #ccc;
+                padding: 5px;
+            }
+            
+            #chat-container div:nth-child(2n){
+                background-color: #fff;
+            }
+            
+            
+        </style>
+    </head>
+    <body>
+        <div id="chat-container">
+            <% history.sort((a, b) => new Date(a.time) - new Date(b.time)).forEach(chat => { %>
+              <div><%= chat.userId %>: <%= chat.chat %></div>
+            <% }) %>
+          </div>          
+        <form id="chat-form" method="post">
+            <input type="text" name="" id="chat-input" >
+            <button type="submit" id="send-button">Send</button>
+            <input type="hidden" name="time" id="chat-time">
+        </form>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            let email = "<%= email %>"
+        </script>
+        <script src="script.js"></script>
+    </body>
+    </html>
