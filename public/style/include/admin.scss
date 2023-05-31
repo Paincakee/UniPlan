@@ -1,48 +1,48 @@
-body {
-    font-family: 'Arial', sans-serif;
-  }
-  
+#admin-body {
+  font-family: "Arial", sans-serif;
+
   table {
     margin-top: 50px;
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
   }
-  
-  th, td {
+
+  th,
+  td {
     padding: 5px;
     text-align: left;
     border-bottom: 1px solid #ccc;
   }
-  
+
   th {
     background-color: #bcdbdc;
     font-weight: bold;
   }
-  
+
   a {
     text-decoration: none;
     color: #000;
   }
 
-    .approve-button:hover, .decline-button:hover {
-        filter: brightness(85%);
-      }
-  
+  .approve-button:hover,
+  .decline-button:hover {
+    filter: brightness(85%);
+  }
+
   .approve-button {
     background-color: green;
     color: white;
     padding: 5px;
     border-radius: 3px;
   }
-  
+
   .decline-button {
     background-color: red;
     color: white;
     padding: 5px;
     border-radius: 3px;
   }
-
 
   .navbar {
     background-color: #6cb0b2;
@@ -56,18 +56,14 @@ body {
     align-items: center;
     z-index: 999;
   }
-  
+
   .navbar-left img,
   .navbar-right img {
     width: 30px;
     height: 30px;
   }
-  
+
   .navbar-right img {
     margin-left: 10px;
   }
-  
-  
-  
-  
-  
+}

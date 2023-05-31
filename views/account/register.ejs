@@ -10,21 +10,21 @@
 <body scroll="no" style="overflow: hidden" id="register-body">
     <form action="/account/new" method="post" id="formregister">
         <label id="texttopreg">Register</label>
-        <label id="loginbartop"></label>
+        <label id="register-bar"></label>
         <label class="lblregform">First name
-            <input type="text" name="firstName" id="firstnamereg" value="<%= locals.firstName %>" required>
+            <input type="text" name="firstName" id="firstnamereg" value="<%= locals.firstName %>" placeholder="Pieter" required>
         </label>
         <label  class="lblregform">Last name
-            <input type="text" name="lastName" id="firstnamereg" value="<%= locals.lastName %>" required>
+            <input type="text" name="lastName" id="firstnamereg" value="<%= locals.lastName %>" placeholder="Janssen" required>
         </label>
         <label  class="lblregform">Email
-            <input type="email" name="email" id="firstnamereg" value="<%= locals.email %>" required>
+            <input type="email" name="email" id="firstnamereg" value="<%= locals.email %>" placeholder="example@gmail.com" required>
         </label>
         <label  class="lblregform">Student Number
-            <input type="text" name="studentNumber" id="firstnamereg" value="<%= locals.studentNumber %>" pattern="[0-9]{5}" maxlength="5" inputmode="numeric" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+            <input type="text" name="studentNumber" id="firstnamereg" value="<%= locals.studentNumber %>" placeholder="12345" pattern="[0-9]{5}" maxlength="5" inputmode="numeric" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
         </label>
         <label  class="lblregform">Password
-            <input type="password" name="password" id="firstnamereg" value="<%= locals.password %>" required>
+            <input type="password" name="password" id="firstnamereg" value="<%= locals.password %>" placeholder="Password" required>
         </label>
         <label  class="lblregform" for="accountType">sign up as:</label>
         <select id="selecReg" name="accountType" required>

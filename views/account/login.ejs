@@ -10,13 +10,13 @@
 <body scroll="no" style="overflow: hidden" id="login-body">
     <form class="loginForm" action="/account/login" method="post">
         <label id="logintoptext">Login</label>
-        <label id="loginbartop"></label>
+        <label id="login-bar"></label>
         <div class="inputContainer">
         <label>Email
-            <input class="lblregform" type="text" name="email" placeholder="example@gmail.com" value="<%= locals.email %>" required>        
+            <input type="text" name="email" placeholder="example@gmail.com" value="<%= locals.email %>" required>        
         </label>
         <label>Password
-            <input class="lblregform" type="password" name="password" placeholder="Brandweerwagen2" required>
+            <input type="password" name="password" placeholder="Brandweerwagen2" required>
         </label>
         </div>
         <span class="ERROR"><%= locals.error %></span>
