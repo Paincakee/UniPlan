@@ -16,5 +16,10 @@
             <a href="/resources/upload/<%=mail%>/<%=result.id%>/files/<%=file%>"><%=file%></a><br>
         <%});%>
     </div>
+    <div id="coursecontainer">
+        <% courseListFinal.forEach(course => {%>
+            <li><%=course%></li>
+        <%});%>
+    </div>
 </body>
 </html>
