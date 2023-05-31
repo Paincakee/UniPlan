@@ -7,14 +7,19 @@ const router = express.Router();
 const upload = multer({ dest: __dirname + '/../resources/upload/' });
 
 router.get('/new', (req, res) => {
-  res.render('project/create');
+  let email = req.session.email
+    if(email == null){
+      res.render('account/login')
+    }
+    else{
+      res.render('project/create');
+    }
 });
 router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
   try {
     let email = req.session.email
     if(email == null){
       res.render('account/login')
-      throw new Error("Email not set")
     }
     else {
       const resultAccount = await db.sql("account/get_user_info", {
@@ -55,8 +60,44 @@ router.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
   }
 });
 
-router.get('/', function (req, res) {
-  res.render('project/home');
+router.get('/', async (req, res) => {
+  const email = req.session.email
+  
+  if(email == null){
+    res.render('account/login')
+  }
+  else {
+    const resultAccount = await db.sql("account/get_user_info", {
+      table: "accounts",
+      type: "email",
+      typeValue: email
+    });
+
+    const resultProject = await db.sql("account/get_user_info", {
+      table: "projects",
+      type: "userId",
+      typeValue: `${resultAccount.data[0].id}`
+    });
+
+    res.render('project/home', {resultProject});
+  }
+});
+
+router.get('/:id', async (req, res) => {
+  const id = req.params.id
+
+  const resultProject = await db.sql("account/get_user_info", {
+    table: "projects",
+    type: "id",
+    typeValue: `${id}`
+  });
+
+  fs.readdir(__dirname + `/../resources/upload/${req.session.email}/${id}/files`, (err, files) => {
+    console.log(resultProject);
+    console.log(files);
+    const mail = req.session.email
+    res.render('project/project', {resultProject, files, mail})
+  });
 });
 
 
