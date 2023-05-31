@@ -22,14 +22,12 @@
   flex-direction: column;
   text-align: center;
 }
-
 .loginForm #logintoptext {
   font-size: large;
   text-align: center;
   margin: 0 auto;
   color: #436f70;
 }
-
 .loginForm input[type=text],
 .loginForm input[type=password] {
   height: 20px;
@@ -44,16 +42,13 @@
   text-align: center;
   user-select: none;
 }
-
 .loginForm textarea:focus,
 .loginForm input:focus {
   outline: none;
 }
-
-.loginForm #loginConfirm {
+.loginForm button {
   align-self: center;
   padding: 10px;
-  margin-top: 10px;
   background-color: #87bfc0;
   color: #fff;
   border: none;
@@ -61,9 +56,8 @@
   cursor: pointer;
   font-weight: bold;
   font-size: 1.5em;
-  width: 50%;
+  width: 98%;
 }
-
 .loginForm button:hover {
   background-color: #6cb0b2;
 }
@@ -172,7 +166,6 @@
     width: 80%;
   }
 }
-/*#region Register Page*/
 #register-body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
@@ -192,13 +185,29 @@
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  height: 80%;
-  width: 35%;
+  padding-bottom: 20px;
+  padding-left: 70px;
+  padding-right: 70px;
+  width: 400px;
   margin: 0 auto;
   border-radius: 12px;
 }
-
-#firstnamereg {
+#formregister .lblregform {
+  margin-bottom: 3px;
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+#formregister #texttopreg {
+  margin-top: 15px;
+  text-align: center;
+  font-size: larger;
+  color: #436f70;
+}
+#formregister input[type=text],
+#formregister input[type=email],
+#formregister input[type=password] {
   margin-top: 10px;
   border: 1px solid #ccc;
   border-left: hidden;
@@ -211,8 +220,7 @@
   flex-direction: column;
   margin: 0 auto;
 }
-
-#selecReg {
+#formregister select {
   margin-top: 10px;
   border: 1px solid #ccc;
   border-left: hidden;
@@ -222,8 +230,7 @@
   width: 80%;
   align-self: center;
 }
-
-#submreg {
+#formregister button[type=submit] {
   align-self: center;
   padding: 10px;
   background-color: #87bfc0;
@@ -236,28 +243,8 @@
   width: auto;
   margin-top: 15px;
 }
-
-#submreg:hover {
+#formregister button[type=submit]:hover {
   background-color: #6cb0b2;
-}
-
-#texttopreg {
-  margin-top: 15px;
-  text-align: center;
-  font-size: larger;
-  color: #436f70;
-}
-
-.lblregform {
-  margin-bottom: 3px;
-  margin-top: 6px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-textarea:focus, input:focus {
-  outline: none;
 }
 
 /* Responsive Styling */
@@ -273,9 +260,6 @@ textarea:focus, input:focus {
   #selecReg {
     width: 100%;
   }
-  #submreg {
-    width: 50%;
-  }
 }
 /* For iPads and Tablets - 481px — 768px */
 @media only screen and (min-width: 481px) and (max-width: 768px) {
@@ -287,18 +271,6 @@ textarea:focus, input:focus {
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   #formregister {
     width: 50%;
-  }
-}
-/* For Large screens and Desktops - 1025px — 1200px */
-@media only screen and (min-width: 1025px) and (max-width: 1200px) {
-  #formregister {
-    width: 40%;
-  }
-}
-/* For TV and Extra Large Screens - 1201px and more */
-@media only screen and (min-width: 1201px) {
-  #formregister {
-    width: 35%;
   }
 }
 /* For Max Height up to 550px */
@@ -334,7 +306,6 @@ textarea:focus, input:focus {
   scrollbar-color: #ccc #fff;
 }
 
-/*#endregion */
 body {
   font-family: "Arial", sans-serif;
 }
