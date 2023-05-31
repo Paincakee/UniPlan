@@ -1,16 +1,10 @@
-@charset "UTF-8";
-#login-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 97vh;
-  width: 97vw;
-  background-image: url("images/LoginBackground.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
+/* Error: unmatched "}".
+ *    ,
+ * 70 | }
+ *    | ^
+ *    '
+ *   public\style\include\register.scss 70:1  @use
+ *   public\style\main.scss 2:1               root stylesheet */
 
 .loginForm {
   display: flex;
@@ -22,12 +16,14 @@
   flex-direction: column;
   text-align: center;
 }
+
 .loginForm #logintoptext {
   font-size: large;
   text-align: center;
   margin: 0 auto;
   color: #436f70;
 }
+
 .loginForm input[type=text],
 .loginForm input[type=password] {
   height: 20px;
@@ -377,5 +373,3 @@ a {
 textarea:focus, input:focus {
   outline: none;
 }
-
-/*# sourceMappingURL=main.css.map */
