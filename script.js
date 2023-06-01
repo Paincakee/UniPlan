@@ -18,7 +18,7 @@ socket.emit('new-user', { user: user, roomId: roomId });
 
 // Listen for 'chat-message' event
 socket.on('chat-message', data => {
-    appendChatMessage(data.user, data.message);
+    appendChatMessage(data.user, data.message, false); // Received message is not your own
 });
 
 //Listen for 'user-connected' event
@@ -33,7 +33,7 @@ chatForm.addEventListener('submit', async e => {
     e.preventDefault();
     const chat = chatInput.value.trim();
     if (chat !== "") {
-        appendChatMessage(user, chat);
+        appendChatMessage(user, chat, true); // Your message is marked as your own
         socket.emit('send-chat-message', { message: chat, roomId: roomId });
         chatInput.value = '';
         await sendMessageToServer(getCurrentTime(), chat, user, roomId);
@@ -41,11 +41,24 @@ chatForm.addEventListener('submit', async e => {
 });
 
 // Function to append chat message to the chat container
-function appendChatMessage(user, message) {
+function appendChatMessage(user, message, isOwnMessage) {
     const chatElement = document.createElement('div');
-    chatElement.innerText = `${user}: ${message}`;
+
+    if (isOwnMessage) {
+        chatElement.innerText = `${user}: ${message}`;
+        chatElement.classList.add('own-message');
+    } else if (message === 'joined') {
+        chatElement.innerText = `${user} has joined the chat`;
+        chatElement.classList.add('join-message');
+    } else {
+        chatElement.innerText = `${user}: ${message}`;
+        chatElement.classList.add('received-message');
+    }
+
     chatContainer.append(chatElement);
 }
+
+
 
 // Function to send chat message to the server
 async function sendMessageToServer(time, chat, user) {
