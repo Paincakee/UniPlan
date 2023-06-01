@@ -24,25 +24,25 @@ app.get('/', async (req, res) => {
     }
 
 })
-app.post('/new', async (req, res) => {
-    try {
-        if(req.body.chat == "" || req.body.chat == null || req.body.user == "%userId%"  ){
-            throw new Error("Chat is empty")
-        }
+// app.post('/new', async (req, res) => {
+//     try {
+//         if(req.body.chat == "" || req.body.chat == null || req.body.user == "%userId%"  ){
+//             throw new Error("Chat is empty")
+//         }
 
-        const saveChat = await db.sql("chat/saveChat", {
-            userId: req.body.user,
-            chat: req.body.chat,
-            time: req.body.time
-        })
+//         const saveChat = await db.sql("chat/saveChat", {
+//             userId: req.body.user,
+//             chat: req.body.chat,
+//             time: req.body.time
+//         })
 
-        res.json({ success: true })
+//         res.json({ success: true })
 
-    } catch (error) {
+//     } catch (error) {
         
-        res.status(500).json({ error: 'Failed to save the chat' })
-    }
-})
+//         res.status(500).json({ error: 'Failed to save the chat' })
+//     }
+// })
 
 
 module.exports = app

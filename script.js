@@ -7,16 +7,26 @@ const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input');
 const chatTime = document.getElementById('chat-time');
 
+console.log("test")
 // User email
 const user = email;
+// Room id
+const roomId = id;
 
 // Emit 'new-user' event with user email
-socket.emit('new-user', user);
+socket.emit('new-user', { user: user, roomId: roomId });
 
 // Listen for 'chat-message' event
 socket.on('chat-message', data => {
     appendChatMessage(data.user, data.message);
 });
+
+//Listen for 'user-connected' event
+socket.on('user-connected', data => {
+    appendChatMessage(data.user, "joined");
+    console.log("bozo");
+});
+
 
 // Submit form event listener
 chatForm.addEventListener('submit', async e => {
@@ -24,10 +34,9 @@ chatForm.addEventListener('submit', async e => {
     const chat = chatInput.value.trim();
     if (chat !== "") {
         appendChatMessage(user, chat);
-        socket.emit('send-chat-message', chat);
-        socket.emit('chat-time', getCurrentTime());
+        socket.emit('send-chat-message', { message: chat, roomId: roomId });
         chatInput.value = '';
-        await sendMessageToServer(getCurrentTime(), chat, user);
+        await sendMessageToServer(getCurrentTime(), chat, user, roomId);
     }
 });
 
@@ -41,7 +50,7 @@ function appendChatMessage(user, message) {
 // Function to send chat message to the server
 async function sendMessageToServer(time, chat, user) {
     try {
-        const response = await fetch('/chat/new', {
+        const response = await fetch('/project/:id/new', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -49,7 +58,8 @@ async function sendMessageToServer(time, chat, user) {
             body: JSON.stringify({
                 time,
                 chat,
-                user
+                user,
+                roomId
             })
         });
         const data = await response.json();
