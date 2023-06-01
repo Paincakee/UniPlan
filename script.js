@@ -52,7 +52,7 @@ function appendChatMessage(user, message, isOwnMessage) {
         }
 
         chatElement.innerText = `${user} has joined the chat`;
-        chatElement.cla ssList.add('join-message');
+        chatElement.classList.add('join-message');
         chatElement.setAttribute('data-user', user);
     } else {
         chatElement.innerText = `${user}: ${message}`;
