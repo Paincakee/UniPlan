@@ -120,11 +120,22 @@ router.get('/admin', async (req, res) => {
   } catch (error) {
     // Redirect to dashboard page
     console.log(error)
-    res.redirect('../home/dashboard')
+    res.redirect('./login')
   }
 })
 
 // Approve Account
+router.get("/admin/approve/all", async (req, res) => {
+  try {
+    const approveAll = await db.sql("account/approve_all")
+    const deleteAll = await db.sql("account/decline_all", { table: "accounts_pending" })
+
+    res.redirect("../")
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 router.get("/admin/approve/:id", async (req, res) => {
   try {
     let userId = req.params.id
@@ -156,7 +167,19 @@ router.get("/admin/approve/:id", async (req, res) => {
   }
 })
 
+
+
 // Decline Account
+router.get("/admin/decline/all", async (req, res) => {
+  try {
+    const deleteAll = await db.sql("account/decline_all", { table: "accounts_pending" })
+
+    res.redirect("../")
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 router.get("/admin/decline/:id", async (req, res) => {
   try {
     let userId = req.params.id
@@ -171,6 +194,8 @@ router.get("/admin/decline/:id", async (req, res) => {
 
   }
 })
+
+
 
 // Helper Functions
 
