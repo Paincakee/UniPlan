@@ -24,7 +24,6 @@ socket.on('chat-message', data => {
 //Listen for 'user-connected' event
 socket.on('user-connected', data => {
     appendChatMessage(data.user, "joined");
-    console.log("bozo");
 });
 
 
