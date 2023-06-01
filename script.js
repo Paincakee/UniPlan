@@ -45,8 +45,15 @@ function appendChatMessage(user, message, isOwnMessage) {
         chatElement.innerText = `${user}: ${message}`;
         chatElement.classList.add('own-message');
     } else if (message === 'joined') {
+        // Remove previous "joined" message from the current user
+        const previousJoinMessage = chatContainer.querySelector(`.join-message[data-user="${user}"]`);
+        if (previousJoinMessage) {
+            previousJoinMessage.remove();
+        }
+
         chatElement.innerText = `${user} has joined the chat`;
-        chatElement.classList.add('join-message');
+        chatElement.cla ssList.add('join-message');
+        chatElement.setAttribute('data-user', user);
     } else {
         chatElement.innerText = `${user}: ${message}`;
         chatElement.classList.add('received-message');
@@ -54,6 +61,7 @@ function appendChatMessage(user, message, isOwnMessage) {
 
     chatContainer.append(chatElement);
 }
+
 
 // Function to send chat message to the server
 async function sendMessageToServer(time, chat, user) {
