@@ -7,7 +7,6 @@ const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input');
 const chatTime = document.getElementById('chat-time');
 
-console.log("test")
 // User email
 const user = email;
 // Room id
