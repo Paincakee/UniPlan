@@ -1,7 +1,8 @@
 @use "include/login";
 @use "include/register";
 @use "include/admin";
-@use "include/createProject.scss";
+@use "include/createProject";
+@use "include/chat";
 // SCSS code
 textarea:focus, input:focus{
     outline: none;
