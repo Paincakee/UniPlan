@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt')
 
 const saltRounds = 10 // Time for hashing algorithm
 
+const validator = require('validator');
+
 router.get('/', (req, res) => {
   res.send("Bozo")
 })
@@ -35,15 +37,15 @@ router.route('/new')
       const hash = await hashPassword(password)
 
       // Create new account
-      await db.sql("account/createAccount", {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        studentNumber: studentNumber,
-        email: email,
+      await db.sql('account/createAccount', {
+        firstName: validator.escape(req.body.firstName),
+        lastName: validator.escape(req.body.lastName),
+        studentNumber: validator.escape(studentNumber),
+        email: validator.normalizeEmail(email),
         password: hash,
-        accountType: req.body.accountType,
-        table: "accounts_pending"
-      })
+        accountType: validator.escape(req.body.accountType),
+        table: 'accounts_pending',
+      });
 
       // Redirect to login page
       res.redirect('./login')
