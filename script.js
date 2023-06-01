@@ -25,7 +25,6 @@ socket.on('user-connected', data => {
     appendChatMessage(data.user, "joined");
 });
 
-
 // Submit form event listener
 chatForm.addEventListener('submit', async e => {
     e.preventDefault();
@@ -55,8 +54,6 @@ function appendChatMessage(user, message, isOwnMessage) {
 
     chatContainer.append(chatElement);
 }
-
-
 
 // Function to send chat message to the server
 async function sendMessageToServer(time, chat, user) {
