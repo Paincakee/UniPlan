@@ -48,17 +48,22 @@ let transporter = nodemailer.createTransport({
 const users = {};
 
 io.on('connection', (socket) => {
-  socket.on('new-user', (user) => {
-    users[socket.id] = user;
-    console.log(`user: ${user}`);
+  socket.on('new-user', (data) => {
+    socket.join(data.roomId); // Join the specific room
+    users[socket.id] = data.user;
+    io.to(data.roomId).emit('user-connected', { user: data.user, roomId: data.roomId });
+    console.log(`user: ${data.user}, room: ${data.roomId}`);
   });
+  
+  socket.on('send-chat-message', (data) => {
+    socket.to(data.roomId).emit('chat-message', { message: data.message, user: users[socket.id] });
+  });
+
   socket.on('chat-time', (time) => {
     // console.log(`time: ${time}`);
   });
-  socket.on('send-chat-message', (message) => {
-    socket.broadcast.emit('chat-message', { message: message, user: users[socket.id] });
-  });
 });
+
 
 const port = 3000;
 server.listen(port);
