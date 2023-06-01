@@ -176,7 +176,7 @@ app.post('/:id/new', async (req, res) => {
       time: req.body.time,
       roomId: req.body.roomId
     })
-    console.log(saveChat);
+
     res.json({ success: true })
 
   } catch (error) {
