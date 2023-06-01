@@ -80,7 +80,7 @@ router
   })
   .post( async (req, res) => {
     try {
-      const dbPass = await db.sql("account/get_user_info", {
+      const dbPass = await db.sql("global/get_user_info", {
         typeValue: req.body.email,
         type: 'email',
         table: 'accounts'
@@ -117,7 +117,7 @@ router.get('/admin', async (req, res) =>{
   try {
 
     let email = req.session.email
-    const adminCheck = await db.sql('account/get_user_info', {
+    const adminCheck = await db.sql('global/get_user_info', {
       typeValue: email,
       type: "email",
       table: "accounts"
@@ -127,7 +127,7 @@ router.get('/admin', async (req, res) =>{
       throw new Error ("You are not an admin")
     }
     
-    const pending = await db.sql('account/get_all',{
+    const pending = await db.sql('global/get_all',{
       table: 'accounts_pending'
     })
     res.render("account/adminPanel", {
@@ -145,7 +145,7 @@ router.get("/admin/approve/:id", async (req, res) =>{
   try {
     let userId = req.params.id
 
-    const getUser = await db.sql("account/get_user_info",{
+    const getUser = await db.sql("global/get_user_info",{
       table: "accounts_pending",
       type: 'id',
       typeValue: userId,

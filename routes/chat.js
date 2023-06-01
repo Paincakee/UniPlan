@@ -11,7 +11,7 @@ app.get('/', async (req, res) => {
         if (!req.session.email) {
             throw new Error("Not logged in")
         }
-        const showChat = await db.sql("account/get_all",{
+        const showChat = await db.sql("global/get_all",{
             table: "chat_history"
         })
 

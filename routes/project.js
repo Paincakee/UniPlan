@@ -17,20 +17,15 @@ app.get('/', async (req, res) => {
       throw new Error("Not logged in")
     }
 
-    const resultAccount = await db.sql("account/get_user_info", {
+    const resultAccount = await db.sql("global/get_user_info", {
       table: "accounts",
       type: "email",
       typeValue: email
     });
 
-    const resultProject = await db.sql("account/get_all", {
+    const resultProject = await db.sql("global/get_all", {
       table: "projects",
     });
-    // const resultProject = await db.sql("account/get_user_info", {
-    //   table: "projects",
-    //   type: "userId",
-    //   typeValue: `${resultAccount.data[0].id}`
-    // });
 
     res.render('project/home', { resultProject });
 
@@ -48,7 +43,7 @@ app.get('/new', async (req, res) => {
       throw new Error("Not logged in")
     }
 
-    const resultCourse = await db.sql("account/get_all", {
+    const resultCourse = await db.sql("global/get_all", {
       table: "courses",
     });
 
@@ -66,7 +61,7 @@ app.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
     }
 
     else {
-      const resultAccount = await db.sql("account/get_user_info", {
+      const resultAccount = await db.sql("global/get_user_info", {
         table: "accounts",
         type: "email",
         typeValue: email
@@ -84,7 +79,7 @@ app.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
         email
       });
 
-      const resultProject = await db.sql("account/get_user_info", {
+      const resultProject = await db.sql("global/get_user_info", {
         table: "projects",
         type: "userId",
         typeValue: `${resultAccount.data[0].id}`
@@ -121,19 +116,19 @@ app.get('/:id', async (req, res) => {
       throw new Error("Not logged in");
     }
 
-    const showChat = await db.sql("account/get_user_info", {
+    const showChat = await db.sql("global/get_user_info", {
       table: "chat_history",
       type: "projectId",
       typeValue: `${id}`
     });
 
-    const resultProject = await db.sql("account/get_user_info", {
+    const resultProject = await db.sql("global/get_user_info", {
       table: "projects",
       type: "id",
       typeValue: `${id}`
     });
 
-    const makerMail = await db.sql("account/get_user_info", {
+    const makerMail = await db.sql("global/get_user_info", {
       table: "projects",
       type: "id",
       typeValue: `${id}`
@@ -143,7 +138,7 @@ app.get('/:id', async (req, res) => {
     const courseList = JSON.parse(resultProject.data[0].courses);
 
     await Promise.all(courseList.map(async (course) => {
-      const resultCourse = await db.sql("account/get_user_info", {
+      const resultCourse = await db.sql("global/get_user_info", {
         table: "courses",
         type: "id",
         typeValue: `${course}`,
