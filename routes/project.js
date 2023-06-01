@@ -13,7 +13,7 @@ app.get('/', async (req, res) => {
   try {
     const email = req.session.email
 
-    if (email === null) {
+    if (email == null) {
       throw new Error("Not logged in")
     }
 
@@ -39,7 +39,7 @@ app.get('/', async (req, res) => {
 app.get('/new', async (req, res) => {
   try {
     let email = req.session.email
-    if (email === null) {
+    if (email == null) {
       throw new Error("Not logged in")
     }
 
@@ -56,7 +56,7 @@ app.get('/new', async (req, res) => {
 app.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
   try {
     let email = req.session.email
-    if (email === null) {
+    if (email == null) {
       throw new Error("Not logged in")
     }
 
@@ -112,7 +112,7 @@ app.get('/:id', async (req, res) => {
     const email = req.session.email;
     let courseListFinal = [];
 
-    if (email === null) {
+    if (email == null) {
       throw new Error("Not logged in");
     }
 
@@ -128,13 +128,6 @@ app.get('/:id', async (req, res) => {
       typeValue: `${id}`
     });
 
-    const makerMail = await db.sql("global/get_user_info", {
-      table: "projects",
-      type: "id",
-      typeValue: `${id}`
-    });
-    
-
     const courseList = JSON.parse(resultProject.data[0].courses);
 
     await Promise.all(courseList.map(async (course) => {
@@ -147,7 +140,7 @@ app.get('/:id', async (req, res) => {
     }));
 
     const files = fs.readdirSync(__dirname + `/../resources/upload/${makerMail.data[0].email}/${id}/files`);
-    // console.log(`/../resources/upload/${makerMail.data[0].email}/${id}/files`);
+
     res.render('project/project', {
       resultProject,
       files,
@@ -155,7 +148,7 @@ app.get('/:id', async (req, res) => {
       courseListFinal,
       history: showChat.data,
       id,
-      makerMail: makerMail.data[0].email,
+      makermail: resultProject.data[0].email,
     });
   } catch (error) {
     console.log(error);
