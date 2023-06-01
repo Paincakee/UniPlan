@@ -13,7 +13,7 @@ app.get('/', async (req, res) => {
   try {
     const email = req.session.email
 
-    if (email == null) {
+    if (email === null) {
       throw new Error("Not logged in")
     }
 
@@ -39,7 +39,7 @@ app.get('/', async (req, res) => {
 app.get('/new', async (req, res) => {
   try {
     let email = req.session.email
-    if (email == null) {
+    if (email === null) {
       throw new Error("Not logged in")
     }
 
@@ -56,7 +56,7 @@ app.get('/new', async (req, res) => {
 app.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
   try {
     let email = req.session.email
-    if (email == null) {
+    if (email === null) {
       throw new Error("Not logged in")
     }
 
@@ -112,7 +112,7 @@ app.get('/:id', async (req, res) => {
     const email = req.session.email;
     let courseListFinal = [];
 
-    if (email == null) {
+    if (email === null) {
       throw new Error("Not logged in");
     }
 
@@ -166,7 +166,7 @@ app.get('/:id', async (req, res) => {
 
 app.post('/:id/new', async (req, res) => {
   try {
-    if (req.body.chat == "" || req.body.chat == null || req.body.user == "%userId%") {
+    if (req.body.chat === "" || req.body.chat === null || req.body.user === "%userId%") {
       throw new Error("Chat is empty")
     }
 
@@ -180,7 +180,7 @@ app.post('/:id/new', async (req, res) => {
     res.json({ success: true })
 
   } catch (error) {
-
+    console.log(error);
     res.status(500).json({ error: 'Failed to save the chat' })
   }
 })
