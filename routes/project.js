@@ -139,7 +139,7 @@ app.get('/:id', async (req, res) => {
       courseListFinal.push(resultCourse.data[0].courseName);
     }));
 
-    const files = fs.readdirSync(__dirname + `/../resources/upload/${makerMail.data[0].email}/${id}/files`);
+    const files = fs.readdirSync(__dirname + `/../resources/upload/${resultProject.data[0].email}/${id}/files`);
 
     res.render('project/project', {
       resultProject,
