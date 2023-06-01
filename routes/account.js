@@ -170,11 +170,6 @@ router.get("/admin/decline/:id", async (req, res) => {
   }
 })
 
-router.get('/test', (req, res) => {
-  const email = req.session.email
-  res.send(`Email: ${email}`)
-})
-
 // Helper Functions
 
 // Hashes the provided password
