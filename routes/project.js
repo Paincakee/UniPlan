@@ -134,17 +134,20 @@ app.get('/:id', async (req, res) => {
       typeValue: `${id}`
     });
 
-    const courseList = JSON.parse(resultProject.data[0].courses);
-
-    await Promise.all(courseList.map(async (course) => {
-      const resultCourse = await db.sql("global/get_user_info", {
-        table: "courses",
-        type: "id",
-        typeValue: `${course}`,
-      });
-      courseListFinal.push(resultCourse.data[0].courseName);
-      // console.log(resultCourse);
-    }));
+    let courseList = JSON.parse(resultProject.data[0].courses);
+    if (courseList.constructor !== Array){
+      courseList = [courseList];
+      console.log(courseList);
+    }
+      await Promise.all(courseList.map(async (course) => {
+        const resultCourse = await db.sql("global/get_user_info", {
+          table: "courses",
+          type: "id",
+          typeValue: `${course}`,
+        });
+        courseListFinal.push(resultCourse.data[0].courseName);
+        //console.log(resultCourse);
+      }));
 
     const files = fs.readdirSync(__dirname + `/../resources/upload/${resultProject.data[0].email}/${id}/files`);
     
