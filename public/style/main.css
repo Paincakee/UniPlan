@@ -90,7 +90,9 @@
   }
   .loginForm {
     width: 80%;
-    height: 50%;
+  }
+  .loginForm #loginConfirm {
+    width: 70% !important;
   }
   #bottomlabellogin {
     font-size: 14px;
@@ -99,7 +101,6 @@
 @media only screen and (min-width: 481px) and (max-width: 768px) {
   #login-body {
     height: 100vh;
-    width: 95vw;
   }
 }
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
@@ -227,15 +228,6 @@
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #ccc #fff;
-  }
-  #register-body #formregister button {
-    padding: 10px;
-    font-size: 1.3em;
-    width: 70%;
-    margin-top: 20px;
-  }
-  #register-body #formregister button:hover {
-    background-color: #6cb0b2;
   }
   #register-body .lblregform input,
   #register-body #selecReg {
