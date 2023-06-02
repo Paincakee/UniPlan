@@ -44,7 +44,7 @@
   }
   
   .user {
-    font-weight: bold;
+    font-weight: 500; 
   }
   
   .time {
@@ -133,6 +133,7 @@
     display: flex;
     flex-direction: column;
     padding-right: 20px;
+
   }
   
   .description-box {
