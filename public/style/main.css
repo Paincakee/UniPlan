@@ -356,11 +356,8 @@
 #createprojectinput {
   margin-top: 10px;
   border: 1px solid #ccc;
-  border-left: hidden;
-  border-right: hidden;
-  border-top: hidden;
   text-align: center;
-  width: 80%;
+  width: 50%;
   align-self: center;
   display: flex;
   flex-direction: column;
