@@ -13,6 +13,10 @@ app.get('/', async (req, res) => {
   try {
     const email = req.session.email
 
+    const userAgent = req.headers['user-agent'];
+    const isFirefox = userAgent.includes('Firefox');
+    console.log(isFirefox);
+
     if (email == null) {
       throw new Error("Not logged in")
     }
