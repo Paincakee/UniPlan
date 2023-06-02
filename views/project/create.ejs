@@ -1,40 +1,68 @@
+
 <script src="/resources/lib/multiselect-dropdown.js"></script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Create</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="/style/main.css" rel="stylesheet" type="text/css">
+    
 </head>
-<body>
-    <form action="/project/new" method="post" enctype="multipart/form-data">
-        <label>Title
-            <input type="text" name="title" value="<%= locals.title %>" required>        
-        </label>
-        <label>Description
-            <textarea name="description" id="" cols="30" rows="10" required></textarea>
-        </label>
-        <label>Contact info
-            <input type="text" name="contact" required>
-        </label>
-        <label>Foto's
-            <input type="file" name="fotos" id="fotoInput" multiple>
-        </label>
-        <span class="ERROR"><%= locals.error %></span>
-        <label>Additional Files
-        <input type="file" name="files" id="fileInput" multiple>
-        </label>
+<body id="projectcreatebody">
+    <div class="orbs">
+        <div id="orb1"></div>
+        <div id="orb2"></div>
+        <div id="orb3"></div>
+    </div>
+    <div class="orbs2">
+        <div id="orb4"></div>
+        <div id="orb5"></div>
+        <div id="orb6"></div>
+        </div>
+    <header id="createprojectheader">Create Project</header>
+    <form action="/project/new" method="post" enctype="multipart/form-data" id="createprojectform">
+        <label>Title </label>
+            <input type="text" name="title" value="<%= locals.title %>" required id="createprojectinput">
+        <label>Description</label>
+            <textarea name="description" id="textareacreateproject" cols="30" rows="10" required ></textarea>
+
+        <label>Contact info</label>
+            <input type="text" name="contact" required id="createprojectinput">
+
+        <label>Foto's</label>
+        <div class="mb-3">
+            <input class="form-control" type="file" id="fileInput formFileMultiple" multiple>
+          </div>
+
+
+
+        <label>Additional Files </label>
+        <div class="mb-3">
+        <input class="form-control" type="file" name="files" id="fileInput formFileMultiple" multiple>
+        </div>
+        
         <label>Course(s)</label>
-        <select name="courses" id="courseSelect" multiple
+        <select name="courses" id="courseSelect selecReg" multiple
             multiselect-search="true" 
             multiselect-select-all="true">
                 <% resultCourse.data.forEach(row => { %>
                     <option value="<%=row.id%>"><%=row.courseName%></option>
                 <% });%>
         </select>
-        <button type="submit" value="Submit">Create</button>
+        <button type="submit" id="createprojectsubmit" value="Submit">Create</button>
+        <span class="ERROR"><%= locals.error %></span>
     </form>
+    <footer id="createprojectfooter">
+        <div id="navtabs">
+        <div class="footernav">Home</div>
+        <div class="footernav">Contact</div>
+        <div class="footernav">info</div>
+    </div>
+    </footer>
 </body>
 </html>
 <script>

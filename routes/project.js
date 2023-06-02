@@ -40,31 +40,32 @@ app.get('/', async (req, res) => {
 
 });
 
-app.get('/new', async (req, res) => {
-  try {
-    let email = req.session.email
-    if (email == null) {
-      throw new Error("Not logged in")
+//Router for project creation
+app.route("/new")
+  .get(async (req, res) => {
+    try {
+      let email = req.session.email
+      if (email == null) {
+        throw new Error("Not logged in")
+      }
+
+      const resultCourse = await db.sql("global/get_all", {
+        table: "courses",
+      });
+
+      res.render('project/create', { resultCourse });
+    } catch (error) {
+      console.log(error);
+      res.redirect("../account/login")
     }
+  })
+  .post(upload.any(['files', 'fotos']), async (req, res) => {
+    try {
+      let email = req.session.email
+      if (email == null) {
+        throw new Error("Not logged in")
+      }
 
-    const resultCourse = await db.sql("global/get_all", {
-      table: "courses",
-    });
-
-    res.render('project/create', { resultCourse });
-  } catch (error) {
-    console.log(error);
-    res.redirect("../account/login")
-  }
-});
-app.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
-  try {
-    let email = req.session.email
-    if (email == null) {
-      throw new Error("Not logged in")
-    }
-
-    else {
       const resultAccount = await db.sql("global/get_user_info", {
         table: "accounts",
         type: "email",
@@ -103,13 +104,14 @@ app.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
       });
 
       res.redirect("./")
-    }
-  } catch (error) {
-    console.log(error);
-    res.redirect("../account/login")
-  }
-});
 
+    } catch (error) {
+      console.log(error);
+      res.redirect("../account/login")
+    }
+  });
+
+//Router for specific project
 app.get('/:id', async (req, res) => {
   try {
     const id = req.params.id;
@@ -141,10 +143,11 @@ app.get('/:id', async (req, res) => {
         typeValue: `${course}`,
       });
       courseListFinal.push(resultCourse.data[0].courseName);
+      console.log(resultCourse);
     }));
 
     const files = fs.readdirSync(__dirname + `/../resources/upload/${resultProject.data[0].email}/${id}/files`);
-
+    
     res.render('project/project', {
       resultProject,
       files,
@@ -160,7 +163,7 @@ app.get('/:id', async (req, res) => {
   }
 });
 
-
+//Router for fetch chat
 app.post('/:id/new', async (req, res) => {
   try {
     if (req.body.chat === "" || req.body.chat === null || req.body.user === "%userId%") {
