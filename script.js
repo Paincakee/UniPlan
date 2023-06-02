@@ -30,6 +30,10 @@ chatForm.addEventListener('submit', async e => {
     e.preventDefault();
     const chat = chatInput.value.trim();
     if (chat !== "") {
+        if (chat.length > 60) {
+            displayWarning("Message has too many characters. Please retype.");
+            return;
+        }
         appendChatMessage(user, chat, true); // Your message is marked as your own
         socket.emit('send-chat-message', { message: chat, roomId: roomId });
         chatInput.value = '';
@@ -37,13 +41,30 @@ chatForm.addEventListener('submit', async e => {
     }
 });
 
+// Function to display warning message
+function displayWarning(message) {
+    // Remove previous warning message
+    const previousWarning = chatContainer.querySelector('.warning-message');
+    if (previousWarning) {
+        previousWarning.remove();
+    }
+
+    const warningElement = document.createElement('div');
+    warningElement.innerText = message;
+    warningElement.classList.add('warning-message');
+    warningElement.style.color = 'red'; // Set the text color to red
+    chatContainer.append(warningElement);
+}
+
+
 // Function to append chat message to the chat container
 function appendChatMessage(user, message, isOwnMessage) {
     const chatElement = document.createElement('div');
-    
+
     if (isOwnMessage) {
-        if(message.length > 50){
-            throw new Error("to many characters")
+        const previousWarning = chatContainer.querySelector('.warning-message');
+        if (previousWarning) {
+            previousWarning.remove();
         }
         chatElement.innerText = `${user}: ${message}`;
         chatElement.classList.add('own-message');
@@ -64,7 +85,6 @@ function appendChatMessage(user, message, isOwnMessage) {
 
     chatContainer.append(chatElement);
 }
-
 
 // Function to send chat message to the server
 async function sendMessageToServer(time, chat, user) {
