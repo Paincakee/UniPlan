@@ -66,7 +66,6 @@ app.route("/new")
         throw new Error("Not logged in")
       }
 
-    else {
       const resultAccount = await db.sql("global/get_user_info", {
         table: "accounts",
         type: "email",
@@ -105,7 +104,7 @@ app.route("/new")
         });
 
         res.redirect("./")
-      }
+      
     } catch (error) {
       console.log(error);
       res.redirect("../account/login")
