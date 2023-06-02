@@ -25,7 +25,7 @@
     justify-self: flex-end;
   }
   
-  .message1 {
+  .own-message {
     margin-bottom: 10px;
     padding: 5px;
     background-color: #87bfc0;
@@ -34,7 +34,7 @@
     align-self: flex-end;
   }
   
-  .message2 {
+  .received-message {
     margin-bottom: 10px;
     padding: 5px;
     background-color: #bcdbdc;
@@ -74,12 +74,8 @@
   .navbar-right img {
     margin-left: 10px;
   }
-
-  .chat-box {
-    position: relative;
-  }
   
-  .chat-input-container {
+  .chat-form {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -136,6 +132,7 @@
   }
   
   .description-box {
+    width: 30vw;
     height: 50vh;
     padding: 20px;
     border-radius: 10px;
@@ -148,6 +145,7 @@
   }
   
   .images-box {
+    height: 23vh;
     padding: 20px;
     border-radius: 10px;
     border: 2px solid #ccc;

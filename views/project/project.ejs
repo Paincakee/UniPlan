@@ -1,72 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <%result = resultProject.data[0]%>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project</title>
-    <style>
-        body{
-            padding: 0;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column; 
-        }
-        #chat-container{
-            width: 80%;
-            max-width: 1200px;
-            height: 400px;
-            border: 1px solid black;
-        }
-        
-        #chat-container div{
-            background-color: #ccc;
-            padding: 5px;
-        }
-        
-        #chat-container div:nth-child(2n){
-            background-color: #fff;
-        }
-        
-        
-    </style>
+    <link href="/style/main.css" rel="stylesheet" type="text/css">
+    <title>Chat Proof of Concept</title>
 </head>
-<body>
-    <h1><%=result.title%></h1>
-    <h2><%=result.description%></h2>
-    <h3><%=result.contactInfo%></h3>
-    <div id="filecontainer">
-        <% files.forEach(file => {%>
-            <a href="/resources/upload/<%=makerMail%>/<%=result.id%>/files/<%=file%>"><%=file%></a><br>
-        <%});%>
-    </div>
-    <div id="coursecontainer">
-        <% courseListFinal.forEach(course => {%>
-            <li><%=course%></li>
-        <%});%>
-    </div>
-    <div id="chat-container">
-        <% history.sort((a, b) => new Date(a.time) - new Date(b.time)).forEach(chat => { %>
-            <% if (chat.userId === email) { %>
-              <div class="own-message"><%= chat.userId %>: <%= chat.chat %></div>
-            <% } else { %>
-              <div class="received-message"><%= chat.userId %>: <%= chat.chat %></div>
-            <% } %>
-        <% }) %>
-      </div>          
-    <form id="chat-form" method="post">
-        <input type="text" name="" id="chat-input" >
-        <button type="submit" id="send-button">Send</button>
-        <input type="hidden" name="time" id="chat-time">
-    </form>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        let email = "<%= email %>"
-        let id = "<%= id %>"
-    </script>
-    <script src="../script.js"></script>
+<body scroll="no" style="overflow: hidden" id="test-body">
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img src="/style/images/placeholder.jpg" alt="Profile Button">
+        </div>
+        <div class="navbar-right">
+            <img src="/style/images/placeholder.jpg" alt="Menu Button">
+        </div>
+    </nav>
+    <div class="container">
+        <div class="description-images-container">
+          <div class="description-box">
+                <h1><%=result.title%></h1>
+                <% courseListFinal.forEach(course => {%>
+                    <li><%=course%></li>
+                <%});%>
+                <h2><%=result.description%></h2>
+          </div>
+          <div class="images-box">
+            <h2>Files</h2>
+            <div id="filecontainer">
+              <% files.forEach(file => {%>
+                  <a href="/resources/upload/<%=makerMail%>/<%=result.id%>/files/<%=file%>"><%=file%></a><br>
+              <%});%>
+          </div>
+        </div>
+        </div>
+        <div class="info-box">
+          <h2>Bedrijf Info</h2>
+          <h3><%=result.contactInfo%></h3>
+        </div>
+      </div>      
+  <div class="chat-box">
+      <% history.sort((a, b) => new Date(a.time) - new Date(b.time)).forEach(chat => { %>
+        <% if (chat.userId === email) { %>
+          <div class="own-message"><%= chat.userId %>: <%= chat.chat %></div>
+        <% } else { %>
+          <div class="received-message"><%= chat.userId %>: <%= chat.chat %></div>
+        <% } %>
+    <% }) %>
+    <form class="chat-form" method="post">
+      <input type="text" name="" class="chat-input" >
+      <button type="submit" class="send-button">Send</button>
+      <input type="hidden" name="time" id="chat-time">
+  </form>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+        <script>
+            let email = "<%= email %>"
+        </script>
+        <script src="script.js"></script>
 </body>
 </html>

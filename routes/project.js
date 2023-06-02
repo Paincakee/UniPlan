@@ -152,7 +152,7 @@ app.get('/:id', async (req, res) => {
       courseListFinal,
       history: showChat.data,
       id,
-      makermail: resultProject.data[0].email,
+      makerMail: resultProject.data[0].email,
     });
   } catch (error) {
     console.log(error);
