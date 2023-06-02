@@ -143,10 +143,11 @@ app.get('/:id', async (req, res) => {
         typeValue: `${course}`,
       });
       courseListFinal.push(resultCourse.data[0].courseName);
+      console.log(resultCourse);
     }));
 
     const files = fs.readdirSync(__dirname + `/../resources/upload/${resultProject.data[0].email}/${id}/files`);
-
+    
     res.render('project/project', {
       resultProject,
       files,
@@ -154,7 +155,7 @@ app.get('/:id', async (req, res) => {
       courseListFinal,
       history: showChat.data,
       id,
-      makermail: resultProject.data[0].email,
+      makerMail: resultProject.data[0].email,
     });
   } catch (error) {
     console.log(error);
