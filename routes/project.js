@@ -40,76 +40,79 @@ app.get('/', async (req, res) => {
 
 });
 
-app.get('/new', async (req, res) => {
-  try {
-    let email = req.session.email
-    if (email == null) {
-      throw new Error("Not logged in")
+//Router for project creation
+app.route("/new")
+  .get(async (req, res) => {
+    try {
+      let email = req.session.email
+      if (email == null) {
+        throw new Error("Not logged in")
+      }
+
+      const resultCourse = await db.sql("global/get_all", {
+        table: "courses",
+      });
+
+      res.render('project/create', { resultCourse });
+    } catch (error) {
+      console.log(error);
+      res.redirect("../account/login")
     }
+  })
+  .post(upload.any(['files', 'fotos']), async (req, res) => {
+    try {
+      let email = req.session.email
+      if (email == null) {
+        throw new Error("Not logged in")
+      }
 
-    const resultCourse = await db.sql("global/get_all", {
-      table: "courses",
-    });
+      else {
+        const resultAccount = await db.sql("global/get_user_info", {
+          table: "accounts",
+          type: "email",
+          typeValue: email
+        });
 
-    res.render('project/create', { resultCourse });
-  } catch (error) {
-    console.log(error);
-    res.redirect("../account/login")
-  }
-});
-app.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
-  try {
-    let email = req.session.email
-    if (email == null) {
-      throw new Error("Not logged in")
+        console.log(JSON.stringify(req.body.courses));
+
+        await db.sql("project/createProject", {
+          table: "projects",
+          userId: `${resultAccount.data[0].id}`,
+          title: req.body.title,
+          description: req.body.description,
+          contact_info: req.body.contact,
+          courses: JSON.stringify(req.body.courses),
+          email
+        });
+
+        const resultProject = await db.sql("global/get_user_info", {
+          table: "projects",
+          type: "userId",
+          typeValue: `${resultAccount.data[0].id}`
+        });
+
+        const lastIndex = resultProject.data.slice(-1);
+        console.log(lastIndex[0].id);
+        fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/files`, { recursive: true })
+        fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/fotos`, { recursive: true })
+
+        req.files.forEach((file) => {
+          // Save the file to a specific folder using the file.originalname property
+          const fieldname = file.fieldname;
+          const folderPath = `${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
+          fs.mkdirSync(folderPath, { recursive: true })
+          fs.renameSync(file.path, folderPath + file.originalname);
+        });
+
+        res.redirect("./")
+      }
+    } catch (error) {
+      console.log(error);
+      res.redirect("../account/login")
     }
+  });
 
-    else {
-      const resultAccount = await db.sql("global/get_user_info", {
-        table: "accounts",
-        type: "email",
-        typeValue: email
-      });
-
-      console.log(JSON.stringify(req.body.courses));
-
-      await db.sql("project/createProject", {
-        table: "projects",
-        userId: `${resultAccount.data[0].id}`,
-        title: req.body.title,
-        description: req.body.description,
-        contact_info: req.body.contact,
-        courses: JSON.stringify(req.body.courses),
-        email
-      });
-
-      const resultProject = await db.sql("global/get_user_info", {
-        table: "projects",
-        type: "userId",
-        typeValue: `${resultAccount.data[0].id}`
-      });
-
-      const lastIndex = resultProject.data.slice(-1);
-      console.log(lastIndex[0].id);
-      fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/files`, { recursive: true })
-      fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/fotos`, { recursive: true })
-
-      req.files.forEach((file) => {
-        // Save the file to a specific folder using the file.originalname property
-        const fieldname = file.fieldname;
-        const folderPath = `${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
-        fs.mkdirSync(folderPath, { recursive: true })
-        fs.renameSync(file.path, folderPath + file.originalname);
-      });
-
-      res.redirect("./")
-    }
-  } catch (error) {
-    console.log(error);
-    res.redirect("../account/login")
-  }
-});
-
+//Router for specific project
 app.get('/:id', async (req, res) => {
   try {
     const id = req.params.id;
@@ -160,7 +163,7 @@ app.get('/:id', async (req, res) => {
   }
 });
 
-
+//Router for fetch chat
 app.post('/:id/new', async (req, res) => {
   try {
     if (req.body.chat === "" || req.body.chat === null || req.body.user === "%userId%") {
