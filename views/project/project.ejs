@@ -41,7 +41,7 @@
           <h3><%=result.contactInfo%></h3>
         </div>
       </div>      
-  <div class="chat-box">
+  <div id="chat-container">
       <% history.sort((a, b) => new Date(a.time) - new Date(b.time)).forEach(chat => { %>
         <% if (chat.userId === email) { %>
           <div class="own-message"><%= chat.userId %>: <%= chat.chat %></div>
@@ -49,17 +49,18 @@
           <div class="received-message"><%= chat.userId %>: <%= chat.chat %></div>
         <% } %>
     <% }) %>
-    <form class="chat-form" method="post">
-      <input type="text" name="" class="chat-input" >
-      <button type="submit" class="send-button">Send</button>
+    <form id="chat-form" method="post">
+      <input type="text" name="" id="chat-input" >
+      <button type="submit" id="send-button">Send</button>
       <input type="hidden" name="time" id="chat-time">
   </form>
   </div>
   <script src="/socket.io/socket.io.js"></script>
         <script>
-            let email = "<%= email %>"
+          let email = "<%= email %>"
+          let id = "<%= id %>"
         </script>
-        <script src="script.js"></script>
+        <script src="/script.js"></script>
 
 </body>
 </html>

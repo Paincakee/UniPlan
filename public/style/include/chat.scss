@@ -9,7 +9,7 @@
     font-weight: 500;
   }
   
-  .chat-box {
+  #chat-container {
     margin-top: 75px;
     width: 33vw;
     height: 85vh;
@@ -79,7 +79,7 @@
   }
 
   
-  .chat-form {
+  #chat-form {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -92,7 +92,7 @@
     justify-content: space-between;
   }
   
-  .chat-input {
+  #chat-input {
     flex-grow: 1;
     padding: 8px;
     border-radius: 20px;
@@ -100,7 +100,7 @@
     outline: none;
   }
   
-  .send-button {
+  #send-button {
     margin-left: 10px;
     padding: 6px 12px;
     border-radius: 20px;
