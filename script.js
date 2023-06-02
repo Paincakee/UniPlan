@@ -22,7 +22,7 @@ socket.on('chat-message', data => {
 
 //Listen for 'user-connected' event
 socket.on('user-connected', data => {
-    appendChatMessage(data.user, "joined");
+    appendChatMessage(data.user, "joined"); // Received message is a joined message
 });
 
 // Submit form event listener
