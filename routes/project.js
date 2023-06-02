@@ -146,7 +146,7 @@ app.get('/:id', async (req, res) => {
           typeValue: `${course}`,
         });
         courseListFinal.push(resultCourse.data[0].courseName);
-        console.log(resultCourse);
+        //console.log(resultCourse);
       }));
 
     const files = fs.readdirSync(__dirname + `/../resources/upload/${resultProject.data[0].email}/${id}/files`);
@@ -162,7 +162,7 @@ app.get('/:id', async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.redirect("../account/login");
+    res.redirect("/account/login");
   }
 });
 

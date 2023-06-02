@@ -9,7 +9,7 @@
     font-weight: 500;
   }
   
-  .chat-box {
+  #chat-container {
     margin-top: 75px;
     width: 33vw;
     height: 85vh;
@@ -25,7 +25,8 @@
     justify-self: flex-end;
   }
   
-  .message1 {
+
+  .own-message {
     margin-bottom: 10px;
     padding: 5px;
     background-color: #87bfc0;
@@ -34,7 +35,8 @@
     align-self: flex-end;
   }
   
-  .message2 {
+
+  .received-message {
     margin-bottom: 10px;
     padding: 5px;
     background-color: #bcdbdc;
@@ -44,7 +46,8 @@
   }
   
   .user {
-    font-weight: 500; 
+
+    font-weight: bold;
   }
   
   .time {
@@ -75,11 +78,8 @@
     margin-left: 10px;
   }
 
-  .chat-box {
-    position: relative;
-  }
   
-  .chat-input-container {
+  #chat-form {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -92,7 +92,7 @@
     justify-content: space-between;
   }
   
-  .chat-input {
+  #chat-input {
     flex-grow: 1;
     padding: 8px;
     border-radius: 20px;
@@ -100,7 +100,7 @@
     outline: none;
   }
   
-  .send-button {
+  #send-button {
     margin-left: 10px;
     padding: 6px 12px;
     border-radius: 20px;
@@ -133,10 +133,10 @@
     display: flex;
     flex-direction: column;
     padding-right: 20px;
-
   }
   
   .description-box {
+    width: 30vw;
     height: 50vh;
     padding: 20px;
     border-radius: 10px;
@@ -149,6 +149,7 @@
   }
   
   .images-box {
+    height: 23vh;
     padding: 20px;
     border-radius: 10px;
     border: 2px solid #ccc;
