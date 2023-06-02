@@ -15,7 +15,7 @@ app.get('/', async (req, res) => {
             table: "chat_history"
         })
 
-        res.render("chat/chatpage", {
+        res.render("chat/testchat", {
             email: req.session.email,
             history: showChat.data
         })
