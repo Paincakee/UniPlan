@@ -159,7 +159,7 @@ app.get('/:id', async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.redirect("../account/login");
+    res.redirect("/account/login");
   }
 });
 

@@ -40,8 +40,11 @@ chatForm.addEventListener('submit', async e => {
 // Function to append chat message to the chat container
 function appendChatMessage(user, message, isOwnMessage) {
     const chatElement = document.createElement('div');
-
+    
     if (isOwnMessage) {
+        if(message.length > 50){
+            throw new Error("to many characters")
+        }
         chatElement.innerText = `${user}: ${message}`;
         chatElement.classList.add('own-message');
     } else if (message === 'joined') {
