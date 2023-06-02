@@ -66,12 +66,12 @@ app.route("/new")
         throw new Error("Not logged in")
       }
 
-      else {
-        const resultAccount = await db.sql("global/get_user_info", {
-          table: "accounts",
-          type: "email",
-          typeValue: email
-        });
+    else {
+      const resultAccount = await db.sql("global/get_user_info", {
+        table: "accounts",
+        type: "email",
+        typeValue: email
+      });
 
         console.log(JSON.stringify(req.body.courses));
 
