@@ -60,46 +60,45 @@ app.post('/new', upload.any(['files', 'fotos']), async (req, res) => {
       throw new Error("Not logged in")
     }
 
-    else {
-      const resultAccount = await db.sql("global/get_user_info", {
-        table: "accounts",
-        type: "email",
-        typeValue: email
-      });
+    const resultAccount = await db.sql("global/get_user_info", {
+      table: "accounts",
+      type: "email",
+      typeValue: email
+    });
 
-      console.log(JSON.stringify(req.body.courses));
+    console.log(JSON.stringify(req.body.courses));
 
-      await db.sql("project/createProject", {
-        table: "projects",
-        userId: `${resultAccount.data[0].id}`,
-        title: req.body.title,
-        description: req.body.description,
-        contact_info: req.body.contact,
-        courses: JSON.stringify(req.body.courses),
-        email
-      });
+    await db.sql("project/createProject", {
+      table: "projects",
+      userId: `${resultAccount.data[0].id}`,
+      title: req.body.title,
+      description: req.body.description,
+      contact_info: req.body.contact,
+      courses: JSON.stringify(req.body.courses),
+      email
+    });
 
-      const resultProject = await db.sql("global/get_user_info", {
-        table: "projects",
-        type: "userId",
-        typeValue: `${resultAccount.data[0].id}`
-      });
+    const resultProject = await db.sql("global/get_user_info", {
+      table: "projects",
+      type: "userId",
+      typeValue: `${resultAccount.data[0].id}`
+    });
 
-      const lastIndex = resultProject.data.slice(-1);
-      console.log(lastIndex[0].id);
-      fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/files`, { recursive: true })
-      fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/fotos`, { recursive: true })
+    const lastIndex = resultProject.data.slice(-1);
+    console.log(lastIndex[0].id);
+    fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/files`, { recursive: true })
+    fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/fotos`, { recursive: true })
 
-      req.files.forEach((file) => {
-        // Save the file to a specific folder using the file.originalname property
-        const fieldname = file.fieldname;
-        const folderPath = `${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
-        fs.mkdirSync(folderPath, { recursive: true })
-        fs.renameSync(file.path, folderPath + file.originalname);
-      });
+    req.files.forEach((file) => {
+      // Save the file to a specific folder using the file.originalname property
+      const fieldname = file.fieldname;
+      const folderPath = `${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
+      fs.mkdirSync(folderPath, { recursive: true })
+      fs.renameSync(file.path, folderPath + file.originalname);
+    });
 
-      res.redirect("./")
-    }
+    res.redirect("./")
+
   } catch (error) {
     console.log(error);
     res.redirect("../account/login")
