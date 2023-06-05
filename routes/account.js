@@ -36,16 +36,31 @@ router.route('/new')
       const password = req.body.password
       const hash = await hashPassword(password)
 
+      req.session.token = Math.floor(Math.random() * 1001)
+
+      async function mailSend(){
+        // send mail with defined transport object
+        let info = await global.sender.sendMail({
+          from: '"pixeltrading" pixeltrading@outlook.com', // sender address
+          to: email, // receiver
+          subject: "UniPlan account verification", // Subject line
+          // text: "Click the link to verify.", // plain text body
+          html: '<h2>Click the link to verify.</h2><br><a href="http://localhost:3000/account/new">Verify Email</a>', // html body
+        });
+        console.log("Message sent: %s", info.messageId);
+      }
+      mailSend();
+
       // Create new account
-      await db.sql('account/createAccount', {
-        firstName: validator.escape(req.body.firstName),
-        lastName: validator.escape(req.body.lastName),
-        studentNumber: validator.escape(studentNumber),
-        email: validator.normalizeEmail(email),
-        password: hash,
-        accountType: validator.escape(req.body.accountType),
-        table: 'accounts_pending',
-      });
+      // await db.sql('account/createAccount', {
+      //   firstName: validator.escape(req.body.firstName),
+      //   lastName: validator.escape(req.body.lastName),
+      //   studentNumber: validator.escape(studentNumber),
+      //   email: validator.normalizeEmail(email),
+      //   password: hash,
+      //   accountType: validator.escape(req.body.accountType),
+      //   table: 'accounts_pending',
+      // });
 
       // Redirect to login page
       res.redirect('./login')
