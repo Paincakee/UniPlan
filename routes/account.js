@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
 // Account Registration
 router.route('/new')
-  .get((req, res) => {
+  .get(async (req, res) => {
     res.render('account/register')
   })
   .post(async (req, res) => {
@@ -45,25 +45,21 @@ router.route('/new')
           to: email, // receiver
           subject: "UniPlan account verification", // Subject line
           // text: "Click the link to verify.", // plain text body
-          html: '<h2>Click the link to verify.</h2><br><a href="http://localhost:3000/account/new">Verify Email</a>', // html body
+          html: `<h5>Your verification code is: ${req.session.token}</h5>` // html body
         });
         console.log("Message sent: %s", info.messageId);
       }
       mailSend();
-
-      // Create new account
-      // await db.sql('account/createAccount', {
-      //   firstName: validator.escape(req.body.firstName),
-      //   lastName: validator.escape(req.body.lastName),
-      //   studentNumber: validator.escape(studentNumber),
-      //   email: validator.normalizeEmail(email),
-      //   password: hash,
-      //   accountType: validator.escape(req.body.accountType),
-      //   table: 'accounts_pending',
-      // });
+      //Declare session variables
+      req.session.firstName = validator.escape(req.body.firstName);
+      req.session.lastName = validator.escape(req.body.lastName);
+      req.session.studentNumber = validator.escape(studentNumber);
+      req.session.email = validator.normalizeEmail(email);
+      req.session.hash = hash;
+      req.session.accountType = validator.escape(req.body.accountType);
 
       // Redirect to login page
-      res.redirect('./login')
+      res.redirect('./verify')
     } catch (error) {
       res.render('account/register', {
         firstName: req.body.firstName,
@@ -73,6 +69,24 @@ router.route('/new')
         error: error.message // Pass the error message to the view
       })
     }
+  })
+
+
+// Account Verification
+router.route('/verify')
+  .get((req, res) =>{
+    res.render('account/verification', {firstName: req.session.firstName})
+  })
+  .post(async (req, res) => {
+    await db.sql('account/createAccount', {
+      firstName: validator.escape(req.session.firstName),
+      lastName: validator.escape(req.session.lastName),
+      studentNumber: validator.escape(req.session.studentNumber),
+      email: validator.normalizeEmail(req.session.email),
+      password: req.session.hash,
+      accountType: validator.escape(req.session.accountType),
+      table: 'accounts_pending',
+    })
   })
 
 // Account Login
