@@ -15,7 +15,7 @@ app.get('/', async (req, res) => {
 
     const userAgent = req.headers['user-agent'];
     const isFirefox = userAgent.includes('Firefox');
-    console.log(isFirefox);
+    console.log(`using firefox: ${isFirefox}`);
 
     if (email == null) {
       throw new Error("Not logged in")
@@ -74,8 +74,8 @@ app.route("/new")
 
       console.log(JSON.stringify(req.body.courses));
 
-      await db.sql("project/createProject", {
-        table: "projects",
+      await db.sql("project/create_project", {
+        table: "projects_pending",
         userId: `${resultAccount.data[0].id}`,
         title: req.body.title,
         description: req.body.description,
@@ -85,7 +85,7 @@ app.route("/new")
       });
 
       const resultProject = await db.sql("global/get_user_info", {
-        table: "projects",
+        table: "projects_pending",
         type: "userId",
         typeValue: `${resultAccount.data[0].id}`
       });
@@ -98,6 +98,7 @@ app.route("/new")
       req.files.forEach((file) => {
         // Save the file to a specific folder using the file.originalname property
         const fieldname = file.fieldname;
+        console.log(fieldname)
         const folderPath = `${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
         fs.mkdirSync(folderPath, { recursive: true })
         fs.renameSync(file.path, folderPath + file.originalname);

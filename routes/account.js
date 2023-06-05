@@ -87,7 +87,7 @@ router.route('/login')
       req.session.email = req.body.email // Set session variable
       req.session.id = req.body.id // Set session variable
 
-      res.redirect('../project')
+      res.redirect('./admin')
     } catch (error) {
       console.error(error)
       res.status(400).render('account/login', {
@@ -106,16 +106,21 @@ router.get('/admin', async (req, res) => {
       type: "email",
       table: "accounts"
     })
-
+    // console.log(adminChe ck);
     if (!adminCheck.data[0].admin) {
       throw new Error("You are not an admin")
     }
 
-    const pending = await db.sql('global/get_all', {
+    const pending_accounts = await db.sql('global/get_all', {
       table: 'accounts_pending'
     })
+
+    const pending_projects = await db.sql('global/get_all', {
+      table: 'projects_pending'
+    })
     res.render("account/adminPanel", {
-      data: pending.data
+      data_accounts: pending_accounts.data,
+      data_projects: pending_projects.data
     })
   } catch (error) {
     // Redirect to dashboard page
@@ -125,18 +130,18 @@ router.get('/admin', async (req, res) => {
 })
 
 // Approve Account
-router.get("/admin/approve/all", async (req, res) => {
+router.get("/admin/approve/account/all", async (req, res) => {
   try {
     const approveAll = await db.sql("account/approve_all")
-    const deleteAll = await db.sql("account/decline_all", { table: "accounts_pending" })
+    const deleteAll = await db.sql("global/delete_all", { table: "accounts_pending" })
 
-    res.redirect("../")
+    res.redirect("/account/admin")
   } catch (error) {
     console.log(error);
   }
 })
 
-router.get("/admin/approve/:id", async (req, res) => {
+router.get("/admin/approve/account/:id", async (req, res) => {
   try {
     let userId = req.params.id
 
@@ -145,7 +150,7 @@ router.get("/admin/approve/:id", async (req, res) => {
       type: 'id',
       typeValue: userId,
     })
-
+    // console.log(getUser);
     const createAccount = await db.sql("account/createAccount", {
       table: "accounts",
       firstName: getUser.data[0].firstName,
@@ -156,31 +161,29 @@ router.get("/admin/approve/:id", async (req, res) => {
       accountType: getUser.data[0].accountType,
     })
 
-    const deleteOld = await db.sql("account/deleteAccount", {
+    const deleteOld = await db.sql("global/delete_row", {
       table: "accounts_pending",
       id: userId,
     })
 
-    res.redirect("../")
+    res.redirect("/account/admin")
   } catch (error) {
     console.log(error)
   }
 })
 
-
-
 // Decline Account
-router.get("/admin/decline/all", async (req, res) => {
+router.get("/admin/decline/account/all", async (req, res) => {
   try {
-    const deleteAll = await db.sql("account/decline_all", { table: "accounts_pending" })
+    const deleteAll = await db.sql("global/delete_all", { table: "accounts_pending" })
 
-    res.redirect("../")
+    res.redirect("/account/admin")
   } catch (error) {
     console.log(error);
   }
 })
 
-router.get("/admin/decline/:id", async (req, res) => {
+router.get("/admin/decline/account/:id", async (req, res) => {
   try {
     let userId = req.params.id
 
@@ -189,13 +192,82 @@ router.get("/admin/decline/:id", async (req, res) => {
       id: userId,
     })
 
-    res.redirect("../")
+    res.redirect("/account/admin")
   } catch (error) {
 
   }
 })
 
+// Approve project
+router.get("/admin/approve/project/all", async (req, res) => {
+  try {
+    const approveAll = await db.sql("project/approve_all")
+    const deleteAll = await db.sql("global/delete_all", { table: "projects_pending" })
 
+    res.redirect("/account/admin")
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+router.get("/admin/approve/project/:id", async (req, res) => {
+  try {
+    const projectId = req.params.id;
+
+    const getProject = await db.sql("global/get_user_info", {
+      table: "projects_pending",
+      type: 'id',
+      typeValue: projectId,
+    });
+
+    const createProject = await db.sql("project/create_project", {
+      table: "projects",
+      userId: getProject.data[0].userId,
+      email: getProject.data[0].email,
+      title: getProject.data[0].title,
+      description: getProject.data[0].description,
+      contact_info: getProject.data[0].contactInfo,
+      courses: getProject.data[0].courses,
+      id: projectId
+    });
+
+    const deleteOld = await db.sql("global/delete_row", {
+      table: "projects_pending",
+      id: projectId,
+    });
+
+    res.redirect("/account/admin");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+// Decline project
+router.get("/admin/decline/project/all", async (req, res) => {
+  try {
+    const deleteAll = await db.sql("global/delete_all", { table: "projects_pending" })
+
+    res.redirect("/account/admin")
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+router.get("/admin/decline/project/:id", async (req, res) => {
+  try {
+    let projectId = req.params.id
+
+    const deleteOld = await db.sql("global/delete_row", {
+      table: "projects_pending",
+      id: projectId,
+    })
+
+    res.redirect("/account/admin")
+  } catch (error) {
+
+  }
+})
 
 // Helper Functions
 

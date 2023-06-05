@@ -21,8 +21,8 @@
     <table>
         <thead>
             <tr>
-                <a href="./approve/all" class="approve-button-all">Approve</a>
-                <a href="./decline/all" class="decline-button-all">Decline</a>
+                <a href="admin/approve/account/all" class="approve-button-all">Approve</a>
+                <a href="admin/decline/account/all" class="decline-button-all">Decline</a>
                 <th>ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -34,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-            <% data.forEach(user => { %>
+            <% data_accounts.forEach(user => { %>
                 <tr>
                     <td><%= user.id %></td>
                     <td><%= user.firstName %></td>
@@ -43,8 +43,34 @@
                     <td><%= user.studentNumber %></td>
                     <td><%= user.accountType %></td>
                     <td><%= user.admin %></td>
-                    <td><a href="admin/approve/<%= user.id %>" class="approve-button">Approve</a>
-                    <a href="admin/decline/<%= user.id %>" class="decline-button">Decline</a></td>
+                    <td><a href="admin/approve/account/<%= user.id %>" class="approve-button">Approve</a>
+                    <a href="admin/decline/account/<%= user.id %>" class="decline-button">Decline</a></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+            <tr>
+                <a href="admin/approve/project/all" class="approve-button-all">Approve</a>
+                <a href="admin/decline/project/all" class="decline-button-all">Decline</a>
+                <th>Email</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>contactInfo</th>
+                <th>Courses</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% data_projects.forEach(project => { %>
+                <tr>
+                    <td><%= project.email %></td>
+                    <td><%= project.title %></td>
+                    <td><%= project.description %></td>
+                    <td><%= project.contactInfo %></td>
+                    <td><%= project.courses %></td>
+                    <td><a href="admin/approve/project/<%= project.id %>" class="approve-button">Approve</a>
+                    <a href="admin/decline/project/<%= project.id %>" class="decline-button">Decline</a></td>
                 </tr>
             <% }) %>
         </tbody>
