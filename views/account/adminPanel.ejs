@@ -16,13 +16,19 @@
             <img src="/style/images/placeholder.jpg" alt="Menu Button">
         </div>
     </nav>
-    Pending
+    <div class="tabs">
+        <button class="tab" id="accounts-tab">Accounts</button>
+        <button class="tab" id="projects-tab">Projects</button>
+    </div>
     
-    <table>
+    <table id="accounts-table">
         <thead>
             <tr>
-                <a href="admin/approve/account/all" class="approve-button-all">Approve</a>
-                <a href="admin/decline/account/all" class="decline-button-all">Decline</a>
+                <th>Accounts</th>
+            </tr>
+            <tr>
+                <th><a href="admin/approve/account/all" class="approve-button-all">Approve</a></th>
+                <th><a href="admin/decline/account/all" class="decline-button-all">Decline</a></th>
                 <th>ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -49,11 +55,14 @@
             <% }) %>
         </tbody>
     </table>
-    <table>
+    <table id="projects-table">
         <thead>
             <tr>
-                <a href="admin/approve/project/all" class="approve-button-all">Approve</a>
-                <a href="admin/decline/project/all" class="decline-button-all">Decline</a>
+                <th>Projects</th>
+            </tr>
+            <tr>
+                <th><a href="admin/approve/project/all" class="approve-button-all">Approve</a></th>
+                <th><a href="admin/decline/project/all" class="decline-button-all">Decline</a></th>
                 <th>Email</th>
                 <th>Title</th>
                 <th>Description</th>
@@ -75,5 +84,6 @@
             <% }) %>
         </tbody>
     </table>
+    <script src="/script/accounts/tabs.js"></script>
 </body>
 </html>

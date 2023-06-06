@@ -327,6 +327,10 @@
   margin-left: 10px;
 }
 
+.tabs {
+  margin-top: 70px;
+}
+
 #projectcreatebody {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
