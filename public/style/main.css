@@ -322,6 +322,10 @@
   margin-left: 10px;
 }
 
+.tabs {
+  margin-top: 70px;
+}
+
 #projectcreatebody {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
@@ -645,10 +649,9 @@
   flex-direction: column;
   padding-right: 20px;
 }
-
-.description-box {
+.description-images-container .description-box {
   width: 30vw;
-  height: 50vh;
+  height: 66.66%;
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -658,9 +661,8 @@
   max-height: 50vh; /* Set maximum height for the description box */
   max-width: 33vw;
 }
-
-.images-box {
-  height: 23vh;
+.description-images-container .images-box {
+  height: 33.33%;
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #ccc;
