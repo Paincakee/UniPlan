@@ -9,11 +9,15 @@ const chatTime = document.getElementById('chat-time');
 
 // User email
 const user = email;
+//full name
+const firstname = fname;
+const lastname = lname;
+const fullName = firstname + "." +  lastname.charAt(0)
 // Room id
 const roomId = id;
 
 // Emit 'new-user' event with user email
-socket.emit('new-user', { user: user, roomId: roomId });
+socket.emit('new-user', { fullName: fullName, user: user, roomId: roomId });
 
 // Listen for 'chat-message' event
 socket.on('chat-message', data => {
@@ -22,7 +26,7 @@ socket.on('chat-message', data => {
 
 //Listen for 'user-connected' event
 socket.on('user-connected', data => {
-    appendChatMessage(data.user, "joined"); // Received message is a joined message
+    appendChatMessage(data.fullName, "joined"); // Received message is a joined message
 });
 
 // Submit form event listener
@@ -34,7 +38,7 @@ chatForm.addEventListener('submit', async e => {
             displayWarning("Message has too many characters. Please retype.");
             return;
         }
-        appendChatMessage(user, chat, true); // Your message is marked as your own
+        appendChatMessage(fullName, chat, true); // Your message is marked as your own
         socket.emit('send-chat-message', { message: chat, roomId: roomId });
         chatInput.value = '';
         await sendMessageToServer(getCurrentTime(), chat, user, roomId);
@@ -98,7 +102,8 @@ async function sendMessageToServer(time, chat, user) {
                 time,
                 chat,
                 user,
-                roomId
+                roomId,
+                fullName
             })
         });
         const data = await response.json();

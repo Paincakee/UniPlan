@@ -160,6 +160,8 @@ app.get('/:id', async (req, res) => {
       history: showChat.data,
       id,
       makerMail: resultProject.data[0].email,
+      firstname: req.session.firstName,
+      lastname: req.session.lastName
     });
   } catch (error) {
     console.log(error);
@@ -173,12 +175,13 @@ app.post('/:id/new', async (req, res) => {
     if (req.body.chat === "" || req.body.chat === null || req.body.user === "%userId%") {
       throw new Error("Chat is empty")
     }
-
+    console.log(req.body.fullName)
     const saveChat = await db.sql("chat/saveChat", {
       userId: req.body.user,
       chat: req.body.chat,
       time: req.body.time,
-      roomId: req.body.roomId
+      roomId: req.body.roomId,
+      fullName: req.body.fullName
     })
 
     res.json({ success: true })
