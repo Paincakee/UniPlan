@@ -21,11 +21,8 @@
     <div class="container">
         <div class="description-images-container">
           <div class="description-box">
-                <h1><%=result.title%></h1>
-                <% courseListFinal.forEach(course => {%>
-                    <li><%=course%></li>
-                <%});%>
-                <h2><%=result.description%></h2>
+            <h2>Bedrijf Info</h2>
+            <h3><%=result.contactInfo%></h3>
           </div>
           <div class="images-box">
             <h2>Files</h2>
@@ -37,8 +34,11 @@
         </div>
         </div>
         <div class="info-box">
-          <h2>Bedrijf Info</h2>
-          <h3><%=result.contactInfo%></h3>
+          <h1><%=result.title%></h1>
+              <% courseListFinal.forEach(course => {%>
+                <li><%=course%></li>
+              <%});%>
+          <h2><%=result.description%></h2>
         </div>
       </div>      
   <div id="chat-container">
