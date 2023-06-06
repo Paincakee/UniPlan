@@ -175,7 +175,7 @@ app.post('/:id/new', async (req, res) => {
     if (req.body.chat === "" || req.body.chat === null || req.body.user === "%userId%") {
       throw new Error("Chat is empty")
     }
-    console.log(req.body.fullName)
+
     const saveChat = await db.sql("chat/saveChat", {
       userId: req.body.user,
       chat: req.body.chat,

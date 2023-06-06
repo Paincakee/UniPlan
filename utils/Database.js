@@ -26,6 +26,7 @@ const connect = async () => {
         password: process.env.DATABASE_PASS,
         database: process.env.DATABASE_NAME,
     })
+    conn.config.charset = 'utf8mb4';
 
     conn.connect(err => {
         if (err) {
