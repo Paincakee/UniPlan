@@ -4,6 +4,7 @@
 @use "include/createProject";
 @use "include/chat";
 @use "include/projectview";
+@use "include/projectPage";
 // SCSS code
 textarea:focus, input:focus{
     outline: none;

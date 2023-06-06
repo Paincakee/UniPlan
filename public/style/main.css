@@ -679,6 +679,16 @@
   margin: 2px;
 }
 
+.join-message {
+  align-self: center;
+  font-size: small;
+  color: #a5a5a5;
+  padding-left: 5%;
+  padding-right: 5%;
+  border-bottom: 1px solid #a5a5a5;
+  margin-bottom: 10px;
+}
+
 /* ===== Scrollbar SCSS ===== */
 /* Firefox */
 * {
