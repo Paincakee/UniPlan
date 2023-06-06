@@ -154,6 +154,7 @@
   width: 400px;
   margin: 0 auto;
   border-radius: 12px;
+  overflow-y: auto;
 }
 #register-body #formregister .lblregform {
   margin-bottom: 3px;
@@ -261,12 +262,6 @@
   }
 }
 /* For Min Height 1201px and more */
-#formregister {
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #ccc #fff;
-}
-
 #admin-body {
   font-family: "Arial", sans-serif;
 }
@@ -533,7 +528,7 @@
   margin-top: 75px;
   width: 33vw;
   height: 85vh;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   padding: 10px;
   overflow-y: auto;
   background-color: #f5f5f5;
@@ -602,7 +597,7 @@
   width: 95%;
   padding: 10px;
   background-color: #f5f5f5;
-  border-top: 1px solid #ccc;
+  border-top: 2px solid #ccc;
   display: flex;
   align-items: center;
   justify-content: space-between;
