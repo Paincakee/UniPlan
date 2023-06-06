@@ -84,7 +84,8 @@ router.route('/login')
       }
 
       // Successful login
-      req.session.email = req.body.email // Set session variable
+      req.session.email = dbPass.data[0].email // Set session variable
+      req.session.admin = dbPass.data[0].admin // Set session variable
       req.session.id = req.body.id // Set session variable
 
       res.redirect('./admin')
@@ -201,18 +202,25 @@ router.get("/admin/decline/account/:id", async (req, res) => {
 // Approve project
 router.get("/admin/approve/project/all", async (req, res) => {
   try {
-    const approveAll = await db.sql("project/approve_all")
-    const deleteAll = await db.sql("global/delete_all", { table: "projects_pending" })
+    // Check if user is an admin
+    checkAdmin(req.session.admin);
 
-    res.redirect("/account/admin")
+    const approveAll = await db.sql("project/approve_all");
+    const deleteAll = await db.sql("global/delete_all", { table: "projects_pending" });
+
+    res.redirect("/account/admin");
   } catch (error) {
     console.log(error);
+    res.redirect("/");
   }
-})
+});
 
 router.get("/admin/approve/project/:id", async (req, res) => {
   try {
     const projectId = req.params.id;
+
+    // Check if user is an admin
+    checkAdmin(req.session.admin);
 
     const getProject = await db.sql("global/get_user_info", {
       table: "projects_pending",
@@ -220,54 +228,46 @@ router.get("/admin/approve/project/:id", async (req, res) => {
       typeValue: projectId,
     });
 
-    const createProject = await db.sql("project/create_project", {
-      table: "projects",
-      userId: getProject.data[0].userId,
-      email: getProject.data[0].email,
-      title: getProject.data[0].title,
-      description: getProject.data[0].description,
-      contact_info: getProject.data[0].contactInfo,
-      courses: getProject.data[0].courses,
-      id: projectId
-    });
-
-    const deleteOld = await db.sql("global/delete_row", {
-      table: "projects_pending",
-      id: projectId,
-    });
+    await db.sql("project/move_project", { id: projectId });
+    await db.sql("global/delete_row", { table: "projects_pending", id: projectId });
 
     res.redirect("/account/admin");
   } catch (error) {
     console.log(error);
+    res.redirect("/");
   }
 });
-
 
 // Decline project
 router.get("/admin/decline/project/all", async (req, res) => {
   try {
-    const deleteAll = await db.sql("global/delete_all", { table: "projects_pending" })
+    // Check if user is an admin
+    checkAdmin(req.session.admin);
 
-    res.redirect("/account/admin")
+    const deleteAll = await db.sql("global/delete_all", { table: "projects_pending" });
+
+    res.redirect("/account/admin");
   } catch (error) {
     console.log(error);
+    res.redirect("/");
   }
-})
+});
 
 router.get("/admin/decline/project/:id", async (req, res) => {
   try {
-    let projectId = req.params.id
+    let projectId = req.params.id;
 
-    const deleteOld = await db.sql("global/delete_row", {
-      table: "projects_pending",
-      id: projectId,
-    })
+    // Check if user is an admin
+    checkAdmin(req.session.admin);
 
-    res.redirect("/account/admin")
+    const deleteOld = await db.sql("global/delete_row", { table: "projects_pending", id: projectId });
+
+    res.redirect("/account/admin");
   } catch (error) {
-
+    console.log(error);
+    res.redirect("/account");
   }
-})
+});
 
 // Helper Functions
 
@@ -283,5 +283,18 @@ async function comparePasswords(password, hashedPassword) {
   const match = await bcrypt.compare(password, hashedPassword)
   return match
 }
+
+//check if the current user is an admin
+function checkAdmin(admin) {
+  // Query the database or perform any necessary checks to determine if the user is an admin
+  const isAdmin = admin; /* Logic to check if the user is an admin based on userId */
+
+  if (!isAdmin) {
+    // Redirect the user to a specific route if they are not an admin
+    throw new Error('You are not authorized to access this page.');
+  }
+}
+
+
 
 module.exports = router

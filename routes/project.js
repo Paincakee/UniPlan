@@ -13,9 +13,9 @@ app.get('/', async (req, res) => {
   try {
     const email = req.session.email
 
-    const userAgent = req.headers['user-agent'];
-    const isFirefox = userAgent.includes('Firefox');
-    console.log(`using firefox: ${isFirefox}`);
+    // const userAgent = req.headers['user-agent'];
+    // const isFirefox = userAgent.includes('Firefox');
+    // console.log(`using firefox: ${isFirefox}`);
 
     if (email == null) {
       throw new Error("Not logged in")
@@ -98,7 +98,7 @@ app.route("/new")
       req.files.forEach((file) => {
         // Save the file to a specific folder using the file.originalname property
         const fieldname = file.fieldname;
-        console.log(fieldname)
+        // console.log(fieldname)
         const folderPath = `${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
         fs.mkdirSync(folderPath, { recursive: true })
         fs.renameSync(file.path, folderPath + file.originalname);
