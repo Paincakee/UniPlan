@@ -1,0 +1,40 @@
+
+#projecthome {
+    overflow: hidden;
+    font-family: 'Garamond';
+    src: url('/style/fonts/EBGaramond.ttf') format('truetype');
+    font-weight: 500;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#projectview {
+    overflow: scroll;
+    width: 75%;
+    height: 800px;
+    margin: 0 auto;
+    z-index: 3;
+    background-color: grey;
+}
+.item{
+    border-radius: 15px;
+    height: 8.5%;
+    color: black;
+    opacity: 70%;
+
+
+}
+.item:nth-of-type(odd) {
+    background-color: #d3caca;
+}
+.item:nth-of-type(even) {
+    background-color: #a7a7a7;
+}
+.item:hover{
+    background-color: #0eb7b9;
+}
+
+

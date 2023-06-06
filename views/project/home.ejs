@@ -3,19 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link href="/style/main.css" rel="stylesheet" type="text/css">
     <title>Project</title>
 </head>
-<body>
-    <div id="container">
+<body id="projecthome">
+
+    
+    <h1>View all projects</h1>
+    <div id="projectview">
+        
         <% resultProject.data.forEach((row) => { %>
             <div id="<%= row.id %>" class="item" onclick="handleClick('<%= row.id %>')">
-                <li>Title: <%= row.title %></li>
-                <li>Description: <%= row.description %></li>
-                <li>Contact Info: <%= row.contactInfo %></li>
-            </div>
-            <br>
+                <ul>
+                    <li>Title: <%= row.title %></li>
+                    <li>Description: <%= row.description %></li>
+                    <li>Contact Info: <%= row.contactInfo %></li>
+                </ul>
+            </div>  
           <% }) %>
+    </div>
+    <div class="orbs">
+        <div id="orb1"></div>
+        <div id="orb2"></div>
+        <div id="orb3"></div>
+    </div>
+    <div class="orbs2">
+        <div id="orb4"></div>
+        <div id="orb5"></div>
+        <div id="orb6"></div>
     </div>
 </body>
 </html>
