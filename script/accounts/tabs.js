@@ -1,28 +1,33 @@
 // Get references to the tabs and tables
-const accountsTab = document.getElementById('accounts-tab');
-const projectsTab = document.getElementById('projects-tab');
-const accountsTable = document.getElementById('accounts-table');
-const projectsTable = document.getElementById('projects-table');
+const tabs = document.querySelectorAll('.tab');
+const tables = document.querySelectorAll('.table');
 
 // Add event listeners to the tabs
-accountsTab.addEventListener('click', () => {
-    showTable(accountsTable);
-    hideTable(projectsTable);
-});
-
-projectsTab.addEventListener('click', () => {
-    showTable(projectsTable);
-    hideTable(accountsTable);
+tabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => {
+    showTable(index);
+    hideOtherTables(index);
+  });
 });
 
 // Function to show a table
-function showTable(table) {
-    table.style.display = 'table';
+function showTable(index) {
+  tables[index].style.display = 'table';
 }
 
-// Function to hide a table
-function hideTable(table) {
-    table.style.display = 'none';
+// Function to hide other tables
+function hideOtherTables(index) {
+  tables.forEach((table, i) => {
+    if (i !== index) {
+      table.style.display = 'none';
+    }
+  });
 }
 
-hideTable(projectsTable);
+// Hide all tables initially
+tables.forEach((table) => {
+  table.style.display = 'none';
+});
+
+// Show the first table by default
+showTable(0);
