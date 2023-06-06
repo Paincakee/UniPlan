@@ -6,13 +6,13 @@ const saltRounds = 10 // Time for hashing algorithm
 
 const validator = require('validator');
 
-router.get('/', (req, res) => {
+router.get('/', (req, res) => {   
   res.send("Bozo")
 })
 
 // Account Registration
 router.route('/new')
-  .get((req, res) => {
+  .get(async (req, res) => {
     res.render('account/register')
   })
   .post(async (req, res) => {
@@ -36,19 +36,29 @@ router.route('/new')
       const password = req.body.password
       const hash = await hashPassword(password)
 
-      // Create new account
-      await db.sql('account/createAccount', {
-        firstName: validator.escape(req.body.firstName),
-        lastName: validator.escape(req.body.lastName),
-        studentNumber: validator.escape(studentNumber),
-        email: validator.normalizeEmail(email),
-        password: hash,
-        accountType: validator.escape(req.body.accountType),
-        table: 'accounts_pending',
-      });
+      req.session.token = Math.floor(Math.random() * 100000 + 10000)
 
-      // Redirect to login page
-      res.redirect('./login')
+      async function mailSend(){
+        // send mail with defined transport object
+        let info = await global.sender.sendMail({
+          from: '"pixeltrading" pixeltrading@outlook.com', // sender address
+          to: email, // receiver
+          subject: "UniPlan account verification", // Subject line
+          // text: "Click the link to verify.", // plain text body
+          html: `<h5>Your verification code is: ${req.session.token}</h5>` // html body
+        });
+        console.log("Message sent: %s", info.messageId);
+      }
+      mailSend();
+      //Declare session variables
+      req.session.firstName = validator.escape(req.body.firstName);
+      req.session.lastName = validator.escape(req.body.lastName);
+      req.session.studentNumber = validator.escape(studentNumber);
+      req.session.email = validator.normalizeEmail(email);
+      req.session.hash = hash;
+      req.session.accountType = validator.escape(req.body.accountType);
+
+      res.render('account/verification', {firstName: req.session.firstName});
     } catch (error) {
       res.render('account/register', {
         firstName: req.body.firstName,
@@ -57,6 +67,28 @@ router.route('/new')
         email: req.body.email,
         error: error.message // Pass the error message to the view
       })
+    }
+  })
+
+
+// Account Verification
+router.route('/verify')
+  .post(async (req, res) => {
+    console.log(req.body.tokenInput);
+    console.log(req.session.token);
+    if(parseInt(req.body.tokenInput) == req.session.token){
+      await db.sql('account/createAccount', {
+        firstName: validator.escape(req.session.firstName),
+        lastName: validator.escape(req.session.lastName),
+        studentNumber: validator.escape(req.session.studentNumber),
+        email: validator.normalizeEmail(req.session.email),
+        password: req.session.hash,
+        accountType: validator.escape(req.session.accountType),
+        table: 'accounts_pending',
+      })
+      res.redirect('/account/login')
+    }else{
+      res.render('account/verification', {firstName: req.session.firstname, error: 'Invalid input! Try again.'})
     }
   })
 
