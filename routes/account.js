@@ -6,7 +6,7 @@ const saltRounds = 10 // Time for hashing algorithm
 
 const validator = require('validator');
 
-router.get('/', (req, res) => {
+router.get('/', (req, res) => {   
   res.send("Bozo")
 })
 
@@ -36,7 +36,7 @@ router.route('/new')
       const password = req.body.password
       const hash = await hashPassword(password)
 
-      req.session.token = Math.floor(Math.random() * 1001)
+      req.session.token = Math.floor(Math.random() * 100000 + 10000)
 
       async function mailSend(){
         // send mail with defined transport object
@@ -58,8 +58,7 @@ router.route('/new')
       req.session.hash = hash;
       req.session.accountType = validator.escape(req.body.accountType);
 
-      // Redirect to login page
-      res.redirect('./verify')
+      res.render('account/verification', {firstName: req.session.firstName});
     } catch (error) {
       res.render('account/register', {
         firstName: req.body.firstName,
@@ -74,19 +73,23 @@ router.route('/new')
 
 // Account Verification
 router.route('/verify')
-  .get((req, res) =>{
-    res.render('account/verification', {firstName: req.session.firstName})
-  })
   .post(async (req, res) => {
-    await db.sql('account/createAccount', {
-      firstName: validator.escape(req.session.firstName),
-      lastName: validator.escape(req.session.lastName),
-      studentNumber: validator.escape(req.session.studentNumber),
-      email: validator.normalizeEmail(req.session.email),
-      password: req.session.hash,
-      accountType: validator.escape(req.session.accountType),
-      table: 'accounts_pending',
-    })
+    console.log(req.body.tokenInput);
+    console.log(req.session.token);
+    if(parseInt(req.body.tokenInput) == req.session.token){
+      await db.sql('account/createAccount', {
+        firstName: validator.escape(req.session.firstName),
+        lastName: validator.escape(req.session.lastName),
+        studentNumber: validator.escape(req.session.studentNumber),
+        email: validator.normalizeEmail(req.session.email),
+        password: req.session.hash,
+        accountType: validator.escape(req.session.accountType),
+        table: 'accounts_pending',
+      })
+      res.redirect('/account/login')
+    }else{
+      res.render('account/verification', {firstName: req.session.firstname, error: 'Invalid input! Try again.'})
+    }
   })
 
 // Account Login

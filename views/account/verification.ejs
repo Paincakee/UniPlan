@@ -7,6 +7,14 @@
     <title>Verify</title>
 </head>
 <body>
-    <form action="/account/verify" method="post"></form>
+    <form action="/account/verify" method="post">
+        <label>Hello <%=firstName%>!</label><br>
+        <label>Check your email for a code.</label><br>
+        <input type="text" name="tokenInput" placeholder="token"><br>
+        <% if (locals.error){%>
+            <label><%=error%></label>
+        <%}%>
+        <button type="submit">Send</button>
+    </form>
 </body>
 </html>
