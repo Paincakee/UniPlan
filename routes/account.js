@@ -118,6 +118,8 @@ router.route('/login')
       // Successful login
       req.session.email = dbPass.data[0].email // Set session variable
       req.session.admin = dbPass.data[0].admin // Set session variable
+      req.session.firstName = dbPass.data[0].firstName // Set session variable
+      req.session.lastName = dbPass.data[0].lastName // Set session variable
       req.session.id = req.body.id // Set session variable
 
       res.redirect('./admin')
