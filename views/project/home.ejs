@@ -25,6 +25,9 @@
         //handle click
         console.log(id);
         link = window.location.href
+        if(link.charAt(link.length -1) === '/'){
+            link = link.slice(0, -1);
+        }
         window.location.href = link + "/" + id;
     }
 </script>

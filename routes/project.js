@@ -1,21 +1,37 @@
 const express = require('express');
 const multer = require('multer');
+const { body, validationResult } = require('express-validator');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-const app = express()
+const app = express();
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true })) // Add this line
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const upload = multer({ dest: __dirname + '/../resources/upload/' });
+
+// Define validation rules for the project creation route
+const projectValidationRules = [
+  body('title').trim().isString(),
+  body('description').trim().isString(),
+  body('contact').trim().isString(),
+  // Add more validation rules for other fields
+];
+
+// Define a middleware function to handle validation errors
+const validate = (req, res, next) => {
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    return next();
+  }
+  // Handle validation errors
+  const extractedErrors = errors.array().map((err) => err.msg);
+  res.status(400).json({ errors: extractedErrors });
+};
 
 app.get('/', async (req, res) => {
   try {
     const email = req.session.email
-
-    // const userAgent = req.headers['user-agent'];
-    // const isFirefox = userAgent.includes('Firefox');
-    // console.log(`using firefox: ${isFirefox}`);
 
     if (email == null) {
       throw new Error("Not logged in")
@@ -32,16 +48,14 @@ app.get('/', async (req, res) => {
     });
 
     res.render('project/home', { resultProject });
-
   } catch (error) {
     console.log(error);
-    res.redirect("../account/login")
+    res.redirect('../account/login');
   }
-
 });
 
 //Router for project creation
-app.route("/new")
+app.route('/new')
   .get(async (req, res) => {
     try {
       let email = req.session.email
@@ -56,61 +70,65 @@ app.route("/new")
       res.render('project/create', { resultCourse });
     } catch (error) {
       console.log(error);
-      res.redirect("../account/login")
+      res.redirect('../account/login');
     }
   })
-  .post(upload.any(['files', 'fotos']), async (req, res) => {
-    try {
-      let email = req.session.email
-      if (email == null) {
-        throw new Error("Not logged in")
+  .post(
+    projectValidationRules,
+    validate,
+    upload.any(['files', 'fotos']),
+    async (req, res) => {
+      console.log(body);
+      try {
+        let email = req.session.email
+        if (email == null) {
+          throw new Error("Not logged in")
+        }
+
+        const resultAccount = await db.sql("global/get_user_info", {
+          table: "accounts",
+          type: "email",
+          typeValue: email
+        });
+
+        await db.sql("project/create_project", {
+          table: "projects_pending",
+          userId: `${resultAccount.data[0].id}`,
+          title: req.body.title,
+          description: req.body.description,
+          contact_info: req.body.contact,
+          courses: JSON.stringify(req.body.courses),
+          email
+        });
+
+        const resultProject = await db.sql("global/get_user_info", {
+          table: "projects_pending",
+          type: "userId",
+          typeValue: `${resultAccount.data[0].id}`
+        });
+
+        const lastIndex = resultProject.data.slice(-1);
+        console.log(lastIndex[0].id);
+        fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/files`, { recursive: true })
+        fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/fotos`, { recursive: true })
+
+        req.files.forEach((file) => {
+          // Save the file to a specific folder using the file.originalname property
+          const fieldname = file.fieldname;
+          // console.log(fieldname)
+          const folderPath = `${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
+          fs.mkdirSync(folderPath, { recursive: true })
+          fs.renameSync(file.path, folderPath + file.originalname);
+        });
+
+        res.redirect("./")
+      } catch (error) {
+        console.log(error);
+        res.redirect('../account/login');
       }
-
-      const resultAccount = await db.sql("global/get_user_info", {
-        table: "accounts",
-        type: "email",
-        typeValue: email
-      });
-
-      console.log(JSON.stringify(req.body.courses));
-
-      await db.sql("project/create_project", {
-        table: "projects_pending",
-        userId: `${resultAccount.data[0].id}`,
-        title: req.body.title,
-        description: req.body.description,
-        contact_info: req.body.contact,
-        courses: JSON.stringify(req.body.courses),
-        email
-      });
-
-      const resultProject = await db.sql("global/get_user_info", {
-        table: "projects_pending",
-        type: "userId",
-        typeValue: `${resultAccount.data[0].id}`
-      });
-
-      const lastIndex = resultProject.data.slice(-1);
-      console.log(lastIndex[0].id);
-      fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/files`, { recursive: true })
-      fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/fotos`, { recursive: true })
-
-      req.files.forEach((file) => {
-        // Save the file to a specific folder using the file.originalname property
-        const fieldname = file.fieldname;
-        // console.log(fieldname)
-        const folderPath = `${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
-        fs.mkdirSync(folderPath, { recursive: true })
-        fs.renameSync(file.path, folderPath + file.originalname);
-      });
-
-      res.redirect("./")
-
-    } catch (error) {
-      console.log(error);
-      res.redirect("../account/login")
     }
-  });
+  );
+
 
 //Router for specific project
 app.get('/:id', async (req, res) => {
@@ -147,7 +165,6 @@ app.get('/:id', async (req, res) => {
           typeValue: `${course}`,
         });
         courseListFinal.push(resultCourse.data[0].courseName);
-        //console.log(resultCourse);
       }));
 
     const files = fs.readdirSync(__dirname + `/../resources/upload/${resultProject.data[0].email}/${id}/files`);
@@ -165,10 +182,9 @@ app.get('/:id', async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.redirect("/account/login");
+    res.redirect('/account/login');
   }
 });
-
 //Router for fetch chat
 app.post('/:id/new', async (req, res) => {
   try {
@@ -183,15 +199,11 @@ app.post('/:id/new', async (req, res) => {
       roomId: req.body.roomId,
       fullName: req.body.fullName
     })
-
-    res.json({ success: true })
-
+    res.json({ success: true });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Failed to save the chat' })
+    res.status(500).json({ error: 'Failed to save the chat' });
   }
-})
-
-
+});
 
 module.exports = app;
