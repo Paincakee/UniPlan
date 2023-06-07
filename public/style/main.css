@@ -700,7 +700,7 @@
 }
 .description-images-container .description-box {
   width: 30vw;
-  height: 66.66%;
+  flex-grow: 2;
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -711,7 +711,7 @@
   max-width: 33vw;
 }
 .description-images-container .images-box {
-  height: 33.33%;
+  flex-grow: 1;
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #ccc;

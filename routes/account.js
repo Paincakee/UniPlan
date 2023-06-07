@@ -372,7 +372,7 @@ function checkLoggedIn(req, res, next) {
   // Check if the email session is set and not null
   if (!req.session.email) {
     // Redirect the user to a specific route if they are not logged in
-    res.redirect('account/login');
+    res.redirect('/account/login');
   }
   else {
     // If the user is logged in,Move to the next middleware/route handler

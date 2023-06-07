@@ -29,20 +29,8 @@ const validate = (req, res, next) => {
   res.status(400).json({ errors: extractedErrors });
 };
 
-app.get('/', async (req, res) => {
+app.get('/', checkLoggedIn, async (req, res) => {
   try {
-    const email = req.session.email
-
-    if (email == null) {
-      throw new Error("Not logged in")
-    }
-
-    const resultAccount = await db.sql("global/get_user_info", {
-      table: "accounts",
-      type: "email",
-      typeValue: email
-    });
-
     const resultProject = await db.sql("global/get_all", {
       table: "projects",
     });
@@ -50,19 +38,14 @@ app.get('/', async (req, res) => {
     res.render('project/home', { resultProject });
   } catch (error) {
     console.log(error);
-    res.redirect('../account/login');
+    res.redirect('/account/login');
   }
 });
 
 //Router for project creation
 app.route('/new')
-  .get(async (req, res) => {
+  .get(checkLoggedIn, async (req, res) => {
     try {
-      let email = req.session.email
-      if (email == null) {
-        throw new Error("Not logged in")
-      }
-
       const resultCourse = await db.sql("global/get_all", {
         table: "courses",
       });
@@ -70,25 +53,15 @@ app.route('/new')
       res.render('project/create', { resultCourse });
     } catch (error) {
       console.log(error);
-      res.redirect('../account/login');
+      res.redirect('/account/login');
     }
   })
-  .post(
-    projectValidationRules,
-    validate,
-    upload.any(['files', 'fotos']),
-    async (req, res) => {
-      console.log(body);
+  .post(checkLoggedIn, projectValidationRules, validate, upload.any(['files', 'fotos']), async (req, res) => {
       try {
-        let email = req.session.email
-        if (email == null) {
-          throw new Error("Not logged in")
-        }
-
         const resultAccount = await db.sql("global/get_user_info", {
           table: "accounts",
           type: "email",
-          typeValue: email
+          typeValue: req.session.email
         });
 
         await db.sql("project/create_project", {
@@ -98,7 +71,7 @@ app.route('/new')
           description: req.body.description,
           contact_info: req.body.contact,
           courses: JSON.stringify(req.body.courses),
-          email
+          email: req.session.email
         });
 
         const resultProject = await db.sql("global/get_user_info", {
@@ -129,17 +102,11 @@ app.route('/new')
     }
   );
 
-
 //Router for specific project
-app.get('/:id', async (req, res) => {
+app.get('/:id', checkLoggedIn,  async (req, res) => {
   try {
     const id = req.params.id;
-    const email = req.session.email;
     let courseListFinal = [];
-
-    if (email == null) {
-      throw new Error("Not logged in");
-    }
 
     const showChat = await db.sql("global/get_user_info", {
       table: "chat_history",
@@ -172,7 +139,7 @@ app.get('/:id', async (req, res) => {
     res.render('project/project', {
       resultProject,
       files,
-      email,
+      email: req.session.email,
       courseListFinal,
       history: showChat.data,
       id,
@@ -186,7 +153,7 @@ app.get('/:id', async (req, res) => {
   }
 });
 //Router for fetch chat
-app.post('/:id/new', async (req, res) => {
+app.post('/:id/new', checkLoggedIn, async (req, res) => {
   try {
     if (req.body.chat === "" || req.body.chat === null || req.body.user === "%userId%") {
       throw new Error("Chat is empty")
@@ -206,5 +173,19 @@ app.post('/:id/new', async (req, res) => {
   }
 });
 
+// Helper Functions
+
+//This function checks if the user is logged in, if thats not the case go to login page
+function checkLoggedIn(req, res, next) {
+  // Check if the email session is set and not null
+  if (!req.session.email) {
+    // Redirect the user to a specific route if they are not logged in
+    res.redirect('/account/login');
+  }
+  else {
+    // If the user is logged in,Move to the next middleware/route handler
+    next();
+  }
+}
 
 module.exports = app;
