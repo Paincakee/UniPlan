@@ -4,7 +4,7 @@
   /* Add padding to the left to accommodate the navbar */
   // background-color: rgb(247, 247, 247);
   .content-container{
-    margin-top: 5px;
+    margin: 5px 0 0 -1px;
   }
   #sidebarMenu {
     border-right: 1px solid #e4e4e4;
@@ -114,31 +114,4 @@
       filter: brightness(85%);
     }
   }
-
-  .navbar {
-    background-color: #6cb0b2;
-    padding: 10px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 999;
-  }
-
-  .navbar-left img,
-  .navbar-right img {
-    width: 30px;
-    height: 30px;
-  }
-
-  .navbar-right img {
-    margin-left: 10px;
-  }
-}
-
-.tabs{
-  margin-top: 70px;
 }
