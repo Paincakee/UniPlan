@@ -38,7 +38,7 @@ input:focus {
       margin-top: 3px;
       fill: rgb(0, 0, 0);
     }
-    .svg-arrow{
+    .svg-arrow {
       width: 20px;
       height: 20px;
     }
@@ -61,7 +61,7 @@ input:focus {
       display: flex;
       flex-direction: column;
       align-items: center;
-      
+
       .nav-link {
         width: 90%;
         height: 60px;
@@ -74,6 +74,9 @@ input:focus {
         padding: 15px;
         position: relative;
         z-index: 1;
+        &:hover{
+          background-color: #fafafa;
+        }
       }
       .nav-link.active {
         background-color: #f1f1f1;
@@ -86,6 +89,91 @@ input:focus {
         margin-top: 6px;
         color: rgb(146, 145, 145);
       }
+      .submenus {
+        // margin-left: 25px;
+        padding-left: 10px;
+        width: 100%;
+        transform-origin: top center;
+        // display: none;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.3s ease-in-out;
+        
+      }
+      .show {
+        transform-origin: top center;
+        max-height: 500px; /* Adjust the max-height value to fit your content */
+        transition: max-height 0.3s ease-in-out;
+      }
+
+      .svg-wrapper-arrow {
+        position: absolute;
+        top: 12px;
+        left: 135px;
+        padding: 5px 10px 10px 10px;
+      }
+
+      .submenus a {
+        display: block;
+        padding: 5px;
+        text-decoration: none;
+        color: #333;
+        border-bottom: 1px solid #e4e4e4;
+        width: 70%;
+        display: flex;
+        align-items: center;
+        
+        &:hover{
+          background-color: #fafafa;
+        }
+      }
+      
     }
+  }
+}
+
+@keyframes growDown {
+  0% {
+    transform: scaleY(0);
+  }
+  
+  10% {
+    transform: scaleY(0.1);
+  }
+  
+  20% {
+    transform: scaleY(0.2);
+  }
+  
+  30% {
+    transform: scaleY(0.3);
+  }
+  
+  40% {
+    transform: scaleY(0.4);
+  }
+  
+  50% {
+    transform: scaleY(0.5);
+  }
+  
+  60% {
+    transform: scaleY(0.6);
+  }
+  
+  70% {
+    transform: scaleY(0.7);
+  }
+  
+  80% {
+    transform: scaleY(0.8);
+  }
+  
+  90% {
+    transform: scaleY(0.9);
+  }
+  
+  100% {
+    transform: scaleY(1);
   }
 }
