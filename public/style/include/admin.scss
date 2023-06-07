@@ -1,5 +1,4 @@
 #admin-body {
-  font-family: "Arial", sans-serif;
 
   table {
     margin-top: 50px;
@@ -25,16 +24,14 @@
     color: #000;
   }
 
-  .approve-button:hover,
-  .decline-button:hover {
-    filter: brightness(85%);
-  }
-
   .approve-button {
     background-color: green;
     color: white;
     padding: 5px;
     border-radius: 3px;
+    &:hover{
+      filter: brightness(85%);
+    }
   }
 
   .decline-button {
@@ -42,6 +39,9 @@
     color: white;
     padding: 5px;
     border-radius: 3px;
+    &:hover{
+      filter: brightness(85%);
+    }
   }
 
   .navbar {

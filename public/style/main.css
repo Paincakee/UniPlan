@@ -267,9 +267,6 @@
   scrollbar-color: #ccc #fff;
 }
 
-#admin-body {
-  font-family: "Arial", sans-serif;
-}
 #admin-body table {
   margin-top: 50px;
   width: 100%;
@@ -290,21 +287,23 @@
   text-decoration: none;
   color: #000;
 }
-#admin-body .approve-button:hover,
-#admin-body .decline-button:hover {
-  filter: brightness(85%);
-}
 #admin-body .approve-button {
   background-color: green;
   color: white;
   padding: 5px;
   border-radius: 3px;
 }
+#admin-body .approve-button:hover {
+  filter: brightness(85%);
+}
 #admin-body .decline-button {
   background-color: red;
   color: white;
   padding: 5px;
   border-radius: 3px;
+}
+#admin-body .decline-button:hover {
+  filter: brightness(85%);
 }
 #admin-body .navbar {
   background-color: #6cb0b2;

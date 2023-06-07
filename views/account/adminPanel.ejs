@@ -1,89 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/style/main.css" rel="stylesheet" type="text/css">
-    <title>User Table</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/style/main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <title>Admin Panel</title>
+
+    <style>
+        .nav-tabs .nav-links{
+            border-width: 2px !important;
+        }
+        body {
+            margin: 0;
+            padding-left: 200px;
+            /* Add padding to the left to accommodate the navbar */
+            background-color: rgb(247, 247, 247);
+        }
+
+        #sidebarMenu {
+            background-color: rgb(221, 235, 247);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 200px;
+            z-index: 999;
+            /* Set a higher z-index to keep the navbar above other content */
+            font-size: 20px;
+
+        }
+
+        .nav-info {
+            background-color: #bcdbdc;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .nav-info .wrapper {
+            width: 90%;
+        }
+
+        .wrapper .svg {
+
+            margin-bottom: 9px;
+        }
+
+        .nav-items {
+            background-color: white;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        .nav-items a {
+            width: 90%;
+            height: 60px;
+            margin: 10px 0px 0 0;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            border-bottom: 1px solid #e4e4e4;
+            padding: 15px;
+
+        }
+
+        .nav-items a.active {
+            background-color: #f1f1f1;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-items a.current-page .svg {
+            fill: blue;
+        }
+
+        .svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            fill: rgb(0, 0, 0);
+        }
+
+        .nav-items span {
+            vertical-align: bottom;
+            display: inline-block;
+            margin-top: 6px;
+            color: rgb(146, 145, 145);
+        }
+
+        .content-container{
+            margin-top: 5px;
+        }
+    </style>
 </head>
+
 <body id="admin-body">
-    <nav class="navbar">
-        <div class="navbar-left">
-            <img src="/style/images/placeholder.jpg" alt="Profile Button">
-        </div>
-        <div class="navbar-right">
-            <img src="/style/images/placeholder.jpg" alt="Menu Button">
+    <div id="navbar-container"></div>
+    <div class="content-container">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-accounts" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Pending accounts</button>
+            
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-projects" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Pending projects</button>
+            
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
         </div>
     </nav>
-    <div class="tabs">
-        <button class="tab" id="accounts-tab">Accounts</button>
-        <button class="tab" id="projects-tab">Projects</button>
-    </div>
-    
-    <table id="accounts-table" class="table">
-        <thead>
-            <tr>
-                <th>Accounts</th>
-                <th><a href="admin/approve/account/all" class="approve-button-all approve-button" >Approve</a></th>
-                <th><a href="admin/decline/account/all" class="decline-button-all decline-button">Decline</a></th>
-            </tr>
-            <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Student Number</th>
-                <th>Account Type</th>
-                <th>Admin</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <% data_accounts.forEach(user => { %>
-                <tr>
-                    <td><%= user.id %></td>
-                    <td><%= user.firstName %></td>
-                    <td><%= user.lastName %></td>
-                    <td><%= user.email %></td>
-                    <td><%= user.studentNumber %></td>
-                    <td><%= user.accountType %></td>
-                    <td><%= user.admin %></td>
-                    <td><a href="admin/approve/account/<%= user.id %>" class="approve-button">Approve</a>
-                    <a href="admin/decline/account/<%= user.id %>" class="decline-button">Decline</a></td>
-                </tr>
-            <% }) %>
-        </tbody>
-    </table>
-    <table id="projects-table" class="table">
-        <thead>
-            <tr>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-accounts" role="tabpanel" aria-labelledby="nav-home-tab"tabindex="0">
+            <table id="accounts-table" class="table">
+                <thead>
+                    <!-- <tr>
+                    <th>Accounts</th>
+                    <th><a href="admin/approve/account/all" class="approve-button-all approve-button" >Approve</a></th>
+                    <th><a href="admin/decline/account/all" class="decline-button-all decline-button">Decline</a></th>
+                </tr> -->
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Student Number</th>
+                        <th>Account Type</th>
+                        <th>Admin</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% data_accounts.forEach(user=> { %>
+                        <tr>
+                            <td>
+                                <%= user.id %>
+                            </td>
+                            <td>
+                                <%= user.firstName %>
+                            </td>
+                            <td>
+                                <%= user.lastName %>
+                            </td>
+                            <td>
+                                <%= user.email %>
+                            </td>
+                            <td>
+                                <%= user.studentNumber %>
+                            </td>
+                            <td>
+                                <%= user.accountType %>
+                            </td>
+                            <td>
+                                <%= user.admin %>
+                            </td>
+                            <td>
+                                <a href="admin/approve/account/<%= user.id %>" class="approve-button">Approve</a>
+                                <a href="admin/decline/account/<%= user.id %>" class="decline-button">Decline</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-projects" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+            <table id="projects-table" class="table">
+            <thead>
+                <!-- <tr>
                 <th>Projects</th>
                 <th><a href="admin/approve/project/all" class="approve-button-all approve-button">Approve</a></th>
                 <th><a href="admin/decline/project/all" class="decline-button-all decline-button">Decline</a></th>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>contactInfo</th>
-                <th>Courses</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% data_projects.forEach(project => { %>
+            </tr> -->
                 <tr>
-                    <td><%= project.email %></td>
-                    <td><%= project.title %></td>
-                    <td><%= project.description %></td>
-                    <td><%= project.contactInfo %></td>
-                    <td><%= project.courses %></td>
-                    <td><a href="admin/approve/project/<%= project.id %>" class="approve-button">Approve</a>
-                    <a href="admin/decline/project/<%= project.id %>" class="decline-button">Decline</a></td>
+                    <th>Email</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>contactInfo</th>
+                    <th>Courses</th>
                 </tr>
-            <% }) %>
-        </tbody>
-    </table>
-    <script src="/script/accounts/tabs.js"></script>
+            </thead>
+            <tbody>
+                <% data_projects.forEach(project=> { %>
+                    <tr>
+                        <td>
+                            <%= project.email %>
+                        </td>
+                        <td>
+                            <%= project.title %>
+                        </td>
+                        <td>
+                            <%= project.description %>
+                        </td>
+                        <td>
+                            <%= project.contactInfo %>
+                        </td>
+                        <td>
+                            <%= project.courses %>
+                        </td>
+                        <td>
+                            <a href="admin/approve/project/<%= project.id %>" class="approve-button">Approve</a>
+                            <a href="admin/decline/project/<%= project.id %>" class="decline-button">Decline</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+        </div>
+        <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...
+        </div>
+    </div>
+    </div>
+
+    <script>
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/script/navbar.js"></script>
+
 </body>
+
 </html>
