@@ -2,7 +2,7 @@
   margin: 0;
   padding-left: 200px;
   /* Add padding to the left to accommodate the navbar */
-  background-color: rgb(247, 247, 247);
+  // background-color: rgb(247, 247, 247);
 
   nav {
     background-color: rgb(221, 235, 247);
@@ -16,7 +16,7 @@
     z-index: 999;
     /* Set a higher z-index to keep the navbar above other content */
     font-size: 20px;
-
+    border-right: 1px solid #e4e4e4;
     .nav-info {
       background-color: #bcdbdc;
       padding: 15px;
