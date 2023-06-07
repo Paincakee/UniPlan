@@ -57,53 +57,53 @@ app.route('/new')
     }
   })
   .post(checkLoggedIn, projectValidationRules, validate, upload.any(['files', 'fotos']), async (req, res) => {
-      try {
-        const resultAccount = await db.sql("global/get_user_info", {
-          table: "accounts",
-          type: "email",
-          typeValue: req.session.email
-        });
+    try {
+      const resultAccount = await db.sql("global/get_user_info", {
+        table: "accounts",
+        type: "email",
+        typeValue: req.session.email
+      });
 
-        await db.sql("project/create_project", {
-          table: "projects_pending",
-          userId: `${resultAccount.data[0].id}`,
-          title: req.body.title,
-          description: req.body.description,
-          contact_info: req.body.contact,
-          courses: JSON.stringify(req.body.courses),
-          email: req.session.email
-        });
+      await db.sql("project/create_project", {
+        table: "projects_pending",
+        userId: `${resultAccount.data[0].id}`,
+        title: req.body.title,
+        description: req.body.description,
+        contact_info: req.body.contact,
+        courses: JSON.stringify(req.body.courses),
+        email: req.session.email
+      });
 
-        const resultProject = await db.sql("global/get_user_info", {
-          table: "projects_pending",
-          type: "userId",
-          typeValue: `${resultAccount.data[0].id}`
-        });
+      const resultProject = await db.sql("global/get_user_info", {
+        table: "projects_pending",
+        type: "userId",
+        typeValue: `${resultAccount.data[0].id}`
+      });
 
-        const lastIndex = resultProject.data.slice(-1);
-        console.log(lastIndex[0].id);
-        fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/files`, { recursive: true })
-        fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/fotos`, { recursive: true })
+      const lastIndex = resultProject.data.slice(-1);
+      console.log(lastIndex[0].id);
+      fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/files`, { recursive: true })
+      fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/fotos`, { recursive: true })
 
-        req.files.forEach((file) => {
-          // Save the file to a specific folder using the file.originalname property
-          const fieldname = file.fieldname;
-          // console.log(fieldname)
-          const folderPath = `${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
-          fs.mkdirSync(folderPath, { recursive: true })
-          fs.renameSync(file.path, folderPath + file.originalname);
-        });
+      req.files.forEach((file) => {
+        // Save the file to a specific folder using the file.originalname property
+        const fieldname = file.fieldname;
+        // console.log(fieldname)
+        const folderPath = `${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/${fieldname}/`;
+        fs.mkdirSync(folderPath, { recursive: true })
+        fs.renameSync(file.path, folderPath + file.originalname);
+      });
 
-        res.redirect("./")
-      } catch (error) {
-        console.log(error);
-        res.redirect('../account/login');
-      }
+      res.redirect("./")
+    } catch (error) {
+      console.log(error);
+      res.redirect('../account/login');
     }
+  }
   );
 
 //Router for specific project
-app.get('/:id', checkLoggedIn,  async (req, res) => {
+app.get('/:id', checkLoggedIn, async (req, res) => {
   try {
     const id = req.params.id;
     let courseListFinal = [];
@@ -121,21 +121,21 @@ app.get('/:id', checkLoggedIn,  async (req, res) => {
     });
 
     let courseList = JSON.parse(resultProject.data[0].courses);
-    if (courseList.constructor !== Array){
+    if (courseList.constructor !== Array) {
       courseList = [courseList];
       console.log(courseList);
     }
-      await Promise.all(courseList.map(async (course) => {
-        const resultCourse = await db.sql("global/get_user_info", {
-          table: "courses",
-          type: "id",
-          typeValue: `${course}`,
-        });
-        courseListFinal.push(resultCourse.data[0].courseName);
-      }));
+    await Promise.all(courseList.map(async (course) => {
+      const resultCourse = await db.sql("global/get_user_info", {
+        table: "courses",
+        type: "id",
+        typeValue: `${course}`,
+      });
+      courseListFinal.push(resultCourse.data[0].courseName);
+    }));
 
     const files = fs.readdirSync(__dirname + `/../resources/upload/${resultProject.data[0].email}/${id}/files`);
-    
+
     res.render('project/project', {
       resultProject,
       files,

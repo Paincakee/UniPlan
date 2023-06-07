@@ -392,8 +392,6 @@ function checkNotLoggedInRedirect(req, res, next) {
     next();
 
   }
-
-
 }
 
 
