@@ -10,7 +10,7 @@
 </head>
 <body class="project-home-body">
     <div id="navbar-container"></div>
-    <div class="container">
+    <div class="content-container">
         <% resultProject.data.forEach((row) => { %>
             <div id="<%= row.id %>" class="item" onclick="handleClick('<%= row.id %>')">
                 <li>Title: <%= row.title %></li>
