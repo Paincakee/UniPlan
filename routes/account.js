@@ -358,7 +358,7 @@ function checkAdmin(req, res, next) {
 
   if (!isAdmin) {
     // Redirect the user to a specific route if they are not an admin
-    return res.redirect('/unauthorized'); // Replace '/unauthorized' with the appropriate route
+    return res.redirect('/account'); // Replace '/unauthorized' with the appropriate route
   }
 
   // If the user is an admin, continue to the next middleware or route handler
