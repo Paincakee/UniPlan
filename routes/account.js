@@ -355,25 +355,29 @@ async function comparePasswords(password, hashedPassword) {
 function checkAdminAccess(req, res, next) {
   // Query the database or perform any necessary checks to determine if the user is an admin
 
-  if (!req.session.isAdmin) {
+  if (!req.session.admin) {
     // Redirect the user to a specific route if they are not an admin
     return res.redirect('/account'); // Replace '/unauthorized' with the appropriate route
   }
+  else {
+    // If the user is an admin, continue to the next middleware or route handler
+    next();
+  }
 
-  // If the user is an admin, continue to the next middleware or route handler
-  next();
+
 }
 
 //This function checks if the user is logged in, if thats not the case go to login page
-function checkLoggedIn(req, res, next) { 
+function checkLoggedIn(req, res, next) {
   // Check if the email session is set and not null
   if (!req.session.email) {
     // Redirect the user to a specific route if they are not logged in
     res.redirect('account/login');
   }
-
-  next(); // If the user is logged in,Move to the next middleware/route handler
-
+  else {
+    // If the user is logged in,Move to the next middleware/route handler
+    next();
+  }
 }
 
 //This function checks if the user is logged out, if they are logged in go to account page
@@ -383,8 +387,12 @@ function checkNotLoggedInRedirect(req, res, next) {
     // Redirect the user to a specific route if they are logged in
     res.redirect('/account');
   }
+  else {
+    // If the user is not logged in, Move to the next middleware/route handler
+    next();
 
-  next(); // If the user is not logged in, Move to the next middleware/route handler
+  }
+
 
 }
 
