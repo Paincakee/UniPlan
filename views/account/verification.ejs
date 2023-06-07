@@ -7,7 +7,7 @@
     <title>Verify</title>
 </head>
 <body>
-    <form action="/account/verify" method="post">
+    <form action="/account/<% if(locals.password && password){%>setpass<%}else{%>verify<%}%>" method="post">
         <label>Hello <%=firstName%>!</label><br>
         <label>Check your email for a code.</label><br>
         <input type="text" name="tokenInput" placeholder="token"><br>
