@@ -26,7 +26,9 @@ router.route('/')
       res.render('account/manage', { error: 'New password and confirmed password are not the same! Please try again', wrongpass: true })
     }
   })
-
+router.get('/test', (req, res) => {
+  res.render('test')
+})
 router.post('/setpass', async (req, res) => {
   if (parseInt(req.body.tokenInput) == req.session.token) {
     await db.sql('global/set_user_info', {
