@@ -38,6 +38,10 @@ input:focus {
       margin-top: 3px;
       fill: rgb(0, 0, 0);
     }
+    .svg-arrow{
+      width: 20px;
+      height: 20px;
+    }
     .nav-info {
       background-color: #a5d4d4;
       padding: 15px;
@@ -57,7 +61,8 @@ input:focus {
       display: flex;
       flex-direction: column;
       align-items: center;
-      a {
+      
+      .nav-link {
         width: 90%;
         height: 60px;
         margin: 10px 0px 0 0;
@@ -67,8 +72,10 @@ input:focus {
         text-decoration: none;
         border-bottom: 1px solid #e4e4e4;
         padding: 15px;
+        position: relative;
+        z-index: 1;
       }
-      a.active {
+      .nav-link.active {
         background-color: #f1f1f1;
         box-shadow: 0 0 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
       }
