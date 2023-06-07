@@ -7,10 +7,10 @@ const saltRounds = 10 // Time for hashing algorithm
 const validator = require('validator');
 
 router.route('/')
-  .get(checkLogged, (req, res) => {
-      res.render('account/manage')
+  .get(checkLoggedIn, (req, res) => {
+    res.render('account/manage')
   })
-  .post(checkLogged, async (req, res) => {
+  .post(checkLoggedIn, async (req, res) => {
     if (req.body.newpass == req.body.confirmpass) {
       req.session.newpass = await hashPassword(req.body.newpass);
       req.session.token = Math.floor(Math.random() * 100000 + 10000);
@@ -123,10 +123,10 @@ router.route('/verify')
 
 // Account Login
 router.route('/login')
-  .get((req, res) => {
+  .get(checkNotLoggedInRedirect, (req, res) => {
     res.render('account/login')
   })
-  .post(async (req, res) => {
+  .post(checkNotLoggedInRedirect, async (req, res) => {
     try {
       const dbPass = await db.sql("global/get_user_info", {
         typeValue: req.body.email,
@@ -162,9 +162,9 @@ router.route('/login')
   })
 
 // Admin Panel
-router.get('/admin', async (req, res) => {
+router.get('/admin', checkAdminAccess, async (req, res) => {
   try {
-    
+
 
     const pending_accounts = await db.sql('global/get_all', {
       table: 'accounts_pending'
@@ -185,9 +185,9 @@ router.get('/admin', async (req, res) => {
 })
 
 // Approve Account
-router.get("/admin/approve/account/all", async (req, res) => {
+router.get("/admin/approve/account/all", checkAdminAccess, async (req, res) => {
   try {
-    
+
 
     const approveAll = await db.sql("account/approve_all")
     const deleteAll = await db.sql("global/delete_all", { table: "accounts_pending" })
@@ -199,9 +199,9 @@ router.get("/admin/approve/account/all", async (req, res) => {
   }
 })
 
-router.get("/admin/approve/account/:id", async (req, res) => {
+router.get("/admin/approve/account/:id", checkAdminAccess, async (req, res) => {
   try {
-    
+
 
     let userId = req.params.id
 
@@ -234,9 +234,9 @@ router.get("/admin/approve/account/:id", async (req, res) => {
 })
 
 // Decline Account
-router.get("/admin/decline/account/all", async (req, res) => {
+router.get("/admin/decline/account/all", checkAdminAccess, async (req, res) => {
   try {
-    
+
     const deleteAll = await db.sql("global/delete_all", { table: "accounts_pending" })
 
     res.redirect("/account/admin")
@@ -246,9 +246,9 @@ router.get("/admin/decline/account/all", async (req, res) => {
   }
 })
 
-router.get("/admin/decline/account/:id", async (req, res) => {
+router.get("/admin/decline/account/:id", checkAdminAccess, async (req, res) => {
   try {
-    
+
 
     let userId = req.params.id
 
@@ -265,9 +265,9 @@ router.get("/admin/decline/account/:id", async (req, res) => {
 })
 
 // Approve project
-router.get("/admin/approve/project/all", async (req, res) => {
+router.get("/admin/approve/project/all", checkAdminAccess, async (req, res) => {
   try {
-    
+
 
     const approveAll = await db.sql("project/approve_all");
     const deleteAll = await db.sql("global/delete_all", { table: "projects_pending" });
@@ -279,11 +279,11 @@ router.get("/admin/approve/project/all", async (req, res) => {
   }
 });
 
-router.get("/admin/approve/project/:id", async (req, res) => {
+router.get("/admin/approve/project/:id", checkAdminAccess, async (req, res) => {
   try {
     const projectId = req.params.id;
 
-    
+
 
     const getProject = await db.sql("global/get_user_info", {
       table: "projects_pending",
@@ -302,9 +302,9 @@ router.get("/admin/approve/project/:id", async (req, res) => {
 });
 
 // Decline project
-router.get("/admin/decline/project/all", async (req, res) => {
+router.get("/admin/decline/project/all", checkAdminAccess, async (req, res) => {
   try {
-    
+
 
     const deleteAll = await db.sql("global/delete_all", { table: "projects_pending" });
 
@@ -315,7 +315,7 @@ router.get("/admin/decline/project/all", async (req, res) => {
   }
 });
 
-router.get("/admin/decline/project/:id", async (req, res) => {
+router.get("/admin/decline/project/:id", checkAdminAccess, async (req, res) => {
   try {
     let projectId = req.params.id;
 
@@ -352,11 +352,10 @@ async function comparePasswords(password, hashedPassword) {
 }
 
 // Middleware to check if the current user is an admin
-function checkAdmin(req, res, next) {
+function checkAdminAccess(req, res, next) {
   // Query the database or perform any necessary checks to determine if the user is an admin
-  const isAdmin = req.session.isAdmin; /* Logic to check if the user is an admin based on userId */
 
-  if (!isAdmin) {
+  if (!req.session.isAdmin) {
     // Redirect the user to a specific route if they are not an admin
     return res.redirect('/account'); // Replace '/unauthorized' with the appropriate route
   }
@@ -365,17 +364,29 @@ function checkAdmin(req, res, next) {
   next();
 }
 
-
-function checkLogged(req, res, next) {
+//This function checks if the user is logged in, if thats not the case go to login page
+function checkLoggedIn(req, res, next) { 
   // Check if the email session is set and not null
   if (!req.session.email) {
     // Redirect the user to a specific route if they are not logged in
     res.redirect('account/login');
-  } else {
-    next(); // Move to the next middleware/route handler
   }
+
+  next(); // If the user is logged in,Move to the next middleware/route handler
+
 }
 
+//This function checks if the user is logged out, if they are logged in go to account page
+function checkNotLoggedInRedirect(req, res, next) {
+  // Check if the email session is set
+  if (req.session.email) {
+    // Redirect the user to a specific route if they are logged in
+    res.redirect('/account');
+  }
+
+  next(); // If the user is not logged in, Move to the next middleware/route handler
+
+}
 
 
 module.exports = router

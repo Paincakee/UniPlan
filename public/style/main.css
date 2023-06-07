@@ -273,7 +273,7 @@
   /* Add padding to the left to accommodate the navbar */
 }
 #admin-body .content-container {
-  margin-top: 5px;
+  margin: 5px 0 0 -1px;
 }
 #admin-body #sidebarMenu {
   border-right: 1px solid #e4e4e4;
@@ -373,30 +373,6 @@
 }
 #admin-body .decline-button:hover {
   filter: brightness(85%);
-}
-#admin-body .navbar {
-  background-color: #6cb0b2;
-  padding: 10px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 999;
-}
-#admin-body .navbar-left img,
-#admin-body .navbar-right img {
-  width: 30px;
-  height: 30px;
-}
-#admin-body .navbar-right img {
-  margin-left: 10px;
-}
-
-.tabs {
-  margin-top: 70px;
 }
 
 #projectcreatebody {
