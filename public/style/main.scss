@@ -3,8 +3,81 @@
 @use "include/admin";
 @use "include/createProject";
 @use "include/projectPage";
-@use "include/project.scss";
+@use "include/project";
+@use "include/accountManager";
+
 // SCSS code
-textarea:focus, input:focus{
-    outline: none;
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+body {
+  margin: 0;
+  padding-left: 200px;
+  /* Add padding to the left to accommodate the navbar */
+  // background-color: rgb(247, 247, 247);
+
+  #sidebarMenu {
+    border-right: 1px solid #e4e4e4;
+    background-color: rgb(221, 235, 247);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 200px;
+    z-index: 999;
+    /* Set a higher z-index to keep the navbar above other content */
+    font-size: 20px;
+    .svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      fill: rgb(0, 0, 0);
+    }
+    .nav-info {
+      background-color: #bcdbdc;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      .wrapper {
+        width: 90%;
+        .svg {
+          margin-bottom: 9px;
+        }
+      }
+    }
+    .nav-items {
+      background-color: white;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      a {
+        width: 90%;
+        height: 60px;
+        margin: 10px 0px 0 0;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        border-bottom: 1px solid #e4e4e4;
+        padding: 15px;
+      }
+      a.active {
+        background-color: #f1f1f1;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      span {
+        vertical-align: bottom;
+        display: inline-block;
+        margin-top: 6px;
+        color: rgb(146, 145, 145);
+      }
+    }
   }
+}
