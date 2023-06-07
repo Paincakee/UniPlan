@@ -350,17 +350,6 @@
   border: 1px solid #ccc;
 }
 
-#createprojectheader {
-  height: 50px;
-  width: 100%;
-  background-color: #6cb0b2;
-  position: absolute;
-  top: 0px;
-  text-align: center;
-  color: #fff;
-  font-size: x-large;
-}
-
 #fotoInput {
   width: 40vh;
   background-color: #6cb0b2;
@@ -398,29 +387,10 @@
   background-color: #6cb0b2;
 }
 
-#createprojectfooter {
-  height: 50px;
-  width: 100%;
-  background-color: #6cb0b2;
-  position: absolute;
-  bottom: 0px;
-  color: #fff;
-  font-size: x-large;
-  height: 50px;
-  display: flex;
-  flex-direction: row;
-}
-
-.footernav {
-  align-self: center;
-  margin-right: 40px;
-  filter: opacity(90%);
-}
-
 .orbs {
   position: absolute;
   top: 0px;
-  left: 0px;
+  left: 195px;
 }
 
 #orb1 {
@@ -681,7 +651,7 @@ input:focus {
   fill: rgb(0, 0, 0);
 }
 .navbar-page #sidebarMenu .nav-info {
-  background-color: #bcdbdc;
+  background-color: #a5d4d4;
   padding: 15px;
   display: flex;
   justify-content: center;
