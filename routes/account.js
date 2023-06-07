@@ -5,9 +5,43 @@ const bcrypt = require('bcrypt')
 const saltRounds = 10 // Time for hashing algorithm
 
 const validator = require('validator');
+const { info } = require('sass');
 
-router.get('/', (req, res) => {   
-  res.send("Bozo")
+router.route('/')
+.get((req, res) => {   
+  res.render('account/manage')
+})
+.post(async (req, res) => {
+  if(req.body.newpass == req.body.confirmpass){
+    req.session.newpass = await hashPassword(req.body.newpass);
+    req.session.token = Math.floor(Math.random() * 100000 + 10000);
+    let info = await global.sender.sendMail({
+      from: '"pixeltrading" pixeltrading@outlook.com', // sender address
+      to: email, // receiver
+      subject: "UniPlan password reset", // Subject line
+      // text: "Click the link to verify.", // plain text body
+      html: `<h5>Your verification code is: ${req.session.token}</h5>` // html body
+    })
+    res.render('account/verification', {firstName: req.session.firstName, password: true});
+  }else{
+    res.render('account/manage', {error: 'New password and confirmed password are not the same! Please try again', wrongpass: true})
+  }
+})
+
+router.post('/setpass', async (req,res) => {
+  if(parseInt(req.body.tokenInput) == req.session.token){
+    await db.sql('global/set_user_info', {
+      table: 'accounts',
+      collumn: 'password',
+      input: req.session.newpass,
+      type: 'email',
+      typeValue: req.session.email
+    })
+    console.log("Message sent: %s", info.messageId);
+    res.render('acount/login')
+  }else{
+    res.render('account/verification', {error: 'wrong token', password: true})
+  }
 })
 
 // Account Registration
@@ -38,18 +72,14 @@ router.route('/new')
 
       req.session.token = Math.floor(Math.random() * 100000 + 10000)
 
-      async function mailSend(){
-        // send mail with defined transport object
-        let info = await global.sender.sendMail({
-          from: '"pixeltrading" pixeltrading@outlook.com', // sender address
-          to: email, // receiver
-          subject: "UniPlan account verification", // Subject line
-          // text: "Click the link to verify.", // plain text body
-          html: `<h5>Your verification code is: ${req.session.token}</h5>` // html body
-        });
-        console.log("Message sent: %s", info.messageId);
-      }
-      mailSend();
+      let info = await global.sender.sendMail({
+        from: '"pixeltrading" pixeltrading@outlook.com', // sender address
+        to: email, // receiver
+        subject: "UniPlan account verification", // Subject line
+        // text: "Click the link to verify.", // plain text body
+        html: `<h5>Your verification code is: ${req.session.token}</h5>` // html body
+      })
+      console.log("Message sent: %s", info.messageId);
       //Declare session variables
       req.session.firstName = validator.escape(req.body.firstName);
       req.session.lastName = validator.escape(req.body.lastName);
@@ -307,10 +337,17 @@ router.get("/admin/decline/project/:id", async (req, res) => {
 
 // Hashes the provided password
 async function hashPassword(password) {
-  const salt = await bcrypt.genSalt(saltRounds)
-  const hash = await bcrypt.hash(password, salt)
-  return hash
+  try {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
+  } catch (error) {
+    // Handle the error appropriately (e.g., logging, error response)
+    console.error('Error hashing password:', error);
+    throw new Error('Failed to hash password');
+  }
 }
+
 
 // Compares the provided password with the hashed password
 async function comparePasswords(password, hashedPassword) {
