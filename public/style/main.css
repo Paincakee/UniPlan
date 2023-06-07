@@ -677,6 +677,7 @@ input:focus {
   width: 20px;
   height: 20px;
   margin-right: 10px;
+  margin-top: 3px;
   fill: rgb(0, 0, 0);
 }
 .navbar-page #sidebarMenu .nav-info {
@@ -690,7 +691,7 @@ input:focus {
   width: 90%;
 }
 .navbar-page #sidebarMenu .nav-info .wrapper .svg {
-  margin-bottom: 9px;
+  margin-top: -10px !important;
 }
 .navbar-page #sidebarMenu .nav-items {
   background-color: white;

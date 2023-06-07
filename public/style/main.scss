@@ -35,6 +35,7 @@ input:focus {
       width: 20px;
       height: 20px;
       margin-right: 10px;
+      margin-top: 3px;
       fill: rgb(0, 0, 0);
     }
     .nav-info {
@@ -46,7 +47,7 @@ input:focus {
       .wrapper {
         width: 90%;
         .svg {
-          margin-bottom: 9px;
+          margin-top: -10px !important;
         }
       }
     }
