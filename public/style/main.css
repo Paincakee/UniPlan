@@ -677,7 +677,7 @@ input:focus {
 .navbar-page #sidebarMenu .nav-items .nav-link {
   width: 90%;
   height: 60px;
-  margin: 10px 0px 0 0;
+  margin: 10px 0px 5px 0px;
   text-align: left;
   display: flex;
   align-items: center;
@@ -708,6 +708,10 @@ input:focus {
   max-height: 0;
   transition: max-height 0.3s ease-in-out;
 }
+.navbar-page #sidebarMenu .nav-items .submenus .active {
+  background-color: #f1f1f1;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+}
 .navbar-page #sidebarMenu .nav-items .show {
   transform-origin: top center;
   max-height: 500px; /* Adjust the max-height value to fit your content */
@@ -725,7 +729,7 @@ input:focus {
   text-decoration: none;
   color: #333;
   border-bottom: 1px solid #e4e4e4;
-  width: 70%;
+  width: 80%;
   display: flex;
   align-items: center;
 }

@@ -65,7 +65,7 @@ input:focus {
       .nav-link {
         width: 90%;
         height: 60px;
-        margin: 10px 0px 0 0;
+        margin: 10px 0px 5px 0px;
         text-align: left;
         display: flex;
         align-items: center;
@@ -74,7 +74,7 @@ input:focus {
         padding: 15px;
         position: relative;
         z-index: 1;
-        &:hover{
+        &:hover {
           background-color: #fafafa;
         }
       }
@@ -98,7 +98,11 @@ input:focus {
         overflow: hidden;
         max-height: 0;
         transition: max-height 0.3s ease-in-out;
-        
+
+        .active {
+          background-color: #f1f1f1;
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+        }
       }
       .show {
         transform-origin: top center;
@@ -119,15 +123,14 @@ input:focus {
         text-decoration: none;
         color: #333;
         border-bottom: 1px solid #e4e4e4;
-        width: 70%;
+        width: 80%;
         display: flex;
         align-items: center;
-        
-        &:hover{
+
+        &:hover {
           background-color: #fafafa;
         }
       }
-      
     }
   }
 }
@@ -136,43 +139,43 @@ input:focus {
   0% {
     transform: scaleY(0);
   }
-  
+
   10% {
     transform: scaleY(0.1);
   }
-  
+
   20% {
     transform: scaleY(0.2);
   }
-  
+
   30% {
     transform: scaleY(0.3);
   }
-  
+
   40% {
     transform: scaleY(0.4);
   }
-  
+
   50% {
     transform: scaleY(0.5);
   }
-  
+
   60% {
     transform: scaleY(0.6);
   }
-  
+
   70% {
     transform: scaleY(0.7);
   }
-  
+
   80% {
     transform: scaleY(0.8);
   }
-  
+
   90% {
     transform: scaleY(0.9);
   }
-  
+
   100% {
     transform: scaleY(1);
   }
