@@ -120,6 +120,7 @@ app.get('/:id', checkLoggedIn, async (req, res) => {
       typeValue: `${id}`
     });
 
+    
     let courseList = JSON.parse(resultProject.data[0].courses);
     if (courseList.constructor !== Array) {
       courseList = [courseList];

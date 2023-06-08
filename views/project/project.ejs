@@ -5,19 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=result.title%></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link href="/style/main.css" rel="stylesheet" type="text/css">
-    <title>Chat Proof of Concept</title>
 </head>
 
-<body scroll="no" style="overflow: hidden" id="test-body">
-    <nav class="navbar">
-        <div class="navbar-left">
-            <img src="/style/images/placeholder.jpg" alt="Profile Button">
-        </div>
-        <div class="navbar-right">
-            <img src="/style/images/placeholder.jpg" alt="Menu Button">
-        </div>
-    </nav>
+<body scroll="no" style="overflow: hidden" id="test-body" class="navbar-page">
+  <div id="navbar-container"></div>
     <div class="container">
         <div class="description-images-container">
           <div class="description-box">
@@ -65,3 +59,4 @@
         <script src="/script/chat/chat.js"></script>
 </body>
 </html>
+<script src="/script/navbar.js"></script>
