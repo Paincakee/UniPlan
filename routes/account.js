@@ -254,7 +254,7 @@ router.get("/admin/decline/account/:id", checkAdminAccess, async (req, res) => {
 
     let userId = req.params.id
 
-    const deleteOld = await db.sql("account/deleteAccount", {
+    const deleteOld = await db.sql("global/delete_row", {
       table: "accounts_pending",
       id: userId,
     })
