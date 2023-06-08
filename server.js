@@ -29,7 +29,7 @@ app.use(express.json());
 app.use('/csv', require('./routes/csv.js'));
 app.use('/account', require('./routes/account'));
 app.use('/project', require('./routes/project.js'));
-app.use('/chat', require('./routes/chat.js'));
+
 
 app.get('/api/db', (req, res) => {
   res.json({ db });
@@ -41,7 +41,7 @@ let transporter = nodemailer.createTransport({
   secure: false, // true for 465, false for other ports
   auth: {
     user: 'pixeltrading@outlook.com',
-    pass: 'YEWeyBn3PttehFD'
+    pass: 'YEWeyBn3PttehFDE'
   }
 });
 
@@ -50,9 +50,9 @@ const users = {};
 io.on('connection', (socket) => {
   socket.on('new-user', (data) => {
     socket.join(data.roomId); // Join the specific room
-    users[socket.id] = data.user;
-    io.to(data.roomId).emit('user-connected', { user: data.user, roomId: data.roomId });
-    console.log(`user: ${data.user}, room: ${data.roomId}`);
+    users[socket.id] = data.fullName;
+    io.to(data.roomId).emit('user-connected', {fullName: data.fullName, user: data.user, roomId: data.roomId });
+    console.log(`user: ${data.user}(${data.fullName}), room: ${data.roomId}`);
   });
   
   socket.on('send-chat-message', (data) => {

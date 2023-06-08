@@ -9,11 +9,15 @@ const chatTime = document.getElementById('chat-time');
 
 // User email
 const user = email;
+//full name
+const firstname = fname;
+const lastname = lname;
+const fullName = firstname + "." +  lastname.charAt(0)
 // Room id
 const roomId = id;
 
 // Emit 'new-user' event with user email
-socket.emit('new-user', { user: user, roomId: roomId });
+socket.emit('new-user', { fullName: fullName, user: user, roomId: roomId });
 
 // Listen for 'chat-message' event
 socket.on('chat-message', data => {
@@ -22,7 +26,7 @@ socket.on('chat-message', data => {
 
 //Listen for 'user-connected' event
 socket.on('user-connected', data => {
-    appendChatMessage(data.user, "joined"); // Received message is a joined message
+    appendChatMessage(data.fullName, "joined"); // Received message is a joined message
 });
 
 // Submit form event listener
@@ -30,17 +34,20 @@ chatForm.addEventListener('submit', async e => {
     e.preventDefault();
     const chat = chatInput.value.trim();
     if (chat !== "") {
+        if (containsEmoji(chat)) {
+            displayWarning("Emojis are not allowed. Please remove the emoji and try again.");
+            return;
+        }
         if (chat.length > 60) {
             displayWarning("Message has too many characters. Please retype.");
             return;
         }
-        appendChatMessage(user, chat, true); // Your message is marked as your own
+        appendChatMessage(fullName, chat, true); // Your message is marked as your own
         socket.emit('send-chat-message', { message: chat, roomId: roomId });
         chatInput.value = '';
         await sendMessageToServer(getCurrentTime(), chat, user, roomId);
     }
 });
-
 // Function to display warning message
 function displayWarning(message) {
     // Remove previous warning message
@@ -54,6 +61,12 @@ function displayWarning(message) {
     warningElement.classList.add('warning-message');
     warningElement.style.color = 'red'; // Set the text color to red
     chatContainer.append(warningElement);
+}
+
+// Function to check if string contains an emoji
+function containsEmoji(text) {
+    const emojiPattern = /[\u{1F600}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F900}-\u{1F9FF}\u{1F1E6}-\u{1F1FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}]/gu;
+    return emojiPattern.test(text);
 }
 
 
@@ -98,7 +111,8 @@ async function sendMessageToServer(time, chat, user) {
                 time,
                 chat,
                 user,
-                roomId
+                roomId,
+                fullName
             })
         });
         const data = await response.json();

@@ -1,5 +1,9 @@
+
 #admin-body {
-  font-family: "Arial", sans-serif;
+
+  .content-container{
+    margin: 5px 0 0 -1px;
+  }
 
   table {
     margin-top: 50px;
@@ -25,16 +29,14 @@
     color: #000;
   }
 
-  .approve-button:hover,
-  .decline-button:hover {
-    filter: brightness(85%);
-  }
-
   .approve-button {
     background-color: green;
     color: white;
     padding: 5px;
     border-radius: 3px;
+    &:hover{
+      filter: brightness(85%);
+    }
   }
 
   .decline-button {
@@ -42,28 +44,8 @@
     color: white;
     padding: 5px;
     border-radius: 3px;
-  }
-
-  .navbar {
-    background-color: #6cb0b2;
-    padding: 10px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 999;
-  }
-
-  .navbar-left img,
-  .navbar-right img {
-    width: 30px;
-    height: 30px;
-  }
-
-  .navbar-right img {
-    margin-left: 10px;
+    &:hover{
+      filter: brightness(85%);
+    }
   }
 }

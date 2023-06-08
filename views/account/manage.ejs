@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="/style/main.css" rel="stylesheet" type="text/css">
+</head>
+<body class="navbar-page">
+    <div id="navbar-container"></div>
+    <button <%if(locals.wrongpass && wrongpass){%>hidden<%}%> id="showpassform" onclick="passwordform()">Change Password</button>
+    <form <%if(locals.wrongpass && wrongpass){}else{%>hidden<%}%> id="passform" method="post">
+        <input name="newpass" type="password" placeholder="New Password"><br>
+        <input name="confirmpass" type="password" placeholder="Confirm Password"><br>
+        <button type="submit">Submit</button>
+        <%if(locals.error){%>
+            <label><%=error%></label>
+        <%}%>
+    </form>
+</body>
+</html>
+<script src="/script/navbar.js"></script>
+<script>
+    function passwordform(){
+        document.getElementById("showpassform").style.display = 'none';
+        document.getElementById("passform").style.display = 'block';
+    }
+</script>
