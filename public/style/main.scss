@@ -3,8 +3,180 @@
 @use "include/admin";
 @use "include/createProject";
 @use "include/projectPage";
+@use "include/project";
+@use "include/accountManager";
 @use "include/verify";
 // SCSS code
-textarea:focus, input:focus{
-    outline: none;
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+.navbar-page {
+  margin: 0;
+  padding-left: 200px;
+  /* Add padding to the left to accommodate the navbar */
+  // background-color: rgb(247, 247, 247);
+
+  #sidebarMenu {
+    border-right: 1px solid #e4e4e4;
+    background-color: rgb(221, 235, 247);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 200px;
+    z-index: 999;
+    /* Set a higher z-index to keep the navbar above other content */
+    font-size: 20px;
+    .svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      margin-top: 3px;
+      fill: rgb(0, 0, 0);
+    }
+    .svg-arrow {
+      width: 20px;
+      height: 20px;
+    }
+    .nav-info {
+      background-color: #a5d4d4;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      .wrapper {
+        width: 90%;
+        .svg {
+          margin-top: -10px !important;
+        }
+      }
+    }
+    .nav-items {
+      background-color: white;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .nav-link {
+        width: 90%;
+        height: 60px;
+        margin: 10px 0px 5px 0px;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        border-bottom: 1px solid #e4e4e4;
+        padding: 15px;
+        position: relative;
+        z-index: 1;
+        &:hover {
+          background-color: #fafafa;
+        }
+      }
+      .nav-link.active {
+        background-color: #f1f1f1;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      span {
+        vertical-align: bottom;
+        display: inline-block;
+        margin-top: 6px;
+        color: rgb(146, 145, 145);
+      }
+      .submenus {
+        // margin-left: 25px;
+        padding-left: 10px;
+        width: 100%;
+        transform-origin: top center;
+        // display: none;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.3s ease-in-out;
+
+        .active {
+          background-color: #f1f1f1;
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+      }
+      .show {
+        transform-origin: top center;
+        max-height: 500px; /* Adjust the max-height value to fit your content */
+        transition: max-height 0.3s ease-in-out;
+      }
+
+      .svg-wrapper-arrow {
+        position: absolute;
+        top: 12px;
+        left: 135px;
+        padding: 5px 10px 10px 10px;
+      }
+
+      .submenus a {
+        display: block;
+        padding: 5px;
+        text-decoration: none;
+        color: #333;
+        border-bottom: 1px solid #e4e4e4;
+        width: 80%;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+          background-color: #fafafa;
+        }
+      }
+    }
   }
+}
+
+@keyframes growDown {
+  0% {
+    transform: scaleY(0);
+  }
+
+  10% {
+    transform: scaleY(0.1);
+  }
+
+  20% {
+    transform: scaleY(0.2);
+  }
+
+  30% {
+    transform: scaleY(0.3);
+  }
+
+  40% {
+    transform: scaleY(0.4);
+  }
+
+  50% {
+    transform: scaleY(0.5);
+  }
+
+  60% {
+    transform: scaleY(0.6);
+  }
+
+  70% {
+    transform: scaleY(0.7);
+  }
+
+  80% {
+    transform: scaleY(0.8);
+  }
+
+  90% {
+    transform: scaleY(0.9);
+  }
+
+  100% {
+    transform: scaleY(1);
+  }
+}

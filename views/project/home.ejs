@@ -5,9 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="/style/main.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-    <div id="container">
+<body class="project-home-body navbar-page">
+    <div id="navbar-container"></div>
+    <div class="content-container">
         <% resultProject.data.forEach((row) => { %>
             <div id="<%= row.id %>" class="item" onclick="handleClick('<%= row.id %>')">
                 <li>Title: <%= row.title %></li>
@@ -17,6 +20,7 @@
             <br>
           <% }) %>
     </div>
+    <script src="/script/navbar.js"></script>
 </body>
 </html>
 
@@ -25,6 +29,9 @@
         //handle click
         console.log(id);
         link = window.location.href
+        if(link.charAt(link.length -1) === '/'){
+            link = link.slice(0, -1);
+        }
         window.location.href = link + "/" + id;
     }
 </script>

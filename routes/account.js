@@ -6,8 +6,43 @@ const saltRounds = 10 // Time for hashing algorithm
 
 const validator = require('validator');
 
-router.get('/', (req, res) => {   
-  res.send("Bozo")
+router.route('/')
+  .get(checkLoggedIn, (req, res) => {
+    res.render('account/manage')
+  })
+  .post(checkLoggedIn, async (req, res) => {
+    if (req.body.newpass == req.body.confirmpass) {
+      req.session.newpass = await hashPassword(req.body.newpass);
+      req.session.token = Math.floor(Math.random() * 100000 + 10000);
+      let info = await global.sender.sendMail({
+        from: '"pixeltrading" pixeltrading@outlook.com', // sender address
+        to: email, // receiver
+        subject: "UniPlan password reset", // Subject line
+        // text: "Click the link to verify.", // plain text body
+        html: `<h5>Your verification code is: ${req.session.token}</h5>` // html body
+      })
+      res.render('account/verification', { firstName: req.session.firstName, password: true });
+    } else {
+      res.render('account/manage', { error: 'New password and confirmed password are not the same! Please try again', wrongpass: true })
+    }
+  })
+router.get('/test', (req, res) => {
+  res.render('test')
+})
+router.post('/setpass', async (req, res) => {
+  if (parseInt(req.body.tokenInput) == req.session.token) {
+    await db.sql('global/set_user_info', {
+      table: 'accounts',
+      collumn: 'password',
+      input: req.session.newpass,
+      type: 'email',
+      typeValue: req.session.email
+    })
+    console.log("Message sent: %s", info.messageId);
+    res.render('acount/login')
+  } else {
+    res.render('account/verification', { error: 'wrong token', password: true })
+  }
 })
 
 // Account Registration
@@ -38,18 +73,14 @@ router.route('/new')
 
       req.session.token = Math.floor(Math.random() * 100000 + 10000)
 
-      async function mailSend(){
-        // send mail with defined transport object
-        let info = await global.sender.sendMail({
-          from: '"pixeltrading" pixeltrading@outlook.com', // sender address
-          to: email, // receiver
-          subject: "UniPlan account verification", // Subject line
-          // text: "Click the link to verify.", // plain text body
-          html: `<h5>Your verification code is: ${req.session.token}</h5>` // html body
-        });
-        console.log("Message sent: %s", info.messageId);
-      }
-      mailSend();
+      let info = await global.sender.sendMail({
+        from: '"pixeltrading" pixeltrading@outlook.com', // sender address
+        to: email, // receiver
+        subject: "UniPlan account verification", // Subject line
+        // text: "Click the link to verify.", // plain text body
+        html: `<h5>Your verification code is: ${req.session.token}</h5>` // html body
+      })
+      console.log("Message sent: %s", info.messageId);
       //Declare session variables
       req.session.firstName = validator.escape(req.body.firstName);
       req.session.lastName = validator.escape(req.body.lastName);
@@ -58,7 +89,7 @@ router.route('/new')
       req.session.hash = hash;
       req.session.accountType = validator.escape(req.body.accountType);
 
-      res.render('account/verification', {firstName: req.session.firstName});
+      res.render('account/verification', { firstName: req.session.firstName });
     } catch (error) {
       res.render('account/register', {
         firstName: req.body.firstName,
@@ -76,7 +107,7 @@ router.route('/verify')
   .post(async (req, res) => {
     console.log(req.body.tokenInput);
     console.log(req.session.token);
-    if(parseInt(req.body.tokenInput) == req.session.token){
+    if (parseInt(req.body.tokenInput) == req.session.token) {
       await db.sql('account/createAccount', {
         firstName: validator.escape(req.session.firstName),
         lastName: validator.escape(req.session.lastName),
@@ -87,17 +118,17 @@ router.route('/verify')
         table: 'accounts_pending',
       })
       res.redirect('/account/login')
-    }else{
-      res.render('account/verification', {firstName: req.session.firstname, error: 'Invalid input! Try again.'})
+    } else {
+      res.render('account/verification', { firstName: req.session.firstname, error: 'Invalid input! Try again.' })
     }
   })
 
 // Account Login
 router.route('/login')
-  .get((req, res) => {
+  .get(checkNotLoggedInRedirect, (req, res) => {
     res.render('account/login')
   })
-  .post(async (req, res) => {
+  .post(checkNotLoggedInRedirect, async (req, res) => {
     try {
       const dbPass = await db.sql("global/get_user_info", {
         typeValue: req.body.email,
@@ -133,18 +164,9 @@ router.route('/login')
   })
 
 // Admin Panel
-router.get('/admin', async (req, res) => {
+router.get('/admin', checkAdminAccess, async (req, res) => {
   try {
-    let email = req.session.email
-    const adminCheck = await db.sql('global/get_user_info', {
-      typeValue: email,
-      type: "email",
-      table: "accounts"
-    })
-    // console.log(adminChe ck);
-    if (!adminCheck.data[0].admin) {
-      throw new Error("You are not an admin")
-    }
+
 
     const pending_accounts = await db.sql('global/get_all', {
       table: 'accounts_pending'
@@ -160,24 +182,29 @@ router.get('/admin', async (req, res) => {
   } catch (error) {
     // Redirect to dashboard page
     console.log(error)
-    res.redirect('./login')
+    res.redirect('/')
   }
 })
 
 // Approve Account
-router.get("/admin/approve/account/all", async (req, res) => {
+router.get("/admin/approve/account/all", checkAdminAccess, async (req, res) => {
   try {
+
+
     const approveAll = await db.sql("account/approve_all")
     const deleteAll = await db.sql("global/delete_all", { table: "accounts_pending" })
 
     res.redirect("/account/admin")
   } catch (error) {
     console.log(error);
+    res.redirect("/");
   }
 })
 
-router.get("/admin/approve/account/:id", async (req, res) => {
+router.get("/admin/approve/account/:id", checkAdminAccess, async (req, res) => {
   try {
+
+
     let userId = req.params.id
 
     const getUser = await db.sql("global/get_user_info", {
@@ -203,23 +230,28 @@ router.get("/admin/approve/account/:id", async (req, res) => {
 
     res.redirect("/account/admin")
   } catch (error) {
-    console.log(error)
+    console.log(error);
+    res.redirect("/");
   }
 })
 
 // Decline Account
-router.get("/admin/decline/account/all", async (req, res) => {
+router.get("/admin/decline/account/all", checkAdminAccess, async (req, res) => {
   try {
+
     const deleteAll = await db.sql("global/delete_all", { table: "accounts_pending" })
 
     res.redirect("/account/admin")
   } catch (error) {
     console.log(error);
+    res.redirect("/");
   }
 })
 
-router.get("/admin/decline/account/:id", async (req, res) => {
+router.get("/admin/decline/account/:id", checkAdminAccess, async (req, res) => {
   try {
+
+
     let userId = req.params.id
 
     const deleteOld = await db.sql("account/deleteAccount", {
@@ -229,15 +261,15 @@ router.get("/admin/decline/account/:id", async (req, res) => {
 
     res.redirect("/account/admin")
   } catch (error) {
-
+    console.log(error);
+    res.redirect("/");
   }
 })
 
 // Approve project
-router.get("/admin/approve/project/all", async (req, res) => {
+router.get("/admin/approve/project/all", checkAdminAccess, async (req, res) => {
   try {
-    // Check if user is an admin
-    checkAdmin(req.session.admin);
+
 
     const approveAll = await db.sql("project/approve_all");
     const deleteAll = await db.sql("global/delete_all", { table: "projects_pending" });
@@ -249,12 +281,11 @@ router.get("/admin/approve/project/all", async (req, res) => {
   }
 });
 
-router.get("/admin/approve/project/:id", async (req, res) => {
+router.get("/admin/approve/project/:id", checkAdminAccess, async (req, res) => {
   try {
     const projectId = req.params.id;
 
-    // Check if user is an admin
-    checkAdmin(req.session.admin);
+
 
     const getProject = await db.sql("global/get_user_info", {
       table: "projects_pending",
@@ -273,10 +304,9 @@ router.get("/admin/approve/project/:id", async (req, res) => {
 });
 
 // Decline project
-router.get("/admin/decline/project/all", async (req, res) => {
+router.get("/admin/decline/project/all", checkAdminAccess, async (req, res) => {
   try {
-    // Check if user is an admin
-    checkAdmin(req.session.admin);
+
 
     const deleteAll = await db.sql("global/delete_all", { table: "projects_pending" });
 
@@ -287,12 +317,10 @@ router.get("/admin/decline/project/all", async (req, res) => {
   }
 });
 
-router.get("/admin/decline/project/:id", async (req, res) => {
+router.get("/admin/decline/project/:id", checkAdminAccess, async (req, res) => {
   try {
     let projectId = req.params.id;
 
-    // Check if user is an admin
-    checkAdmin(req.session.admin);
 
     const deleteOld = await db.sql("global/delete_row", { table: "projects_pending", id: projectId });
 
@@ -307,10 +335,17 @@ router.get("/admin/decline/project/:id", async (req, res) => {
 
 // Hashes the provided password
 async function hashPassword(password) {
-  const salt = await bcrypt.genSalt(saltRounds)
-  const hash = await bcrypt.hash(password, salt)
-  return hash
+  try {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
+  } catch (error) {
+    // Handle the error appropriately (e.g., logging, error response)
+    console.error('Error hashing password:', error);
+    throw new Error('Failed to hash password');
+  }
 }
+
 
 // Compares the provided password with the hashed password
 async function comparePasswords(password, hashedPassword) {
@@ -318,17 +353,48 @@ async function comparePasswords(password, hashedPassword) {
   return match
 }
 
-//check if the current user is an admin
-function checkAdmin(admin) {
+// Middleware to check if the current user is an admin
+function checkAdminAccess(req, res, next) {
   // Query the database or perform any necessary checks to determine if the user is an admin
-  const isAdmin = admin; /* Logic to check if the user is an admin based on userId */
 
-  if (!isAdmin) {
+  if (!req.session.admin) {
     // Redirect the user to a specific route if they are not an admin
-    throw new Error('You are not authorized to access this page.');
+    return res.redirect('/account'); // Replace '/unauthorized' with the appropriate route
+  }
+  else {
+    // If the user is an admin, continue to the next middleware or route handler
+    next();
+  }
+
+
+}
+
+//This function checks if the user is logged in, if thats not the case go to login page
+function checkLoggedIn(req, res, next) {
+  // Check if the email session is set and not null
+  if (!req.session.email) {
+    // Redirect the user to a specific route if they are not logged in
+    res.redirect('/account/login');
+  }
+  else {
+    // If the user is logged in,Move to the next middleware/route handler
+    next();
   }
 }
 
+//This function checks if the user is logged out, if they are logged in go to account page
+function checkNotLoggedInRedirect(req, res, next) {
+  // Check if the email session is set
+  if (req.session.email) {
+    // Redirect the user to a specific route if they are logged in
+    res.redirect('/account');
+  }
+  else {
+    // If the user is not logged in, Move to the next middleware/route handler
+    next();
+
+  }
+}
 
 
 module.exports = router
