@@ -1,5 +1,6 @@
 
 #projecthome {
+    display: flex;
     overflow: hidden;
     font-family: 'Garamond';
     src: url('/style/fonts/EBGaramond.ttf') format('truetype');
@@ -12,29 +13,85 @@ h1 {
 }
 
 #projectview {
-    overflow: scroll;
-    width: 75%;
-    height: 800px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
     margin: 0 auto;
-    z-index: 3;
-    background-color: grey;
-}
-.item{
-    border-radius: 15px;
-    height: 8.5%;
+    margin-top: 15vh;
+    overflow: auto; /* Use 'auto' instead of 'scroll' */
+    height: 600px; /* Adjust the height as needed */
+    
+  }
+
+  .item {
+    padding: 10px;
     color: black;
-    opacity: 70%;
+    opacity: 90%;
+    width: 95%;
+    font-size: larger;
+    margin: 0 auto;
+    margin-top: 0px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add box shadow */
+  }
 
-
-}
-.item:nth-of-type(odd) {
-    background-color: #d3caca;
-}
-.item:nth-of-type(even) {
-    background-color: #a7a7a7;
-}
 .item:hover{
-    background-color: #0eb7b9;
+    background-color: #e7e7e7;
+}
+#pannelcreator{
+    flex: 1;
+    text-align: left;
+}
+#panneltitle {
+    flex: 1;
+    text-align: center; 
+  }
+  
+  #pannelcontact {
+    flex: 1;
+    text-align: center;
+  }
+  #pannelprogress{
+    flex: 1;
+    text-align: center;
+  }
+  #panneljoin{
+    flex: 1;
+    text-align: end
+  }
+#headerproject{
+    background-color: #58a9aa;
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    top: 0px;
+    color: #fff;
+    text-align: center;
+    font-size: xx-large;
+}
+#footerproject{
+    position: absolute;
+    bottom: 0px;
+    background-color: #58a9aa;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    font-size: xx-large;
+    color: #fff;
+}
+#side{
+    height: 1080px;
+    width: 10%;
+    background-color: #e7e7e7;
+}
+a{
+    text-decoration: none;
+    color: #000;
 }
 
 
