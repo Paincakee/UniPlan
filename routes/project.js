@@ -174,12 +174,18 @@ app.post('/:id/new', checkLoggedIn, async (req, res) => {
   }
 });
 
+//router to get post for project apply
+app.post('/apply', checkLoggedIn, async (req, res) => {
+  await db.sql('project/apply_project', {
+    // userId: req.session.
+  })
+})
 // Helper Functions
 
 //This function checks if the user is logged in, if thats not the case go to login page
 function checkLoggedIn(req, res, next) {
   // Check if the email session is set and not null
-  if (!req.session.email) {
+  if (!req.session.email || !req.session.loggedIn) {
     // Redirect the user to a specific route if they are not logged in
     res.redirect('/account/login');
   }

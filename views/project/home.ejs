@@ -22,7 +22,7 @@
                 <div id="panneltitle"><%= row.title %></div>
                 <div id="pannelcontact">Contact Info: <%= row.contactInfo %></div>
                 <div id="pannelprogress">Status: in development</div>
-                <div id="panneljoin"><button type="button" class="btn btn-success">Apply</button></div>
+                <div id="panneljoin"><form action="/project/apply" method="post"><button type="submit" class="btn btn-success">Apply</button></form></div>
                 
             </div>
             <% }) %>
