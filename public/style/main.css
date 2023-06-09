@@ -466,6 +466,108 @@
   left: 25px;
 }
 
+#projecthome {
+  display: flex;
+  overflow: hidden;
+  font-family: "Garamond";
+  src: url("/style/fonts/EBGaramond.ttf") format("truetype");
+  font-weight: 500;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 50px;
+}
+
+#projectview {
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 15vh;
+  overflow: auto; /* Use 'auto' instead of 'scroll' */
+  height: 600px; /* Adjust the height as needed */
+}
+
+.item {
+  padding: 10px;
+  color: black;
+  opacity: 90%;
+  width: 95%;
+  font-size: larger;
+  margin: 0 auto;
+  margin-top: 0px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add box shadow */
+}
+
+.item:hover {
+  background-color: #e7e7e7;
+}
+
+#pannelcreator {
+  flex: 1;
+  text-align: left;
+}
+
+#panneltitle {
+  flex: 1;
+  text-align: center;
+}
+
+#pannelcontact {
+  flex: 1;
+  text-align: center;
+}
+
+#pannelprogress {
+  flex: 1;
+  text-align: center;
+}
+
+#panneljoin {
+  flex: 1;
+  text-align: end;
+}
+
+#headerproject {
+  background-color: #58a9aa;
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  top: 0px;
+  color: #fff;
+  text-align: center;
+  font-size: xx-large;
+}
+
+#footerproject {
+  position: absolute;
+  bottom: 0px;
+  background-color: #58a9aa;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  font-size: xx-large;
+  color: #fff;
+}
+
+#side {
+  height: 1080px;
+  width: 10%;
+  background-color: #e7e7e7;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
 #test-body {
   display: flex;
 }
@@ -720,11 +822,13 @@ input:focus {
   z-index: 1;
 }
 .navbar-page #sidebarMenu .nav-items .nav-link:hover {
-  background-color: #fafafa;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
 }
 .navbar-page #sidebarMenu .nav-items .nav-link.active {
-  background-color: #f1f1f1;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.navbar-page #sidebarMenu .nav-items .nav-link.active:hover {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
 }
 .navbar-page #sidebarMenu .nav-items span {
   vertical-align: bottom;
@@ -742,7 +846,6 @@ input:focus {
 }
 .navbar-page #sidebarMenu .nav-items .submenus .active {
   background-color: #f1f1f1;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
 }
 .navbar-page #sidebarMenu .nav-items .show {
   transform-origin: top center;
