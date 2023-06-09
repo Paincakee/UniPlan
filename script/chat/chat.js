@@ -71,6 +71,7 @@ function containsEmoji(text) {
 
 
 // Function to append chat message to the chat container
+// Function to append chat message to the chat container
 function appendChatMessage(user, message, isOwnMessage) {
     const chatElement = document.createElement('div');
 
@@ -79,7 +80,12 @@ function appendChatMessage(user, message, isOwnMessage) {
         if (previousWarning) {
             previousWarning.remove();
         }
-        chatElement.innerText = `${user}: ${message}`;
+
+        const highlightedMessage = getPing(message);
+        if(highlightedMessage !== message){
+            chatElement.classList.add('highlight-chat');
+        }
+        chatElement.innerHTML = `<span class="user">${user}:</span> ${highlightedMessage}`;
         chatElement.classList.add('own-message');
     } else if (message === 'joined') {
         // Remove previous "joined" message from the current user
@@ -92,12 +98,30 @@ function appendChatMessage(user, message, isOwnMessage) {
         chatElement.classList.add('join-message');
         chatElement.setAttribute('data-user', user);
     } else {
-        chatElement.innerText = `${user}: ${message}`;
+        const highlightedMessage = getPing(message);
+
+        chatElement.innerHTML = `<span class="user">${user}:</span> ${highlightedMessage}`;
         chatElement.classList.add('received-message');
+
+        // Check if the message contains a ping
+        if (highlightedMessage !== message) {
+            chatElement.classList.add('highlight-chat');
+        }
     }
 
     chatContainer.append(chatElement);
 }
+
+// Function to get the pinged message
+function getPing(message) {
+    if (message.includes(`@${fullName.toLowerCase()}`)) {
+        const highlightedMessage = message.replace(`@${fullName.toLowerCase()}`, `<span class="highlight">${fullName}</span>`);
+        return highlightedMessage;
+    }
+    return message;
+}
+
+
 
 // Function to send chat message to the server
 async function sendMessageToServer(time, chat, user) {
@@ -133,3 +157,13 @@ function getCurrentTime() {
     const year = currentDate.getFullYear();
     return `${hour}:${minute}:${seconds}, ${day}-${month}-${year}`;
 }
+
+function getPing(message) {
+    if (message.includes(`@${fullName.toLowerCase()}`)) {
+        const highlightedMessage = message.replace(`@${fullName.toLowerCase()}`, `<span class="highlight">${fullName}</span>`);
+        return highlightedMessage;
+    }
+    return message;
+}
+
+

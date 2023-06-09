@@ -790,11 +790,13 @@ input:focus {
   z-index: 1;
 }
 .navbar-page #sidebarMenu .nav-items .nav-link:hover {
-  background-color: #fafafa;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
 }
 .navbar-page #sidebarMenu .nav-items .nav-link.active {
-  background-color: #f1f1f1;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.navbar-page #sidebarMenu .nav-items .nav-link.active:hover {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
 }
 .navbar-page #sidebarMenu .nav-items span {
   vertical-align: bottom;
@@ -812,7 +814,6 @@ input:focus {
 }
 .navbar-page #sidebarMenu .nav-items .submenus .active {
   background-color: #f1f1f1;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
 }
 .navbar-page #sidebarMenu .nav-items .show {
   transform-origin: top center;
