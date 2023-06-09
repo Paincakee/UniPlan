@@ -16,7 +16,7 @@ h1 {
     z-index: 3000;
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 75%;
     margin: 0 auto;
     margin-top: 15vh;
     overflow: auto; /* Use 'auto' instead of 'scroll' */
@@ -28,7 +28,7 @@ h1 {
     padding: 10px;
     color: black;
     opacity: 90%;
-    width: 95%;
+    width: 100%;
     font-size: larger;
     margin: 0 auto;
     margin-top: 0px;
@@ -93,5 +93,6 @@ a{
     text-decoration: none;
     color: #000;
 }
+
 
 
