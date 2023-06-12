@@ -9,10 +9,10 @@ const chatTime = document.getElementById('chat-time');
 
 // User email
 const user = email;
-//full name
+// Full name
 const firstname = fname;
 const lastname = lname;
-const fullName = firstname + "." +  lastname.charAt(0)
+const fullName = firstname + "." + lastname.charAt(0)
 // Room id
 const roomId = id;
 
@@ -24,7 +24,7 @@ socket.on('chat-message', data => {
     appendChatMessage(data.user, data.message, false); // Received message is not your own
 });
 
-//Listen for 'user-connected' event
+// Listen for 'user-connected' event
 socket.on('user-connected', data => {
     appendChatMessage(data.fullName, "joined"); // Received message is a joined message
 });
@@ -46,8 +46,10 @@ chatForm.addEventListener('submit', async e => {
         socket.emit('send-chat-message', { message: chat, roomId: roomId });
         chatInput.value = '';
         await sendMessageToServer(getCurrentTime(), chat, user, roomId);
+        scrollToBottom(); // Scroll to the bottom after sending the message
     }
 });
+
 // Function to display warning message
 function displayWarning(message) {
     // Remove previous warning message
@@ -65,15 +67,14 @@ function displayWarning(message) {
 
 // Function to check if string contains an emoji
 function containsEmoji(text) {
-    const emojiPattern = /[\u{1F600}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F900}-\u{1F9FF}\u{1F1E6}-\u{1F1FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}]/gu;
+    const emojiPattern = /[\u{1F600}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F900}-\u{1F9FF}\u{1F1E6}-\u{1F1FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}]/gu;
     return emojiPattern.test(text);
 }
 
-
-// Function to append chat message to the chat container
 // Function to append chat message to the chat container
 function appendChatMessage(user, message, isOwnMessage) {
     const chatElement = document.createElement('div');
+    chatElement.classList.add('chat-message');
 
     if (isOwnMessage) {
         const previousWarning = chatContainer.querySelector('.warning-message');
@@ -82,7 +83,7 @@ function appendChatMessage(user, message, isOwnMessage) {
         }
 
         const highlightedMessage = getPing(message);
-        if(highlightedMessage !== message){
+        if (highlightedMessage !== message) {
             chatElement.classList.add('highlight-chat');
         }
         chatElement.innerHTML = `<span class="user">${user}:</span> ${highlightedMessage}`;
@@ -109,7 +110,12 @@ function appendChatMessage(user, message, isOwnMessage) {
         }
     }
 
-    chatContainer.append(chatElement);
+    chatContainer.insertBefore(chatElement, chatForm);
+
+    // Scroll to the bottom if the chat container is already scrolled to the bottom
+    if (isChatContainerScrolledToBottom()) {
+        scrollToBottom();
+    }
 }
 
 // Function to get the pinged message
@@ -121,7 +127,15 @@ function getPing(message) {
     return message;
 }
 
+// Function to check if the chat container is scrolled to the bottom
+function isChatContainerScrolledToBottom() {
+    return chatContainer.scrollHeight - chatContainer.scrollTop <= chatContainer.clientHeight;
+}
 
+// Function to scroll the chat container to the bottom
+function scrollToBottom() {
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
 
 // Function to send chat message to the server
 async function sendMessageToServer(time, chat, user) {
@@ -157,13 +171,3 @@ function getCurrentTime() {
     const year = currentDate.getFullYear();
     return `${hour}:${minute}:${seconds}, ${day}-${month}-${year}`;
 }
-
-function getPing(message) {
-    if (message.includes(`@${fullName.toLowerCase()}`)) {
-        const highlightedMessage = message.replace(`@${fullName.toLowerCase()}`, `<span class="highlight">${fullName}</span>`);
-        return highlightedMessage;
-    }
-    return message;
-}
-
-
