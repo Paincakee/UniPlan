@@ -262,31 +262,46 @@
   }
 }
 /* For Min Height 1201px and more */
+#admin-body .allButtons {
+  position: fixed;
+  bottom: 2%;
+  right: 1%;
+  z-index: 9999;
+}
 #admin-body .content-container {
   margin: 5px 0 0 -1px;
 }
 #admin-body table {
+  padding: 10px;
   margin-top: 50px;
-  width: 100%;
-  border-collapse: collapse;
+  width: auto;
   margin-bottom: 20px;
+  margin-left: 5%;
 }
 #admin-body th,
 #admin-body td {
   padding: 5px;
   text-align: left;
-  border-bottom: 1px solid #ccc;
 }
 #admin-body th {
   background-color: #bcdbdc;
   font-weight: bold;
 }
+#admin-body td {
+  background-color: #e0f2f3;
+}
 #admin-body a {
   text-decoration: none;
   color: #000;
 }
+#admin-body th:first-child {
+  border-top-left-radius: 10px;
+}
+#admin-body th:last-child {
+  border-top-right-radius: 10px;
+}
 #admin-body .approve-button {
-  background-color: green;
+  background-color: #5ab395;
   color: white;
   padding: 5px;
   border-radius: 3px;
@@ -295,13 +310,27 @@
   filter: brightness(85%);
 }
 #admin-body .decline-button {
-  background-color: red;
+  background-color: #8bbbbd;
   color: white;
   padding: 5px;
   border-radius: 3px;
 }
 #admin-body .decline-button:hover {
   filter: brightness(85%);
+}
+#admin-body #nav-home-tab {
+  color: #929191;
+}
+#admin-body #nav-profile-tab {
+  color: #929191;
+}
+#admin-body #nav-contact-tab {
+  color: #929191;
+}
+#admin-body #nav-home-tab.active,
+#admin-body #nav-profile-tab.active,
+#admin-body #nav-contact-tab.active {
+  color: #000000; /* Black text color for active tab */
 }
 
 #projectcreatebody {
