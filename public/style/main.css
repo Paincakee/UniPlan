@@ -324,8 +324,8 @@
 
 #createprojectform {
   background-color: white;
-  width: 70vh;
-  height: 50vh;
+  width: 80vh;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -335,15 +335,33 @@
   justify-content: center;
 }
 
+#createprojectform textarea {
+  max-width: 70%;
+  max-height: 20%;
+  height: 8%;
+}
+
+#createprojectform textarea:focus {
+  border-color: #11c9cc;
+  box-shadow: 0 0 5px #6cb0b2;
+}
+
 #createprojectinput {
   margin-top: 10px;
   border: 1px solid #ccc;
   text-align: center;
-  width: 50%;
+  width: 40%;
   align-self: center;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  border-radius: 4px;
+}
+
+#createprojectinput:focus {
+  outline: none;
+  border-color: #11c9cc;
+  box-shadow: 0 0 5px #6cb0b2;
 }
 
 #textareacreateproject {
@@ -436,6 +454,7 @@
   position: absolute;
   bottom: 0px;
   right: 0px;
+  overflow: hidden;
 }
 
 #orb4 {
@@ -445,8 +464,8 @@
   background-color: #6cb0b2;
   z-index: 1;
   position: relative;
-  top: 260px;
-  right: 35px;
+  top: 175px;
+  right: -8px;
 }
 
 #orb5 {
@@ -471,6 +490,19 @@
   left: 25px;
 }
 
+.multiselect-dropdown {
+  height: 5%;
+  width: 40% !important;
+}
+
+.multiselect-dropdown-list {
+  text-align: left;
+}
+
+.multiselect-dropdown span.placeholder {
+  display: none;
+}
+
 #projecthome {
   display: flex;
   overflow: hidden;
@@ -488,7 +520,7 @@ h1 {
   z-index: 3000;
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 75%;
   margin: 0 auto;
   margin-top: 15vh;
   overflow: auto; /* Use 'auto' instead of 'scroll' */
@@ -499,7 +531,7 @@ h1 {
   padding: 10px;
   color: black;
   opacity: 90%;
-  width: 95%;
+  width: 100%;
   font-size: larger;
   margin: 0 auto;
   margin-top: 0px;
