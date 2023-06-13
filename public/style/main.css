@@ -624,6 +624,8 @@ a {
   justify-self: flex-end;
   font-family: "Garamond";
   font-weight: 500;
+  overflow-y: auto; /* Add vertical scrollbar */
+  max-height: 60vh; /* Subtract the height of the chat form */
 }
 #test-body .own-message {
   margin-bottom: 10px;
@@ -649,8 +651,8 @@ a {
   color: #777;
 }
 #test-body #chat-form {
-  position: absolute;
-  bottom: 0;
+  position: sticky;
+  bottom: -10px;
   left: 0;
   width: 100%;
   padding: 10px;
@@ -659,6 +661,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 1; /* Ensure the chat form is on top of the chat container */
 }
 #test-body #chat-input {
   flex-grow: 1;
