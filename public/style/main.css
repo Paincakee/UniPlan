@@ -318,19 +318,24 @@
 #admin-body .decline-button:hover {
   filter: brightness(85%);
 }
-#admin-body #nav-home-tab {
-  color: #929191;
+#admin-body .view-button {
+  background-color: #7aa5ba;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
 }
-#admin-body #nav-profile-tab {
-  color: #929191;
+#admin-body .view-button:hover {
+  filter: brightness(85%);
 }
+#admin-body #nav-home-tab,
+#admin-body #nav-profile-tab,
 #admin-body #nav-contact-tab {
   color: #929191;
 }
 #admin-body #nav-home-tab.active,
 #admin-body #nav-profile-tab.active,
 #admin-body #nav-contact-tab.active {
-  color: #000000; /* Black text color for active tab */
+  color: #000000;
 }
 
 #projectcreatebody {
