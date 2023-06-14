@@ -526,6 +526,7 @@ h1 {
 }
 
 .item {
+  z-index: 3000;
   padding: 10px;
   color: black;
   opacity: 90%;
