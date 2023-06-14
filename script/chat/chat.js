@@ -113,9 +113,7 @@ function appendChatMessage(user, message, isOwnMessage) {
     chatContainer.insertBefore(chatElement, chatForm);
 
     // Scroll to the bottom if the chat container is already scrolled to the bottom
-    if (isChatContainerScrolledToBottom()) {
-        scrollToBottom();
-    }
+    scrollToBottom()
 }
 
 // Function to get the pinged message
@@ -171,3 +169,9 @@ function getCurrentTime() {
     const year = currentDate.getFullYear();
     return `${hour}:${minute}:${seconds}, ${day}-${month}-${year}`;
 }
+
+function scrollToBottom() {
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+scrollToBottom()
