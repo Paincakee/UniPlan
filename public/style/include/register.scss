@@ -33,6 +33,7 @@
     width: 400px;
     margin: 0 auto;
     border-radius: 12px;
+    overflow-y: auto;
 
     .lblregform {
       margin-bottom: 3px;
@@ -157,12 +158,6 @@
 
 /* For Min Height 1201px and more */
 @media only screen and (min-height: 1201px) {
-}
-
-#formregister {
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #ccc #fff;
 }
 
 
