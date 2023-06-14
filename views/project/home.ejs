@@ -22,7 +22,12 @@
                 <div id="panneltitle"><%= row.title %></div>
                 <div id="pannelcontact">Contact Info: <%= row.contactInfo %></div>
                 <div id="pannelprogress">Status: in development</div>
-                <div id="panneljoin"><form action="/project/apply" method="post"><button type="submit" class="btn btn-success">Apply</button></form></div>
+                <div id="panneljoin">
+                    <form action="/project/apply" method="post">
+                        <input type="hidden" name="projectId" value="<%=row.id%>">
+                        <button id="applyForm" type="submit" class="btn btn-success">Apply</button>
+                    </form>
+                </div>
                 
             </div>
             <% }) %>
@@ -43,13 +48,22 @@
 </html>
 
 <script>
+    //handle click
     function handleClick(id) {
-        //handle click
-        console.log(id);
-        link = window.location.href
-        if(link.charAt(link.length -1) === '/'){
+        // Check if the event target is not the submit button
+        // if (event.target.id !== 'applyForm') {
+        let link = window.location.href;
+        if (link.charAt(link.length - 1) === '/') {
             link = link.slice(0, -1);
         }
         window.location.href = link + "/" + id;
+    // }
     }
+
+    // document.getElementById('applyForm').addEventListener('submit', function (event) {
+    //     // Prevent the default form submission behavior
+    //     event.preventDefault();
+    //     // Manually submit the form
+    //     this.submit();
+    // });
 </script>

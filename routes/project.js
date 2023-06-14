@@ -175,10 +175,26 @@ app.post('/:id/new', checkLoggedIn, async (req, res) => {
 });
 
 //router to get post for project apply
-app.post('/apply', checkLoggedIn, async (req, res) => {
-  await db.sql('project/apply_project', {
-    // userId: req.session.
+app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, res) => {
+  const resultAccount = await db.sql('global/get_user_info', {
+    table: 'accounts',
+    type: 'email',
+    typeValue: req.session.email
   })
+
+  const resultProject = await db.sql('global/get_user_info', {
+    table: 'projects',
+    type: 'id',
+    typeValue: req.body.projectId
+  })
+
+  await db.sql('project/apply_project', {
+    userId: JSON.stringify(resultAccount.data[0].id),
+    projectId: req.body.projectId,
+    makerId: resultProject.data[0].userId
+  })
+  console.log(`${req.session.email}: Applied to a project with the id of: ${req.body.projectId}`);
+  res.redirect('/project')
 })
 // Helper Functions
 
