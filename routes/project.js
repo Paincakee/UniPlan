@@ -31,6 +31,24 @@ const validate = (req, res, next) => {
 
 app.get('/', checkLoggedIn, async (req, res) => {
   try {
+
+    const resultApply = await db.sql("global/get_all", {
+      table: "projects_applies"
+    })
+
+    const resultAccount = await db.sql('global/get_user_info', {
+      table: 'accounts',
+      type: 'email',
+      typeValue: req.session.email
+    })
+
+    resultApply.data.forEach(row => {
+      if (resultAccount.data[0].id == row.userId){
+        console.log(`already applied to: ${row.projectId}`);
+      }
+      console.log('row');
+    })
+
     const resultProject = await db.sql("global/get_all", {
       table: "projects",
     });
