@@ -637,6 +637,7 @@ a {
 
 #test-body {
   display: flex;
+  max-height: 95vh;
 }
 #test-body #chat-container {
   margin-top: 45px;
@@ -651,11 +652,10 @@ a {
   align-items: flex-end;
   position: relative;
   border-radius: 10px;
-  justify-self: flex-end;
   font-family: "Garamond";
   font-weight: 500;
   overflow-y: auto; /* Add vertical scrollbar */
-  max-height: 60vh; /* Subtract the height of the chat form */
+  min-height: 88vh;
 }
 #test-body .own-message {
   margin-bottom: 10px;
@@ -714,7 +714,6 @@ a {
 }
 #test-body .info-box {
   width: 33vw;
-  flex-grow: 1;
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #ccc;
@@ -724,7 +723,6 @@ a {
   padding-top: 45px;
   padding-right: 20px;
   display: flex;
-  height: 95vh;
 }
 #test-body .description-images-container {
   display: flex;
