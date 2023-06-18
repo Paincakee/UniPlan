@@ -42,9 +42,11 @@ app.get('/', checkLoggedIn, async (req, res) => {
       typeValue: req.session.email
     })
 
+    let projectList = []
     resultApply.data.forEach(row => {
       if (resultAccount.data[0].id == row.userId){
         console.log(`already applied to: ${row.projectId}`);
+        projectList.push(row.projectId);
       }
       console.log('row');
     })
@@ -53,7 +55,7 @@ app.get('/', checkLoggedIn, async (req, res) => {
       table: "projects",
     });
 
-    res.render('project/home', { resultProject });
+    res.render('project/home', { resultProject , projectList});
   } catch (error) {
     console.log(error);
     res.redirect('/account/login');

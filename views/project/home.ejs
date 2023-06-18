@@ -25,7 +25,11 @@
                 <div id="panneljoin">
                     <form action="/project/apply" method="post">
                         <input type="hidden" name="projectId" value="<%=row.id%>">
-                        <button id="applyForm" type="submit" class="btn btn-success">Apply</button>
+                        <% if(projectList.includes(row.id)){%>
+                            <button id="appliedForm" type="button" class="btn btn-success">Applied</button>
+                        <%}else{%>
+                            <button id="applyForm" type="submit" class="btn btn-success">Apply</button>
+                        <%}%>
                     </form>
                 </div>
                 
