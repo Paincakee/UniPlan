@@ -45,7 +45,6 @@ app.get('/', checkLoggedIn, async (req, res) => {
     let projectList = []
     resultApply.data.forEach(row => {
       if (resultAccount.data[0].id == row.userId){
-        console.log(`already applied to: ${row.projectId}`);
         projectList.push(row.projectId);
       }
       console.log('row');

@@ -16,7 +16,6 @@
     <div id="navbar-container"></div>
     <div class="content-container " id="projectview"> 
         <% resultProject.data.forEach((row) => { %>
-
             <div id="<%= row.id %>" class="item" onclick="handleClick('<%= row.id %>')">
                 <div id="pannelcreator">Creator: </div>
                 <div id="panneltitle"><%= row.title %></div>
@@ -32,7 +31,6 @@
                         <%}%>
                     </form>
                 </div>
-                
             </div>
             <% }) %>
     </div>
@@ -54,20 +52,10 @@
 <script>
     //handle click
     function handleClick(id) {
-        // Check if the event target is not the submit button
-        // if (event.target.id !== 'applyForm') {
         let link = window.location.href;
         if (link.charAt(link.length - 1) === '/') {
             link = link.slice(0, -1);
         }
         window.location.href = link + "/" + id;
-    // }
     }
-
-    // document.getElementById('applyForm').addEventListener('submit', function (event) {
-    //     // Prevent the default form submission behavior
-    //     event.preventDefault();
-    //     // Manually submit the form
-    //     this.submit();
-    // });
 </script>
