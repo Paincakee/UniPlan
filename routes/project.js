@@ -54,7 +54,11 @@ app.get('/', checkLoggedIn, async (req, res) => {
       table: "projects",
     });
 
-    res.render('project/home', { resultProject , projectList});
+    res.render('project/home', { 
+      resultProject, 
+      projectList,
+      admin_: req.session.admin
+    });
   } catch (error) {
     console.log(error);
     res.redirect('/account/login');
@@ -69,7 +73,10 @@ app.route('/new')
         table: "courses",
       });
 
-      res.render('project/create', { resultCourse });
+      res.render('project/create', { 
+        resultCourse,
+        admin_: req.session.admin
+      });
     } catch (error) {
       console.log(error);
       res.redirect('/account/login');
@@ -165,7 +172,8 @@ app.get('/:id', checkLoggedIn, async (req, res) => {
       id,
       makerMail: resultProject.data[0].email,
       firstname: req.session.firstName,
-      lastname: req.session.lastName
+      lastname: req.session.lastName,
+      admin_: req.session.admin
     });
   } catch (error) {
     console.log(error);

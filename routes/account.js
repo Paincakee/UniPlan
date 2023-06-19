@@ -9,7 +9,9 @@ const validator = require('validator');
 
 router.route('/')
   .get(checkLoggedIn, (req, res) => {
-    res.render('account/manage')
+    res.render('account/manage',{
+      admin_: req.session.admin
+    })
   })
   .post(checkLoggedIn, async (req, res) => {
     if (req.body.newpass == req.body.confirmpass) {
@@ -176,7 +178,8 @@ router.get('/admin', checkAdminAccess, async (req, res) => {
     })
     res.render("account/adminPanel", {
       data_accounts: pending_accounts.data,
-      data_projects: pending_projects.data
+      data_projects: pending_projects.data,
+      admin_: req.session.admin
     })
   } catch (error) {
     // Redirect to dashboard page
