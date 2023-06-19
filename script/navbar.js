@@ -1,6 +1,9 @@
 
 const title = document.title;
 function generateNavbar(name) {
+    const href = window.location.pathname;
+    const svgWrapperArrowStyle = href === '/project/new' ? 'height: 45px; margin-top: 8px;' : '';
+
     const navbar = `
     <nav id="sidebarMenu" class="">
         <div class="nav-info">
@@ -28,7 +31,7 @@ function generateNavbar(name) {
                 </svg>
 
                 <span>Account</span>
-                <div class="svg-wrapper-arrow" onclick="toggleSubMenu('accountSubMenu', event)">
+                <div class="svg-wrapper-arrow" style="${svgWrapperArrowStyle}" onclick="toggleSubMenu('accountSubMenu', event)">
                     <svg class="svg-arrow" xmlns="http://www.w3.org/2000/svg" id="" viewBox="0 0 24 24" width="512"
                         height="512">
                         <path
@@ -61,7 +64,7 @@ function generateNavbar(name) {
                 </svg>
                 <span>Project</span>
 
-                <div class="svg-wrapper-arrow" onclick="toggleSubMenu('projectSubMenu', event)">
+                <div class="svg-wrapper-arrow" style="${svgWrapperArrowStyle}" onclick="toggleSubMenu('projectSubMenu', event)">
                     <svg class="svg-arrow" xmlns="http://www.w3.org/2000/svg" id="" viewBox="0 0 24 24" width="512"
                         height="512">
                         <path
