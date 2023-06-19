@@ -147,6 +147,7 @@ router.route('/login')
       }
 
       // Successful login
+      req.session.loggedIn = true // Set session variable
       req.session.email = dbPass.data[0].email // Set session variable
       req.session.admin = dbPass.data[0].admin // Set session variable
       req.session.firstName = dbPass.data[0].firstName // Set session variable
