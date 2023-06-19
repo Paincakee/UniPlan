@@ -215,6 +215,13 @@ app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, 
   console.log(`${req.session.email}: Applied to a project with the id of: ${req.body.projectId}`);
   res.redirect('/project')
 })
+
+app.route('/my')
+.get(checkLoggedIn, async (req, res) => {
+  res.render('project/myprojects');
+})
+
+
 // Helper Functions
 
 //This function checks if the user is logged in, if thats not the case go to login page
