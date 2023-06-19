@@ -186,6 +186,10 @@ router.get('/admin', checkAdminAccess, async (req, res) => {
     res.redirect('/')
   }
 })
+//View Project
+router.get('/admin/view/:id', checkAdminAccess, (req, res) =>{
+
+})
 
 // Approve Account
 router.get("/admin/approve/account/all", checkAdminAccess, async (req, res) => {
