@@ -10,11 +10,9 @@
     <title>Create</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link href="/style/main.css" rel="stylesheet" type="text/css">
-
 </head>
 
 <body id="projectcreatebody" class="navbar-page">
-    <div id="navbar-container"></div>
     <div class="orbs">
         <div id="orb1"></div>
         <div id="orb2"></div>
@@ -25,6 +23,8 @@
         <div id="orb5"></div>
         <div id="orb6"></div>
     </div>
+    <div id="navbar-container"></div>
+    
 
     <form action="/project/new" method="post" enctype="multipart/form-data" id="createprojectform">
         <label>Title </label>
@@ -46,8 +46,7 @@
         </div>
 
         <label>Course(s)</label>
-        <select name="courses" id="courseSelect" multiple multiselect-search="true"
-            multiselect-select-all="true">
+        <select name="courses" id="courseSelect" multiple multiselect-search="true" multiselect-select-all="true">
             <% resultCourse.data.forEach(row=> { %>
                 <option value="<%=row.id%>">
                     <%=row.courseName%>
@@ -59,7 +58,6 @@
             <%= locals.error %>
         </span>
     </form>
-
 </body>
 
 </html>

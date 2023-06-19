@@ -35,7 +35,7 @@ app.get('/', checkLoggedIn, async (req, res) => {
       table: "projects",
     });
 
-    res.render('project/home', { resultProject });
+    res.render('project/project-list', { resultProject });
   } catch (error) {
     console.log(error);
     res.redirect('/account/login');
