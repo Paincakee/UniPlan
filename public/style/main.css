@@ -154,6 +154,7 @@
   width: 400px;
   margin: 0 auto;
   border-radius: 12px;
+  overflow-y: auto;
 }
 #register-body #formregister .lblregform {
   margin-bottom: 3px;
@@ -261,37 +262,46 @@
   }
 }
 /* For Min Height 1201px and more */
-#formregister {
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #ccc #fff;
+#admin-body .allButtons {
+  position: fixed;
+  bottom: 2%;
+  right: 1%;
+  z-index: 9999;
 }
-
 #admin-body .content-container {
   margin: 5px 0 0 -1px;
 }
 #admin-body table {
+  padding: 10px;
   margin-top: 50px;
-  width: 100%;
-  border-collapse: collapse;
+  width: auto;
   margin-bottom: 20px;
+  margin-left: 5%;
 }
 #admin-body th,
 #admin-body td {
   padding: 5px;
   text-align: left;
-  border-bottom: 1px solid #ccc;
 }
 #admin-body th {
   background-color: #bcdbdc;
   font-weight: bold;
 }
+#admin-body td {
+  background-color: #e0f2f3;
+}
 #admin-body a {
   text-decoration: none;
   color: #000;
 }
+#admin-body th:first-child {
+  border-top-left-radius: 10px;
+}
+#admin-body th:last-child {
+  border-top-right-radius: 10px;
+}
 #admin-body .approve-button {
-  background-color: green;
+  background-color: #5ab395;
   color: white;
   padding: 5px;
   border-radius: 3px;
@@ -300,13 +310,32 @@
   filter: brightness(85%);
 }
 #admin-body .decline-button {
-  background-color: red;
+  background-color: #8bbbbd;
   color: white;
   padding: 5px;
   border-radius: 3px;
 }
 #admin-body .decline-button:hover {
   filter: brightness(85%);
+}
+#admin-body .view-button {
+  background-color: #7aa5ba;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+}
+#admin-body .view-button:hover {
+  filter: brightness(85%);
+}
+#admin-body #nav-home-tab,
+#admin-body #nav-profile-tab,
+#admin-body #nav-contact-tab {
+  color: #929191;
+}
+#admin-body #nav-home-tab.active,
+#admin-body #nav-profile-tab.active,
+#admin-body #nav-contact-tab.active {
+  color: #000000;
 }
 
 #projectcreatebody {
@@ -528,6 +557,7 @@ h1 {
 }
 
 .item {
+  z-index: 3000;
   padding: 10px;
   color: black;
   opacity: 90%;
@@ -607,6 +637,7 @@ a {
 
 #test-body {
   display: flex;
+  max-height: 95vh;
 }
 #test-body #chat-container {
   margin-top: 45px;
@@ -621,11 +652,10 @@ a {
   align-items: flex-end;
   position: relative;
   border-radius: 10px;
-  justify-self: flex-end;
   font-family: "Garamond";
   font-weight: 500;
   overflow-y: auto; /* Add vertical scrollbar */
-  max-height: 60vh; /* Subtract the height of the chat form */
+  min-height: 88vh;
 }
 #test-body .own-message {
   margin-bottom: 10px;
@@ -657,7 +687,7 @@ a {
   width: 100%;
   padding: 10px;
   background-color: #f5f5f5;
-  border-top: 1px solid #ccc;
+  border-top: 2px solid #ccc;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -684,7 +714,6 @@ a {
 }
 #test-body .info-box {
   width: 33vw;
-  flex-grow: 1;
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #ccc;
@@ -694,7 +723,6 @@ a {
   padding-top: 45px;
   padding-right: 20px;
   display: flex;
-  height: 95vh;
 }
 #test-body .description-images-container {
   display: flex;
@@ -754,6 +782,43 @@ a {
   background-color: #82afb3;
   border-radius: 16px;
   border: 3px solid #f5f5f5;
+}
+
+#verify-body {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-image: url("images/LoginBackground.jpg");
+  background-size: 100% 105%;
+  background-position: center top;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.verifyForm {
+  border: 2px solid #ccc;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 20px;
+  width: 30%;
+  height: 80%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.token-input {
+  border: 2px solid #ccc;
+  background-color: #cee1e1;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 50px;
 }
 
 textarea:focus,

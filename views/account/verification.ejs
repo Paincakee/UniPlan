@@ -4,16 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="/style/main.css" rel="stylesheet" type="text/css"> -->
     <title>Verify</title>
 </head>
-<body>
-    <form action="/account/<% if(locals.password && password){%>setpass<%}else{%>verify<%}%>" method="post">
-        <label>Hello <%=firstName%>!</label><br>
-        <label>Check your email for a code.</label><br>
-        <input type="text" name="tokenInput" placeholder="token"><br>
+<body id="verify-body">
+    <form class="verifyForm" action="/account/verify" method="post">
+        <label class="top-text">Welcome <%=firstName%>, A verification code has been sent to your email address. Please check your inbox for the email. If you haven't received anything, kindly check your spam or junk folder.</label><br>
+        <div class="input-container">
+        <input type="text" name="tokenInput1" class="token-input">
+        <input type="text" name="tokenInput2" class="token-input">
+        <input type="text" name="tokenInput3" class="token-input">
+        <input type="text" name="tokenInput4" class="token-input">
+        <input type="text" name="tokenInput5" class="token-input"><br>
+        </div>
         <% if (locals.error){%>
             <label><%=error%></label>
         <%}%>
+        <label class="bottom-text">If you're still unable to locate the email, you can click here to resend the verification code.</label><br>
         <button type="submit">Send</button>
     </form>
 </body>

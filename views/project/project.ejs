@@ -48,9 +48,9 @@
   <div id="chat-container">
       <% history.sort((a, b) => new Date(a.time) - new Date(b.time)).forEach(chat => { %>
         <% if (chat.userId === email) { %>
-          <div class="own-message"><%= chat.fullName %>: <%= chat.chat %></div>
+          <div class="own-message chat-message"> <span class="user"><%= chat.fullName %>:</span> <%= chat.chat %></div>
         <% } else { %>
-          <div class="received-message"><%= chat.fullName %>: <%= chat.chat %></div>
+          <div class="received-message chat-message"><span class="user"><%= chat.fullName %>:</span> <%= chat.chat %></div>
         <% } %>
     <% }) %>
     <form id="chat-form" method="post">

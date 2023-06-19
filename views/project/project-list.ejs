@@ -15,14 +15,21 @@
     <div id="navbar-container"></div>
     <div class="content-container " id="projectview"> 
         <% resultProject.data.forEach((row) => { %>
-
             <div id="<%= row.id %>" class="item" onclick="handleClick('<%= row.id %>')">
                 <div id="pannelcreator">Creator: </div>
                 <div id="panneltitle"><%= row.title %></div>
                 <div id="pannelcontact">Contact Info: <%= row.contactInfo %></div>
                 <div id="pannelprogress">Status: in development</div>
-                <div id="panneljoin"><button type="button" class="btn btn-success">Apply</button></div>
-                
+                <div id="panneljoin">
+                    <form action="/project/apply" method="post">
+                        <input type="hidden" name="projectId" value="<%=row.id%>">
+                        <% if(projectList.includes(row.id)){%>
+                            <button id="appliedForm" type="button" class="btn btn-success">Applied</button>
+                        <%}else{%>
+                            <button id="applyForm" type="submit" class="btn btn-success">Apply</button>
+                        <%}%>
+                    </form>
+                </div>
             </div>
             <% }) %>
     </div>
@@ -42,11 +49,10 @@
 </html>
 
 <script>
+    //handle click
     function handleClick(id) {
-        //handle click
-        console.log(id);
-        link = window.location.href
-        if(link.charAt(link.length -1) === '/'){
+        let link = window.location.href;
+        if (link.charAt(link.length - 1) === '/') {
             link = link.slice(0, -1);
         }
         window.location.href = link + "/" + id;

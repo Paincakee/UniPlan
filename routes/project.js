@@ -31,11 +31,30 @@ const validate = (req, res, next) => {
 
 app.get('/', checkLoggedIn, async (req, res) => {
   try {
+
+    const resultApply = await db.sql("global/get_all", {
+      table: "projects_applies"
+    })
+
+    const resultAccount = await db.sql('global/get_user_info', {
+      table: 'accounts',
+      type: 'email',
+      typeValue: req.session.email
+    })
+
+    let projectList = []
+    resultApply.data.forEach(row => {
+      if (resultAccount.data[0].id == row.userId){
+        projectList.push(row.projectId);
+      }
+      console.log('row');
+    })
+
     const resultProject = await db.sql("global/get_all", {
       table: "projects",
     });
 
-    res.render('project/project-list', { resultProject });
+    res.render('project/home', { resultProject , projectList});
   } catch (error) {
     console.log(error);
     res.redirect('/account/login');
@@ -174,12 +193,41 @@ app.post('/:id/new', checkLoggedIn, async (req, res) => {
   }
 });
 
+//router to get post for project apply
+app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, res) => {
+  const resultAccount = await db.sql('global/get_user_info', {
+    table: 'accounts',
+    type: 'email',
+    typeValue: req.session.email
+  })
+
+  const resultProject = await db.sql('global/get_user_info', {
+    table: 'projects',
+    type: 'id',
+    typeValue: req.body.projectId
+  })
+
+  await db.sql('project/apply_project', {
+    userId: JSON.stringify(resultAccount.data[0].id),
+    projectId: req.body.projectId,
+    makerId: resultProject.data[0].userId
+  })
+  console.log(`${req.session.email}: Applied to a project with the id of: ${req.body.projectId}`);
+  res.redirect('/project')
+})
+
+app.route('/my')
+.get(checkLoggedIn, async (req, res) => {
+  res.render('project/myprojects');
+})
+
+
 // Helper Functions
 
 //This function checks if the user is logged in, if thats not the case go to login page
 function checkLoggedIn(req, res, next) {
   // Check if the email session is set and not null
-  if (!req.session.email) {
+  if (!req.session.email || !req.session.loggedIn) {
     // Redirect the user to a specific route if they are not logged in
     res.redirect('/account/login');
   }
