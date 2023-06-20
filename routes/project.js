@@ -47,14 +47,14 @@ app.get('/', checkLoggedIn, async (req, res) => {
       if (resultAccount.data[0].id == row.userId){
         projectList.push(row.projectId);
       }
-      console.log('row');
     })
 
     const resultProject = await db.sql("global/get_all", {
       table: "projects",
     });
 
-    res.render('project/home', { 
+    res.render('project/home', {
+      resultAccount,
       resultProject, 
       projectList,
       admin_: req.session.admin
@@ -107,7 +107,6 @@ app.route('/new')
       });
 
       const lastIndex = resultProject.data.slice(-1);
-      console.log(lastIndex[0].id);
       fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/files`, { recursive: true })
       fs.mkdirSync(`${__dirname}/../resources/upload/${req.session.email}/${lastIndex[0].id}/fotos`, { recursive: true })
 
@@ -127,6 +126,68 @@ app.route('/new')
     }
   }
   );
+
+//router to get post for project apply
+app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, res) => {
+  const resultAccount = await db.sql('global/get_user_info', {
+    table: 'accounts',
+    type: 'email',
+    typeValue: req.session.email
+  })
+
+  const resultProject = await db.sql('global/get_user_info', {
+    table: 'projects',
+    type: 'id',
+    typeValue: req.body.projectId
+  })
+
+  await db.sql('project/apply_project', {
+    userId: JSON.stringify(resultAccount.data[0].id),
+    projectId: req.body.projectId,
+    makerId: resultProject.data[0].userId
+  })
+  console.log(`${req.session.email}: Applied to a project with the id of: ${req.body.projectId}`);
+  res.redirect('/project')
+})
+
+
+//router for managing projects
+app.route('/my')
+  .get(checkLoggedIn, async (req, res) => {
+    const resultAccount = await db.sql('global/get_user_info', {
+      table: 'accounts',
+      type: 'email',
+      typeValue: req.session.email
+    })
+    // const resultApplies = await db.sql('global/get_user_info', {
+    //   table: 'project_applies',
+    //   type: 'makerId',
+    //   typeValue: resultAccount.data[0].id
+    // })
+    const resultProject = await db.sql('global/get_user_info', {
+      table: 'projects',
+      type: 'userId',
+      typeValue: JSON.stringify(resultAccount.data[0].id)
+    })
+    res.render('project/home', {resultProject, manage: true});
+  })
+  .post(checkLoggedIn, async (req, res) => {
+    const resultProject = await db.sql('global/get_user_info', {
+      table: 'projects',
+      type: 'id',
+      typeValue: req.body.projectId
+    })
+    const resultAccount = await db.sql('global/get_user_info', {
+      table: 'accounts',
+      type: 'email',
+      typeValue: req.session.email
+    })
+    if(resultProject.data[0].userId == resultAccount.data[0].id){
+      res.render('project/myprojects');
+    }else{
+      res.redirect('/project/my');
+    }
+  })
 
 //Router for specific project
 app.get('/:id', checkLoggedIn, async (req, res) => {
@@ -201,33 +262,7 @@ app.post('/:id/new', checkLoggedIn, async (req, res) => {
   }
 });
 
-//router to get post for project apply
-app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, res) => {
-  const resultAccount = await db.sql('global/get_user_info', {
-    table: 'accounts',
-    type: 'email',
-    typeValue: req.session.email
-  })
 
-  const resultProject = await db.sql('global/get_user_info', {
-    table: 'projects',
-    type: 'id',
-    typeValue: req.body.projectId
-  })
-
-  await db.sql('project/apply_project', {
-    userId: JSON.stringify(resultAccount.data[0].id),
-    projectId: req.body.projectId,
-    makerId: resultProject.data[0].userId
-  })
-  console.log(`${req.session.email}: Applied to a project with the id of: ${req.body.projectId}`);
-  res.redirect('/project')
-})
-
-app.route('/my')
-.get(checkLoggedIn, async (req, res) => {
-  res.render('project/myprojects');
-})
 
 
 // Helper Functions
