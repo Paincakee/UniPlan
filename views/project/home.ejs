@@ -25,13 +25,15 @@
                     <%if(!locals.manage){%>
                         <form action="/project/apply" method="post">
                             <input type="hidden" name="projectId" value="<%=row.id%>">
-                            <%if(projectList.includes(row.id)){%>
-                                <button id="appliedForm" type="button" class="btn btn-success">Applied</button>
-                            <%}else{%>
-                                <button id="applyForm" type="submit" class="btn btn-success">Apply</button>
+                            <%if(resultAccount.data[0].id != row.userId){%>
+                                <%if(projectList.includes(row.id)){%>
+                                    <button id="appliedForm" type="button" class="btn btn-success">Applied</button>
+                                <%}else{%>
+                                    <button id="applyForm" type="submit" class="btn btn-success">Apply</button>
+                                <%}%>
                             <%}%>
                         </form>
-                    <%}else{%>
+                    <%}if(locals.manage || resultAccount.data[0].id == row.userId){%>
                         <form action="/project/my" method="post">
                             <input type="hidden" name="projectId" value="<%=row.id%>">
                             <button id="manageForm" type="submit" class="btn btn-success">Manage</button>

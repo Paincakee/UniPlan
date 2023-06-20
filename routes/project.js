@@ -53,7 +53,7 @@ app.get('/', checkLoggedIn, async (req, res) => {
       table: "projects",
     });
 
-    res.render('project/home', { resultProject , projectList});
+    res.render('project/home', {resultAccount, resultProject , projectList});
   } catch (error) {
     console.log(error);
     res.redirect('/account/login');
@@ -169,7 +169,16 @@ app.route('/my')
       type: 'id',
       typeValue: req.body.projectId
     })
-    res.render('project/myprojects')
+    const resultAccount = await db.sql('global/get_user_info', {
+      table: 'accounts',
+      type: 'email',
+      typeValue: req.session.email
+    })
+    if(resultProject.data[0].userId == resultAccount.data[0].id){
+      res.render('project/myprojects');
+    }else{
+      res.redirect('/project/my');
+    }
   })
 
 //Router for specific project
