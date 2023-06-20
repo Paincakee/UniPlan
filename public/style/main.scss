@@ -37,7 +37,7 @@ input:focus {
       width: 20px;
       height: 20px;
       margin-right: 10px;
-      margin-top: 3px;
+      margin-top: 6px;
       fill: rgb(0, 0, 0);
     }
     .svg-arrow {
@@ -63,7 +63,18 @@ input:focus {
       display: flex;
       flex-direction: column;
       align-items: center;
-
+      .logout-link{
+        &:hover{
+          background-color: rgba($color: red, $alpha: 0.6);
+          span{
+            color: white;
+          }
+          .svg{
+            fill: white;
+          }
+          
+        }
+      }
       .nav-link {
         width: 90%;
         height: 60px;

@@ -384,6 +384,19 @@ router.get("/admin/decline/project/:id", checkAdminAccess, async (req, res) => {
   }
 });
 
+router.get('/logout', checkLoggedIn, (req, res) => {
+  try {
+    req.session.destroy();
+    
+    console.log("logged out")
+    res.redirect("/account/login")
+  } catch (error) {
+    
+  }
+
+  
+})
+
 // Helper Functions
 
 // Hashes the provided password
