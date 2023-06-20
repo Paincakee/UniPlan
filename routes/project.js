@@ -164,6 +164,11 @@ app.route('/my')
     res.render('project/home', {resultProject, manage: true});
   })
   .post(checkLoggedIn, async (req, res) => {
+    const resultProject = await db.sql('global/get_user_info', {
+      table: 'projects',
+      type: 'id',
+      typeValue: req.body.projectId
+    })
     res.render('project/myprojects')
   })
 

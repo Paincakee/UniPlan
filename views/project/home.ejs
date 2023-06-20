@@ -22,7 +22,7 @@
                 <div id="pannelcontact">Contact Info: <%= row.contactInfo %></div>
                 <div id="pannelprogress">Status: in development</div>
                 <div id="panneljoin">
-                    <%if(locals.manage && !manage){%>
+                    <%if(!locals.manage){%>
                         <form action="/project/apply" method="post">
                             <input type="hidden" name="projectId" value="<%=row.id%>">
                             <%if(projectList.includes(row.id)){%>
@@ -33,6 +33,7 @@
                         </form>
                     <%}else{%>
                         <form action="/project/my" method="post">
+                            <input type="hidden" name="projectId" value="<%=row.id%>">
                             <button id="manageForm" type="submit" class="btn btn-success">Manage</button>
                         </form>
                     <%}%>
