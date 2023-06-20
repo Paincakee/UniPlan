@@ -188,7 +188,12 @@ app.route('/my')
       res.redirect('/project/my');
     }
   })
-
+app.route("/applies")
+  .get(checkLoggedIn, async (req, res) => {
+    res.render("project/applies", {
+      admin_: req.session.admin
+    })
+  })
 //Router for specific project
 app.get('/:id', checkLoggedIn, async (req, res) => {
   try {
