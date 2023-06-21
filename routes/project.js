@@ -204,7 +204,7 @@ app.route("/applies")
       const projects = await db.sql('global/get_all', {
         table: "projects",
       })
-      console.log(projects);
+   
       res.render("project/applies", {
         admin_: req.session.admin,
         applies: applies,
