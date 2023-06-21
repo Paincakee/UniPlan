@@ -33,6 +33,7 @@ input:focus {
     z-index: 999;
     /* Set a higher z-index to keep the navbar above other content */
     font-size: 20px;
+    opacity: 85%;
     .svg {
       width: 20px;
       height: 20px;
@@ -194,4 +195,8 @@ input:focus {
   100% {
     transform: scaleY(1);
   }
+}
+
+ .rotate{
+  transform: rotate(90deg);
 }

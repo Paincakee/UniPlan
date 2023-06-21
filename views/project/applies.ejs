@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/style/main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <title>Admin Panel</title>
+</head>
+
+<body id="admin-body" class="navbar-page">
+    <div id="navbar-container"></div>
+    <div class="content-container" id="projectview">
+        <% applies.data.forEach((row) => {
+          const account = accounts.data.find((acc) => acc.id === row.userId);
+          const email = account ? account.email : '';
+
+          const project = projects.data.find((pro) => pro.id === row.projectId);
+          const projectName = project ? project.title : '';
+        %>
+          <div id="<%= row.id %>" class="item">
+            <div id="pannelcreator">Applicant: <%= email %></div>
+            <div id="panneltitle">Project: <%= projectName %></div>
+            <a href="applies/approve/<%= row.id %>" class="approve-button">Approve</a>
+            <a href="applies/decline/<%= row.id %>" class="decline-button">Decline</a>
+          </div>
+        <% }) %>
+    </div>
+      
+</body>
+
+</html>
+<script>
+    const admin = "<%= admin_ %>";
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/script/navbar.js"></script>

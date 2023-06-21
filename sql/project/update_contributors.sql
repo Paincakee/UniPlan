@@ -1,0 +1,1 @@
+UPDATE `projects` SET `contributors` = '%contributors%' WHERE `id` = '%projectId%'
