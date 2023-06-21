@@ -80,6 +80,7 @@ router.route('/new')
         // text: "Click the link to verify.", // plain text body
         html: `<h5>Your verification code is: ${req.session.token}</h5>` // html body
       })
+  
       console.log("Message sent: %s", info.messageId);
       //Declare session variables
       req.session.firstName = validator.escape(req.body.firstName);
@@ -456,7 +457,7 @@ function checkLoggedIn(req, res, next) {
 //This function checks if the user is logged out, if they are logged in go to account page
 function checkNotLoggedInRedirect(req, res, next) {
   // Check if the email session is set
-  if (req.session.email) {
+  if (req.session.loggedIn) {
     // Redirect the user to a specific route if they are logged in
     res.redirect('/account');
   }

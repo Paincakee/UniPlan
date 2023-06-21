@@ -52,7 +52,7 @@ app.get('/', checkLoggedIn, async (req, res) => {
     const resultProject = await db.sql("global/get_all", {
       table: "projects",
     });
-
+    console.log(projectList);
     res.render('project/project-list', {
       resultAccount,
       resultProject, 

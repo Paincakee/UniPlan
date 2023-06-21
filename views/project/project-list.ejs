@@ -16,8 +16,8 @@
     <div class="content-container " id="projectview"> 
         <% resultProject.data.forEach((row) => { %>
             <div id="<%= row.id %>" class="item" onclick="handleClick('<%= row.id %>')">
-                <div id="pannelcreator">Creator: </div>
-                <div id="panneltitle"><%= row.title %></div>
+                <div id="panneltitle" style="justify-content: flex-start;">Project: <%= row.title %></div>
+                <div id="pannelcreator"><%= row.email %></div>
                 <div id="pannelcontact">Contact Info: <%= row.contactInfo %></div>
                 <div id="pannelprogress">Status: in development</div>
                 <div id="panneljoin">
