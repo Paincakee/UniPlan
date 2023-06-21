@@ -149,7 +149,45 @@ app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, 
   console.log(`${req.session.email}: Applied to a project with the id of: ${req.body.projectId}`);
   res.redirect('/project')
 })
+//update project
+app.post('/update',checkLoggedIn, async (req, res) =>{
 
+  // const resultAccount = await db.sql('global/get_user_info', {
+  //   table: 'accounts',
+  //   type: 'email',
+  //   typeValue: req.session.email
+  // })
+
+  const resultProject = await db.sql('global/get_user_info', {
+    table: 'projects',
+    type: 'id',
+    typeValue: req.body.projectId
+  })
+  let courses;
+  console.log(resultProject);
+  if(req.body.title === null || req.body.title === ""){
+    req.body.title = resultProject.data[0].title
+  }
+  if(req.body.description === null || req.body.description === ""){
+    req.body.description = resultProject.data[0].description
+  }
+  if(req.body.courses === null || req.body.courses === ""){
+    courses = resultProject.data[0].courses
+  }
+
+  console.log(req.body.title);
+  console.log(req.body.description);
+  console.log(resultProject);
+  
+  await db.sql('project/edit_project', {
+    title: req.body.title,
+    description: req.body.description,
+    courses: courses,
+    projectId: req.body.projectId
+  })
+
+  res.redirect('/project/my');
+})
 
 //router for managing projects
 app.route('/my')

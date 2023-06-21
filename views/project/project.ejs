@@ -41,8 +41,8 @@
         </div>
         <div class="info-box">
         <% if (manage){%>
-          <form method="post">
-            <input type="text" placeholder="<%=result.title%>"><br>
+          <form action="/project/update" method="post">
+            <input type="text" name="title" placeholder="<%=result.title%>"><br>
             <select name="courses" id="courseSelect" multiple multiselect-search="true"
                 multiselect-select-all="true">
                 <% resultCourse.data.forEach(row=> { %>
@@ -51,7 +51,9 @@
                     </option>
                     <% });%>
             </select><br>
-            <input type="text" placeholder="<%=result.description%>">
+            <input type="text" name="description" placeholder="<%=result.description%>">
+            <input type="hidden" name="projectId" value="<%=resultProject.data[0].id%>">
+            <input type="submit" value="Apply">
           </form>
         <%}else{%>
           <h1><%=result.title%></h1>
@@ -88,12 +90,5 @@
 </html>
 <script>
   const admin = "<%= admin_ %>";
-
-  fetch("/options").then(d=>d.json()).then(d=>{
-  sel1.innerHTML = 
-    d.map(t=>'<option value="'+t.value+'">'+t.text+'</option>');
-
-  sel1.loadOptions();
-})
 </script>
 <script src="/script/navbar.js"></script>
