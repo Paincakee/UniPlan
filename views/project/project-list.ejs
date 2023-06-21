@@ -56,6 +56,15 @@
       </div>
       <script>
         const admin = "<%= admin_ %>";
+        function handleClick(id) {
+            //handle click
+            console.log(id);
+            link = window.location.href
+            if(link.charAt(link.length -1) === '/'){
+                link = link.slice(0, -1);
+            }
+            window.location.href = link + "/" + id;
+        }
     </script>
 
     <script src="/script/navbar.js"></script>
