@@ -104,6 +104,9 @@ router.route('/new')
 
 // Account Verification
 router.route('/verify')
+  .get(async (req, res) =>{
+    res.render('account/verification', { firstName: req.session.firstname, error: 'Invalid input! Try again.' })
+  })
   .post(async (req, res) => {
     console.log(req.body.tokenInput);
     console.log(req.session.token);
