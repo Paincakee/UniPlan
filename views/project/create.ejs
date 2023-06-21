@@ -17,19 +17,26 @@
     
 
     <form action="/project/new" method="post" enctype="multipart/form-data" id="createprojectform">
+        <div class="container-main">
+        <h3>Create Project</h3>
+        <div class="container-wrapper">
+        <div id="box-left-createproject">
         <label>Title </label>
         <input type="text" name="title" value="<%= locals.title %>" required id="createprojectinput">
         <label>Description</label>
         <textarea name="description" id="textareacreateproject" cols="30" rows="10" required></textarea>
-
+    
+        
+    </div>
+    <div id="box-right-createproject">
         <label>Contact info</label>
         <input type="text" name="contact" required id="createprojectinput">
-
         <label>Foto's</label>
         <div class="mb-3">
             <input class="form-control" type="file" name="fotos" id="fileInput formFileMultiple" multiple>
         </div>
 
+        
         <label>Additional Files </label>
         <div class="mb-3">
             <input class="form-control" type="file" name="files" id="fileInput formFileMultiple" multiple>
@@ -43,11 +50,17 @@
                 </option>
                 <% });%>
         </select>
-        <button type="submit" id="createprojectsubmit" value="Submit">Create</button>
+    </div>
+    </div>
         <span class="ERROR">
             <%= locals.error %>
         </span>
+        <button type="submit" id="createprojectsubmit" value="Submit">Create</button>
+        
+    
+    </div>
     </form>
+
     <div class="waveWrapper waveAnimation">
         <div class="waveWrapperInner bgTop">
           <div class="wave waveTop" style="background-image: url('../../public/style/images/wavelijntjeupdate.png')"></div>

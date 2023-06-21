@@ -344,53 +344,61 @@
   align-items: center;
   justify-content: center;
   height: 97vh;
-  background-image: url("./images/");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
   overflow: hidden;
 }
 
 #createprojectform {
   background-color: white;
-  width: 80vh;
-  height: 70vh;
+  width: 700px;
+  height: 500px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   text-align: center;
   border-radius: 15px;
-  border: 4px solid #6cb0b2;
   justify-content: center;
 }
 
 #createprojectform textarea {
-  max-width: 70%;
-  max-height: 20%;
-  height: 8%;
+  max-height: 65%;
+}
+
+#box-left-createproject {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  right: 30px;
+  height: 300px;
+}
+
+#box-right-createproject {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  left: 30px;
+  height: 300px;
 }
 
 #createprojectform textarea:focus {
   border-color: #11c9cc;
-  box-shadow: 0 0 5px #6cb0b2;
 }
 
 #createprojectinput {
-  margin-top: 10px;
-  border: 1px solid #ccc;
-  text-align: center;
-  width: 40%;
-  align-self: center;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
+  display: inline-block;
+  padding: 2px 5px 0px 5px;
   border-radius: 4px;
+  border: solid 1px #ced4da;
+  background-color: white;
+  width: 100%;
+  height: 40px;
 }
 
 #createprojectinput:focus {
   outline: none;
   border-color: #11c9cc;
-  box-shadow: 0 0 5px #6cb0b2;
+  box-shadow: 0 0 0 0.5px #6cb0b2;
 }
 
 #textareacreateproject {
@@ -417,60 +425,32 @@
   border: 2px solid #000;
 }
 
+.container-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
 #createprojectsubmit {
-  width: 50%;
+  width: 100%;
   background-color: #87bfc0;
-  height: 6vh;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  height: 40px;
   color: white;
   border: solid 0px white;
   padding: 5px;
-  font-size: 1.5em;
+  font-size: 1em;
   border-radius: 3px;
   font-weight: bold;
+  margin: 0 auto;
+  position: relative;
+  top: 30px;
 }
 #createprojectsubmit:hover {
   background-color: #6cb0b2;
-}
-
-.orbs {
-  position: absolute;
-  top: 0px;
-  left: 195px;
-}
-
-#orb1 {
-  width: 170px;
-  height: 170px;
-  border-radius: 150px;
-  background-color: #6cb0b2;
-  z-index: 3;
-  position: relative;
-  right: 60px;
-  top: 50px;
-}
-
-#orb2 {
-  width: 170px;
-  height: 170px;
-  border-radius: 150px;
-  background-color: #7ac4c7;
-  z-index: 2;
-  position: relative;
-  right: 5px;
-  top: -220px;
-}
-
-#orb3 {
-  width: 170px;
-  height: 170px;
-  border-radius: 120px;
-  background-color: #58a9aa;
-  z-index: 1;
-  position: relative;
-  right: -20px;
-  bottom: 250px;
 }
 
 #navtabs {
@@ -479,49 +459,8 @@
   margin: 0 auto;
 }
 
-.orbs2 {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  overflow: hidden;
-}
-
-#orb4 {
-  width: 170;
-  height: 170px;
-  border-radius: 150px;
-  background-color: #6cb0b2;
-  z-index: 1;
-  position: relative;
-  top: 175px;
-  right: -8px;
-}
-
-#orb5 {
-  width: 170px;
-  height: 170px;
-  border-radius: 150px;
-  background-color: #7ac4c7;
-  z-index: 2;
-  position: relative;
-  top: 110px;
-  left: 50px;
-}
-
-#orb6 {
-  width: 170px;
-  height: 170px;
-  border-radius: 120px;
-  background-color: #58a9aa;
-  z-index: 1;
-  position: relative;
-  top: 25px;
-  left: 25px;
-}
-
 .multiselect-dropdown {
-  height: 5%;
-  width: 40% !important;
+  width: 100% !important;
 }
 
 .multiselect-dropdown-list {
@@ -592,10 +531,7 @@
 }
 
 .waveAnimation .waveTop {
-  animation: move-wave 3s;
-  -webkit-animation: move-wave 3s;
-  -webkit-animation-delay: 1s;
-  animation-delay: 1s;
+  animation: move_wave 10s linear infinite;
 }
 
 .waveMiddle {
@@ -653,6 +589,7 @@ h1 {
   align-items: center;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add box shadow */
+  cursor: pointer;
 }
 
 .item:hover {
@@ -926,6 +863,7 @@ input:focus {
   z-index: 999;
   /* Set a higher z-index to keep the navbar above other content */
   font-size: 20px;
+  opacity: 85%;
 }
 .navbar-page #sidebarMenu .svg {
   width: 20px;
@@ -1059,9 +997,6 @@ input:focus {
 }
 .rotate {
   transform: rotate(90deg);
-}
-.sidebarMenu{
-  opacity: 85%;
 }
 
 /*# sourceMappingURL=main.css.map */
