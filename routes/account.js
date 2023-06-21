@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
+const fs = require('fs');
 
 const saltRounds = 10 // Time for hashing algorithm
 
@@ -8,7 +9,9 @@ const validator = require('validator');
 
 router.route('/')
   .get(checkLoggedIn, (req, res) => {
-    res.render('account/manage')
+    res.render('account/manage',{
+      admin_: req.session.admin
+    })
   })
   .post(checkLoggedIn, async (req, res) => {
     if (req.body.newpass == req.body.confirmpass) {
@@ -26,9 +29,6 @@ router.route('/')
       res.render('account/manage', { error: 'New password and confirmed password are not the same! Please try again', wrongpass: true })
     }
   })
-router.get('/test', (req, res) => {
-  res.render('test')
-})
 router.post('/setpass', async (req, res) => {
   if (parseInt(req.body.tokenInput) == req.session.token) {
     await db.sql('global/set_user_info', {
@@ -147,6 +147,7 @@ router.route('/login')
       }
 
       // Successful login
+      req.session.loggedIn = true // Set session variable
       req.session.email = dbPass.data[0].email // Set session variable
       req.session.admin = dbPass.data[0].admin // Set session variable
       req.session.firstName = dbPass.data[0].firstName // Set session variable
@@ -177,12 +178,64 @@ router.get('/admin', checkAdminAccess, async (req, res) => {
     })
     res.render("account/adminPanel", {
       data_accounts: pending_accounts.data,
-      data_projects: pending_projects.data
+      data_projects: pending_projects.data,
+      admin_: req.session.admin
     })
   } catch (error) {
     // Redirect to dashboard page
     console.log(error)
     res.redirect('/')
+  }
+})
+//View Project
+router.get('/admin/view/:id', checkAdminAccess, async (req, res) => {
+  try {
+    const id = req.params.id;
+    let courseListFinal = [];
+
+    const showChat = await db.sql("global/get_user_info", {
+      table: "chat_history",
+      type: "projectId",
+      typeValue: `${id}`
+    });
+
+    const resultProject = await db.sql("global/get_user_info", {
+      table: "projects_pending",
+      type: "id",
+      typeValue: `${id}`
+    });
+
+    console.log(resultProject);
+    let courseList = JSON.parse(resultProject.data[0].courses);
+    if (courseList.constructor !== Array) {
+      courseList = [courseList];
+      console.log(courseList);
+    }
+    await Promise.all(courseList.map(async (course) => {
+      const resultCourse = await db.sql("global/get_user_info", {
+        table: "courses",
+        type: "id",
+        typeValue: `${course}`,
+      });
+      courseListFinal.push(resultCourse.data[0].courseName);
+    }));
+
+    const files = fs.readdirSync(__dirname + `/../resources/upload/${resultProject.data[0].email}/${id}/files`);
+
+    res.render('project/project', {
+      resultProject,
+      files,
+      email: req.session.email,
+      courseListFinal,
+      history: showChat.data,
+      id,
+      makerMail: resultProject.data[0].email,
+      firstname: req.session.firstName,
+      lastname: req.session.lastName
+    });
+  } catch (error) {
+    console.log(error);
+    res.redirect('/account/login');
   }
 })
 
@@ -330,6 +383,19 @@ router.get("/admin/decline/project/:id", checkAdminAccess, async (req, res) => {
     res.redirect("/account");
   }
 });
+
+router.get('/logout', checkLoggedIn, (req, res) => {
+  try {
+    req.session.destroy();
+    
+    console.log("logged out")
+    res.redirect("/account/login")
+  } catch (error) {
+    
+  }
+
+  
+})
 
 // Helper Functions
 

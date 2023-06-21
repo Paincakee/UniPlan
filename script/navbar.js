@@ -1,6 +1,18 @@
 
 const title = document.title;
-function generateNavbar(name) {
+function generateNavbar(name, isAdmin) {
+    const href = window.location.pathname;
+    const svgWrapperArrowStyle = href === '/project/new' ? 'height: 45px; margin-top: 8px;' : '';
+
+    const adminLink = isAdmin == 1 ? `<a href="/account/admin" class="" aria-current="true">
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
+        width="512" height="512">
+        <path
+            d="M15,6c0-3.309-2.691-6-6-6S3,2.691,3,6s2.691,6,6,6,6-2.691,6-6Zm-6,4c-2.206,0-4-1.794-4-4s1.794-4,4-4,4,1.794,4,4-1.794,4-4,4Zm13,7c0-.552-.09-1.082-.256-1.579l1.82-1.049-.998-1.733-1.823,1.05c-.706-.797-1.662-1.368-2.743-1.589v-2.101h-2v2.101c-1.082,.221-2.037,.792-2.743,1.589l-1.823-1.05-.998,1.733,1.82,1.049c-.166,.497-.256,1.027-.256,1.579s.09,1.082,.256,1.579l-1.82,1.049,.998,1.733,1.823-1.05c.706,.797,1.662,1.368,2.743,1.589v2.101h2v-2.101c1.082-.221,2.037-.792,2.743-1.589l1.823,1.05,.998-1.733-1.82-1.049c.166-.497,.256-1.027,.256-1.579Zm-5,3c-1.654,0-3-1.346-3-3s1.346-3,3-3,3,1.346,3,3-1.346,3-3,3ZM5,14h3v2h-3c-1.654,0-3,1.346-3,3v5H0v-5c0-2.757,2.243-5,5-5Z" />
+    </svg>
+        <span>Admin</span>
+    </a>` : ``;
+
     const navbar = `
     <nav id="sidebarMenu" class="">
         <div class="nav-info">
@@ -28,7 +40,7 @@ function generateNavbar(name) {
                 </svg>
 
                 <span>Account</span>
-                <div class="svg-wrapper-arrow" onclick="toggleSubMenu('accountSubMenu', event)">
+                <div class="svg-wrapper-arrow" style="${svgWrapperArrowStyle}" onclick="toggleSubMenu('accountSubMenu', event)">
                     <svg class="svg-arrow" xmlns="http://www.w3.org/2000/svg" id="" viewBox="0 0 24 24" width="512"
                         height="512">
                         <path
@@ -38,14 +50,8 @@ function generateNavbar(name) {
                 
             </a>
             <div id="accountSubMenu" class="submenus">
-                <a href="/account/admin" class="" aria-current="true">
-                <svg class="svg" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
-                    width="512" height="512">
-                    <path
-                        d="M15,6c0-3.309-2.691-6-6-6S3,2.691,3,6s2.691,6,6,6,6-2.691,6-6Zm-6,4c-2.206,0-4-1.794-4-4s1.794-4,4-4,4,1.794,4,4-1.794,4-4,4Zm13,7c0-.552-.09-1.082-.256-1.579l1.82-1.049-.998-1.733-1.823,1.05c-.706-.797-1.662-1.368-2.743-1.589v-2.101h-2v2.101c-1.082,.221-2.037,.792-2.743,1.589l-1.823-1.05-.998,1.733,1.82,1.049c-.166,.497-.256,1.027-.256,1.579s.09,1.082,.256,1.579l-1.82,1.049,.998,1.733,1.823-1.05c.706,.797,1.662,1.368,2.743,1.589v2.101h2v-2.101c1.082-.221,2.037-.792,2.743-1.589l1.823,1.05,.998-1.733-1.82-1.049c.166-.497,.256-1.027,.256-1.579Zm-5,3c-1.654,0-3-1.346-3-3s1.346-3,3-3,3,1.346,3,3-1.346,3-3,3ZM5,14h3v2h-3c-1.654,0-3,1.346-3,3v5H0v-5c0-2.757,2.243-5,5-5Z" />
-                </svg>
-                    <span>Admin</span>
-                </a>
+                
+                ${adminLink}
                 <a href="/account/notifications" class="" aria-current="true">
                 <svg class="svg" id="Layer_1" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="m20.859 15.331-3.772 6.155a5.235 5.235 0 0 1 -3.87 2.477 5.315 5.315 0 0 1 -.628.037 5.212 5.212 0 0 1 -3-.955 4.741 4.741 0 0 1 -6.689-6.566l-1.315-1.313a5.264 5.264 0 0 1 .955-8.2l5.767-3.566a8.859 8.859 0 0 1 10.327.551l1.659-1.659a1 1 0 1 1 1.414 1.414l-1.657 1.658a8.951 8.951 0 0 1 .809 9.967zm-12.794 6.316-3.719-3.72a2.721 2.721 0 0 0 .463 3.264 2.827 2.827 0 0 0 3.256.456zm9.921-15.6a6.887 6.887 0 0 0 -8.617-.947l-5.777 3.566a3.265 3.265 0 0 0 -.592 5.086l7.29 7.291a3.265 3.265 0 0 0 5.093-.6l3.755-6.125a6.937 6.937 0 0 0 -1.152-8.276zm1.279 17.953a1 1 0 0 1 -.591-1.808 8.633 8.633 0 0 0 3.315-5.407 1 1 0 1 1 1.953.43 10.7 10.7 0 0 1 -4.088 6.593 1 1 0 0 1 -.589.192zm-18.265-18.261a1 1 0 0 1 -.8-1.594 10.692 10.692 0 0 1 6.713-4.125 1 1 0 1 1 .4 1.96 8.636 8.636 0 0 0 -5.513 3.354 1 1 0 0 1 -.8.405z"/></svg>
                     <span>Notifications</span>
@@ -61,7 +67,7 @@ function generateNavbar(name) {
                 </svg>
                 <span>Project</span>
 
-                <div class="svg-wrapper-arrow" onclick="toggleSubMenu('projectSubMenu', event)">
+                <div class="svg-wrapper-arrow" style="${svgWrapperArrowStyle}" onclick="toggleSubMenu('projectSubMenu', event)">
                     <svg class="svg-arrow" xmlns="http://www.w3.org/2000/svg" id="" viewBox="0 0 24 24" width="512"
                         height="512">
                         <path
@@ -76,6 +82,11 @@ function generateNavbar(name) {
                     <span>Create</span>
                 </a>
             </div>
+            <a href="/account/logout" class="nav-link logout-link" aria-current="true">
+                <svg class="svg" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="M11.476,15a1,1,0,0,0-1,1v3a3,3,0,0,1-3,3H5a3,3,0,0,1-3-3V5A3,3,0,0,1,5,2H7.476a3,3,0,0,1,3,3V8a1,1,0,0,0,2,0V5a5.006,5.006,0,0,0-5-5H5A5.006,5.006,0,0,0,0,5V19a5.006,5.006,0,0,0,5,5H7.476a5.006,5.006,0,0,0,5-5V16A1,1,0,0,0,11.476,15Z"/><path d="M22.867,9.879,18.281,5.293a1,1,0,1,0-1.414,1.414L21.13,10.97,6,11a1,1,0,0,0,0,2H6l15.188-.03-4.323,4.323a1,1,0,1,0,1.414,1.414l4.586-4.586A3,3,0,0,0,22.867,9.879Z"/></svg>
+
+                <span>Logout</span>
+            </a>
         </div>
     </nav>
     `;
@@ -126,4 +137,4 @@ function toggleSubMenu(subMenuId, event) {
 }
 
 // Call the function to generate the navbar
-generateNavbar(title);
+generateNavbar(title, admin);
