@@ -217,7 +217,7 @@ app.route("/applies")
     }
 })
 //Accept project apply
-app.get('/applies/approve/:id', async (req, res) => {
+app.get('/applies/approve/:id',checkLoggedIn, checkMaker, async (req, res) => {
   const applyId = req.params.id;
 
   const getApply = await db.sql("global/get_user_info", {
@@ -258,7 +258,16 @@ app.get('/applies/approve/:id', async (req, res) => {
 });
 
 //Decline project apply
-app.get('/applies/decline/:id', async (req, res) => {
+app.get('/applies/decline/:id',checkLoggedIn, checkMaker, async (req, res) => {
+
+  const applyId = req.params.id;
+
+  await db.sql('global/delete_row', {
+    table: "projects_applies",
+    id: applyId
+  })
+
+  res.redirect("/project/applies")
   
 })
 //Router for specific project
@@ -351,5 +360,33 @@ function checkLoggedIn(req, res, next) {
     next();
   }
 }
+
+// This function checks if the user is the maker of the product
+async function checkMaker(req, res, next) {
+  const applyId = req.params.id;
+
+  // Retrieve the apply information from the database
+  const getApply = await db.sql("global/get_user_info", {
+    table: 'projects_applies',
+    type: 'id',
+    typeValue: applyId
+  });
+
+  if (!getApply || getApply.data.length === 0) {
+    // If the apply information is not found, redirect the user
+    res.redirect('/project/applies');
+  } else {
+    const makerId = getApply.data[0].makerId;
+
+    if (makerId === req.session.userId) {
+      // If the user is the maker, proceed to the next middleware/route handler
+      next();
+    } else {
+      // If the user is not the maker, redirect them
+      res.redirect('/project/applies');
+    }
+  }
+}
+
 
 module.exports = app;
