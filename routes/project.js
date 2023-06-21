@@ -159,17 +159,16 @@ app.route('/my')
       type: 'email',
       typeValue: req.session.email
     })
-    // const resultApplies = await db.sql('global/get_user_info', {
-    //   table: 'project_applies',
-    //   type: 'makerId',
-    //   typeValue: resultAccount.data[0].id
-    // })
     const resultProject = await db.sql('global/get_user_info', {
       table: 'projects',
       type: 'userId',
       typeValue: JSON.stringify(resultAccount.data[0].id)
     })
-    res.render('project/home', {resultProject, manage: true});
+    res.render('project/home', {
+      resultProject, 
+      manage: true,
+      admin_: req.session.admin
+    });
   })
   .post(checkLoggedIn, async (req, res) => {
     const resultProject = await db.sql('global/get_user_info', {
@@ -182,18 +181,23 @@ app.route('/my')
       type: 'email',
       typeValue: req.session.email
     })
+    const string = encodeURIComponent('');
     if(resultProject.data[0].userId == resultAccount.data[0].id){
-      res.render('project/myprojects');
+      res.redirect(`/project/${req.body.projectId}?manage=${string}`);
     }else{
-      res.redirect('/project/my');
+      res.redirect(`/project/`);
     }
   })
-
+app.route('/my/:id')
+  .get(checkLoggedIn, (req, res) => {
+    res.redirect(`/project/${req.params.id}`)
+  })
 //Router for specific project
 app.get('/:id', checkLoggedIn, async (req, res) => {
   try {
     const id = req.params.id;
     let courseListFinal = [];
+    let manage = false;
 
     const showChat = await db.sql("global/get_user_info", {
       table: "chat_history",
@@ -206,7 +210,12 @@ app.get('/:id', checkLoggedIn, async (req, res) => {
       type: "id",
       typeValue: `${id}`
     });
-
+    
+    const resultAccount = await db.sql('global/get_user_info', {
+      table: 'accounts',
+      type: 'email',
+      typeValue: req.session.email
+    })
     
     let courseList = JSON.parse(resultProject.data[0].courses);
     if (courseList.constructor !== Array) {
@@ -222,10 +231,22 @@ app.get('/:id', checkLoggedIn, async (req, res) => {
       courseListFinal.push(resultCourse.data[0].courseName);
     }));
 
+    const resultCourse = await db.sql("global/get_all", {
+      table: "courses",
+    });
+
     const files = fs.readdirSync(__dirname + `/../resources/upload/${resultProject.data[0].email}/${id}/files`);
+
+    if(req.query.manage == ''){
+      if(resultProject.data[0].userId == resultAccount.data[0].id){
+        manage = true
+        console.log(`${req.session.email} is managing: ${resultProject.data[0].id}`);
+      }
+    }
 
     res.render('project/project', {
       resultProject,
+      resultCourse,
       files,
       email: req.session.email,
       courseListFinal,
@@ -234,7 +255,8 @@ app.get('/:id', checkLoggedIn, async (req, res) => {
       makerMail: resultProject.data[0].email,
       firstname: req.session.firstName,
       lastname: req.session.lastName,
-      admin_: req.session.admin
+      admin_: req.session.admin,
+      manage
     });
   } catch (error) {
     console.log(error);

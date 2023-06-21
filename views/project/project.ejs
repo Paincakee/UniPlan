@@ -1,3 +1,5 @@
+<script src="/resources/lib/multiselect-dropdown.js"></script>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,11 +40,26 @@
         </div>
         </div>
         <div class="info-box">
+        <% if (manage){%>
+          <form method="post">
+            <input type="text" placeholder="<%=result.title%>"><br>
+            <select name="courses" id="courseSelect" multiple multiselect-search="true"
+                multiselect-select-all="true">
+                <% resultCourse.data.forEach(row=> { %>
+                    <option value="<%=row.id%>">
+                        <%=row.courseName%>
+                    </option>
+                    <% });%>
+            </select><br>
+            <input type="text" placeholder="<%=result.description%>">
+          </form>
+        <%}else{%>
           <h1><%=result.title%></h1>
               <% courseListFinal.forEach(course => {%>
                 <li><%=course%></li>
               <%});%>
           <h2><%=result.description%></h2>
+        <%}%>
         </div>
       </div>      
   <div id="chat-container">
@@ -71,5 +88,12 @@
 </html>
 <script>
   const admin = "<%= admin_ %>";
+
+  fetch("/options").then(d=>d.json()).then(d=>{
+  sel1.innerHTML = 
+    d.map(t=>'<option value="'+t.value+'">'+t.text+'</option>');
+
+  sel1.loadOptions();
+})
 </script>
 <script src="/script/navbar.js"></script>
