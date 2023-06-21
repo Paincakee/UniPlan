@@ -287,7 +287,6 @@
   margin: 5px 0 0 -1px;
 }
 #admin-body table {
-  padding: 10px;
   margin-top: 50px;
   width: auto;
   margin-bottom: 20px;
@@ -299,8 +298,11 @@
   text-align: left;
 }
 #admin-body th {
+  padding-top: 10px;
   background-color: #bcdbdc;
   font-weight: bold;
+  position: sticky;
+  top: 0;
 }
 #admin-body td {
   background-color: #e0f2f3;
@@ -308,12 +310,6 @@
 #admin-body a {
   text-decoration: none;
   color: #000;
-}
-#admin-body th:first-child {
-  border-top-left-radius: 10px;
-}
-#admin-body th:last-child {
-  border-top-right-radius: 10px;
 }
 #admin-body .approve-button {
   width: 33%;
@@ -353,6 +349,12 @@
 #admin-body #nav-profile-tab.active,
 #admin-body #nav-contact-tab.active {
   color: #000000;
+}
+#admin-body .table-container {
+  margin-top: 2%;
+  min-height: 75vh;
+  max-height: 75vh; /* Adjust the maximum height as needed */
+  overflow-y: auto;
 }
 
 #projectcreatebody {
