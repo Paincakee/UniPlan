@@ -13,16 +13,22 @@
 <body id="admin-body" class="navbar-page">
     <div id="navbar-container"></div>
     <div class="content-container" id="projectview">
-        <% applies.data.forEach((row) => { %>
-            <div id="<%= row.id %>" class="item">
-                <div id="pannelcreator">Applicant: <%= row.userId %></div>
-                <div id="panneltitle">Project: <%= row.projectId %></div>
-                <a href="applies/approve/<%= row.id %>" class="approve-button">Approve</a>
-                <a href="applies/decline/<%= row.id %>" class="decline-button">Decline</a>
-            </div>
-        <% }) %>
+        <% applies.data.forEach((row) => {
+          const account = accounts.data.find((acc) => acc.id === row.userId);
+          const email = account ? account.email : '';
 
+          const project = projects.data.find((pro) => pro.id === row.projectId);
+          const projectName = project ? project.title : '';
+        %>
+          <div id="<%= row.id %>" class="item">
+            <div id="pannelcreator">Applicant: <%= email %></div>
+            <div id="panneltitle">Project: <%= projectName %></div>
+            <a href="applies/approve/<%= row.id %>" class="approve-button">Approve</a>
+            <a href="applies/decline/<%= row.id %>" class="decline-button">Decline</a>
+          </div>
+        <% }) %>
     </div>
+      
 </body>
 
 </html>

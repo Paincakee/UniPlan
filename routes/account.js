@@ -154,7 +154,7 @@ router.route('/login')
       req.session.lastName = dbPass.data[0].lastName // Set session variable
       req.session.userId = dbPass.data[0].id // Set session variable
       req.session.id = req.body.id // Set session variable
-      console.log(req.session.userId);
+      
       res.redirect('./admin')
     } catch (error) {
       console.error(error)

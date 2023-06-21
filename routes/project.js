@@ -196,16 +196,71 @@ app.route("/applies")
         type: 'makerId',
         typeValue: JSON.stringify(req.session.userId)
       })
-      console.log(applies);
+
+      const accounts = await db.sql('global/get_all', {
+        table: "accounts",
+      })
+
+      const projects = await db.sql('global/get_all', {
+        table: "projects",
+      })
+      console.log(projects);
       res.render("project/applies", {
         admin_: req.session.admin,
-        applies: applies
+        applies: applies,
+        accounts: accounts,
+        projects: projects
       })
       
     } catch (error) {
       
     }
+})
+//Accept project apply
+app.get('/applies/approve/:id', async (req, res) => {
+  const applyId = req.params.id;
+
+  const getApply = await db.sql("global/get_user_info", {
+    table: 'projects_applies',
+    type: 'id',
+    typeValue: applyId
+  });
+
+  const getContributors = await db.sql('global/get_user_info', {
+    table: 'projects',
+    type: 'id',
+    typeValue: JSON.stringify(getApply.data[0].projectId)
+  });
+
+  const contributorsData = getContributors.data[0];
+  let contributors = [];
+
+  if (contributorsData && contributorsData.contributors) {
+    contributors = JSON.parse(contributorsData.contributors);
+    if (!Array.isArray(contributors)) {
+      contributors = [];
+    }
+  }
+
+  contributors.push(getApply.data[0].userId.toString());
+
+  await db.sql('project/update_contributors', {
+    contributors: JSON.stringify(contributors),
+    projectId: JSON.stringify(getApply.data[0].projectId)
+  });
+
+  await db.sql('global/delete_row', {
+    table: "projects_applies",
+    id: applyId
   })
+  
+  res.redirect("/project/applies")
+});
+
+//Decline project apply
+app.get('/applies/decline/:id', async (req, res) => {
+  
+})
 //Router for specific project
 app.get('/:id', checkLoggedIn, async (req, res) => {
   try {
