@@ -53,7 +53,7 @@ app.get('/', checkLoggedIn, async (req, res) => {
       table: "projects",
     });
 
-    res.render('project/home', {
+    res.render('project/project-list', {
       resultAccount,
       resultProject, 
       projectList,

@@ -122,19 +122,21 @@ function generateNavbar(name, isAdmin) {
 function toggleSubMenu(subMenuId, event) {
     event.preventDefault();
     const subMenu = document.getElementById(subMenuId);
-    const svgArrow = document.querySelector(`#${subMenuId} .svg-arrow`);
+    const svgArrow = event.currentTarget.querySelector(`.svg-arrow`);
     const isSubMenuHidden = subMenu.style.display === "none";
-
-
+    
+  
     if (!subMenu.classList.contains("show")) {
-        subMenu.classList.add("show");
-        event.stopPropagation();
-    }
-    else {
-        subMenu.classList.remove("show");
-
+      subMenu.classList.add("show");
+      svgArrow.classList.add("rotate"); // Add the "rotate" class to rotate the SVG arrow
+      event.stopPropagation();
+    } else {
+      subMenu.classList.remove("show");
+      svgArrow.classList.remove("rotate"); // Remove the "rotate" class to reset the rotation
     }
 }
+
+
 
 // Call the function to generate the navbar
 generateNavbar(title, admin);
