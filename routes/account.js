@@ -152,8 +152,9 @@ router.route('/login')
       req.session.admin = dbPass.data[0].admin // Set session variable
       req.session.firstName = dbPass.data[0].firstName // Set session variable
       req.session.lastName = dbPass.data[0].lastName // Set session variable
+      req.session.userId = dbPass.data[0].id // Set session variable
       req.session.id = req.body.id // Set session variable
-
+      
       res.redirect('./admin')
     } catch (error) {
       console.error(error)
@@ -231,7 +232,8 @@ router.get('/admin/view/:id', checkAdminAccess, async (req, res) => {
       id,
       makerMail: resultProject.data[0].email,
       firstname: req.session.firstName,
-      lastname: req.session.lastName
+      lastname: req.session.lastName,
+      admin_: req.session.admin
     });
   } catch (error) {
     console.log(error);
