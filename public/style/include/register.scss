@@ -111,53 +111,60 @@
 
   /* Responsive Styling */
 
-  /* For Mobile Devices - 320px — 480px */
-  @media only screen and (max-width: 480px) {
-    #formregister {
-      width: 90%;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: #ccc #fff;
-    }
-
-    .lblregform input,
-    #selecReg {
-      width: 100%;
-    }
-  }
-}
-
-/* For iPads and Tablets - 481px — 768px */
-@media only screen and (min-width: 481px) and (max-width: 768px) {
+  // For Mobile Devices - 320px — 480px
+@media only screen and (max-width: 480px) {
   #formregister {
     width: 70%;
   }
 }
 
-/* For Laptops and small screens - 769px — 1024px */
+// For iPads and Tablets - 481px — 768px
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  #formregister {
+    width: 60%;
+  }
+}
+
+// For Laptops and small screens - 769px — 1024px
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   #formregister {
-    width: 50%;
+    width: 40%;
   }
 }
 
-/* For Max Height up to 550px */
-@media only screen and (max-height: 550px) {
+// For Large screens and Desktops - 1025px — 1200px
+@media only screen and (min-width: 1025px) and (max-width: 1200px) {
   #formregister {
-    overflow-y: auto;
-    margin-bottom: 10%;
+    width: 30%;
   }
 }
 
-/* For Min Height 551px — 1200px */
-@media only screen and (min-height: 551px) and (max-height: 1200px) {
+// For TV and Extra Large Screens - 1201px and more
+@media only screen and (min-width: 1201px) {
   #formregister {
+    width: 30%;
+  }
+}
+
+/* Small devices */
+@media screen and (max-height: 600px) {
+  #formregister {
+    height: 70%;
     overflow-y: auto;
   }
 }
 
-/* For Min Height 1201px and more */
-@media only screen and (min-height: 1201px) {
+/* Medium devices */
+@media screen and (min-height: 601px) and (max-height: 900px) {
+  #formregister {
+    height: 72%;
+  }
 }
 
-
+/* Large devices */
+@media screen and (min-height: 901px) {
+  #formregister {
+    height: 72%;
+  }
+}
+}
