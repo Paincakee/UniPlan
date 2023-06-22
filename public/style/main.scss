@@ -47,7 +47,7 @@ input:focus {
     }
     .nav-info {
       position: relative; /* Add position relative for the pseudo-element */
-      background: linear-gradient(#7cc8ca, #dffeff);
+      background: linear-gradient(#87BFC0, #b7e8eb);
       background-color: #87BFC0;
       padding: 15px;
       display: flex;
@@ -78,7 +78,7 @@ input:focus {
         bottom: -10px; /* Adjust the distance from the bottom as needed */
         width: 100%;
         height: 10px; /* Adjust the height of the shadow as needed */
-        background: linear-gradient(to bottom, #dffeff, white); /* Gradient from shadow color to transparent */
+        background: linear-gradient(to bottom, #b7e8eb, white); /* Gradient from shadow color to transparent */
       }
     }
     
