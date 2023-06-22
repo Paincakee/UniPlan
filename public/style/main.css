@@ -12,8 +12,6 @@
   margin: 0;
   overflow: hidden;
   /* Small devices */
-  /* Medium devices */
-  /* Large devices */
 }
 #login-body .loginForm {
   background-color: #fff;
@@ -22,7 +20,8 @@
   padding-bottom: 20px;
   padding-left: 70px;
   padding-right: 70px;
-  width: 400px;
+  width: 350px;
+  height: 400px;
   margin: 0 auto;
   border-radius: 12px;
   text-align: center;
@@ -96,35 +95,10 @@
     width: 60%;
   }
 }
-@media only screen and (min-width: 769px) and (max-width: 1024px) {
-  #login-body .loginForm {
-    width: 40%;
-  }
-}
-@media only screen and (min-width: 1025px) and (max-width: 1200px) {
-  #login-body .loginForm {
-    width: 30%;
-  }
-}
-@media only screen and (min-width: 1201px) {
-  #login-body .loginForm {
-    width: 30%;
-  }
-}
 @media screen and (max-height: 600px) {
   #login-body .loginForm {
     height: 70%;
     overflow-y: auto;
-  }
-}
-@media screen and (min-height: 601px) and (max-height: 900px) {
-  #login-body .loginForm {
-    height: 55%;
-  }
-}
-@media screen and (min-height: 901px) {
-  #login-body .loginForm {
-    height: 40%;
   }
 }
 
@@ -144,8 +118,6 @@
   text-align: center;
   /* Responsive Styling */
   /* Small devices */
-  /* Medium devices */
-  /* Large devices */
 }
 #register-body #register-bar {
   width: 100%;
@@ -160,10 +132,9 @@
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  padding-bottom: 20px;
-  padding-left: 70px;
-  padding-right: 70px;
-  width: 400px;
+  padding: 0 40px 20px;
+  width: 460px;
+  height: 500px;
   margin: 0 auto;
   border-radius: 12px;
   overflow-y: auto;
@@ -235,45 +206,10 @@
 #register-body #formregister button:hover {
   background-color: #6cb0b2;
 }
-@media only screen and (max-width: 480px) {
-  #register-body #formregister {
-    width: 70%;
-  }
-}
-@media only screen and (min-width: 481px) and (max-width: 768px) {
-  #register-body #formregister {
-    width: 60%;
-  }
-}
-@media only screen and (min-width: 769px) and (max-width: 1024px) {
-  #register-body #formregister {
-    width: 40%;
-  }
-}
-@media only screen and (min-width: 1025px) and (max-width: 1200px) {
-  #register-body #formregister {
-    width: 30%;
-  }
-}
-@media only screen and (min-width: 1201px) {
-  #register-body #formregister {
-    width: 30%;
-  }
-}
 @media screen and (max-height: 600px) {
   #register-body #formregister {
     height: 70%;
     overflow-y: auto;
-  }
-}
-@media screen and (min-height: 601px) and (max-height: 900px) {
-  #register-body #formregister {
-    height: 72%;
-  }
-}
-@media screen and (min-height: 901px) {
-  #register-body #formregister {
-    height: 72%;
   }
 }
 
