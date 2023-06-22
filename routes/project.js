@@ -178,7 +178,6 @@ app.post('/update',checkLoggedIn, async (req, res) =>{
     const coursesString = firstItem.courses; // Access the courses property
     req.body.courses = JSON.parse(coursesString);
   }
-  console.log(courses);
   
   await db.sql('project/edit_project', {
     title: req.body.title,
@@ -188,6 +187,12 @@ app.post('/update',checkLoggedIn, async (req, res) =>{
   })
 
   res.redirect('/project/my');
+})
+
+app.post('/delete-file', checkLoggedIn, async (req, res) => {
+  console.log(`${req.session.email} deleted file: ${req.body.file}`);
+  app.delete(`${__dirname}/..${req.body.file}`);
+  res.redirect('/project');
 })
 
 //router for managing projects
