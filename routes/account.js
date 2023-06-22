@@ -294,6 +294,13 @@ router.get("/admin/approve/account/:id", checkAdminAccess, async (req, res) => {
   }
 })
 
+app.route('/notifications')
+  .get(checkLoggedIn, async (req, res) => {
+    await db.sql('global/get_all', {
+      notifications
+    })
+  })
+
 // Decline Account
 router.get("/admin/decline/account/all", checkAdminAccess, async (req, res) => {
   try {

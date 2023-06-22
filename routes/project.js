@@ -152,12 +152,6 @@ app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, 
 //update project
 app.post('/update',checkLoggedIn, async (req, res) =>{
 
-  // const resultAccount = await db.sql('global/get_user_info', {
-  //   table: 'accounts',
-  //   type: 'email',
-  //   typeValue: req.session.email
-  // })
-
   const resultProject = await db.sql('global/get_user_info', {
     table: 'projects',
     type: 'id',
