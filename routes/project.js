@@ -163,8 +163,9 @@ app.post('/update',checkLoggedIn, async (req, res) =>{
     type: 'id',
     typeValue: req.body.projectId
   })
-  let courses;
-  console.log(resultProject);
+
+
+  console.log(JSON.parse(resultProject.data[0].courses));
   if(req.body.title === null || req.body.title === ""){
     req.body.title = resultProject.data[0].title
   }
@@ -172,17 +173,17 @@ app.post('/update',checkLoggedIn, async (req, res) =>{
     req.body.description = resultProject.data[0].description
   }
   if(req.body.courses === null || req.body.courses === ""){
-    courses = resultProject.data[0].courses
+    const data = resultProject.data; // Access the data array
+    const firstItem = data[0]; // Get the first element of the data array
+    const coursesString = firstItem.courses; // Access the courses property
+    req.body.courses = JSON.parse(coursesString);
   }
-
-  console.log(req.body.title);
-  console.log(req.body.description);
-  console.log(resultProject);
+  console.log(courses);
   
   await db.sql('project/edit_project', {
     title: req.body.title,
     description: req.body.description,
-    courses: courses,
+    courses: JSON.stringify(courses),
     projectId: req.body.projectId
   })
 
