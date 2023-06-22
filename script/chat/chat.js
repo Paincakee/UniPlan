@@ -38,7 +38,7 @@ chatForm.addEventListener('submit', async e => {
             displayWarning("Emojis are not allowed. Please remove the emoji and try again.");
             return;
         }
-        if (chat.length > 60) {
+        if (chat.length > 500) {
             displayWarning("Message has too many characters. Please retype.");
             return;
         }
@@ -49,6 +49,23 @@ chatForm.addEventListener('submit', async e => {
         scrollToBottom(); // Scroll to the bottom after sending the message
     }
 });
+// Function to escape HTML characters
+function escapeHtml(text) {
+    const htmlEscapes = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+        '/': '&#x2F;',
+        '`': '&#x60;',
+        '=': '&#x3D;'
+    };
+
+    return text.replace(/[&<>"'`=\/]/g, function (match) {
+        return htmlEscapes[match];
+    });
+}
 
 // Function to display warning message
 function displayWarning(message) {
@@ -62,7 +79,10 @@ function displayWarning(message) {
     warningElement.innerText = message;
     warningElement.classList.add('warning-message');
     warningElement.style.color = 'red'; // Set the text color to red
-    chatContainer.append(warningElement);
+    chatContainer.insertBefore(warningElement, chatForm);
+
+    // Scroll to the bottom if the chat container is already scrolled to the bottom
+    scrollToBottom()
 }
 
 // Function to check if string contains an emoji
@@ -86,7 +106,7 @@ function appendChatMessage(user, message, isOwnMessage) {
         if (highlightedMessage !== message) {
             chatElement.classList.add('highlight-chat');
         }
-        chatElement.innerHTML = `<span class="user">${user}:</span> ${highlightedMessage}`;
+        chatElement.innerHTML = `<span class="user">${user}:</span> ${escapeHtml(highlightedMessage)}`;
         chatElement.classList.add('own-message');
     } else if (message === 'joined') {
         // Remove previous "joined" message from the current user
@@ -101,7 +121,7 @@ function appendChatMessage(user, message, isOwnMessage) {
     } else {
         const highlightedMessage = getPing(message);
 
-        chatElement.innerHTML = `<span class="user">${user}:</span> ${highlightedMessage}`;
+        chatElement.innerHTML = `<span class="user">${user}:</span> ${escapeHtml(highlightedMessage)}`;
         chatElement.classList.add('received-message');
 
         // Check if the message contains a ping

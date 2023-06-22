@@ -548,8 +548,12 @@ a {
   border-radius: 10px;
   font-family: "Garamond";
   font-weight: 500;
-  overflow-y: auto; /* Add vertical scrollbar */
   min-height: 88vh;
+  position: relative;
+}
+#test-body #chat-container::before {
+  content: "";
+  flex-grow: 1;
 }
 #test-body .own-message {
   margin-bottom: 10px;
@@ -579,11 +583,11 @@ a {
   flex-direction: column;
 }
 #test-body #chat-form {
-  position: fixed;
-  bottom: 0;
+  position: sticky;
+  bottom: -10px;
   width: 100%;
   padding: 10px;
-  background-color: #ff0000;
+  background-color: rgb(245, 245, 245);
   border-top: 2px solid #ccc;
   display: flex;
   align-items: center;
@@ -836,7 +840,7 @@ input:focus {
 }
 .navbar-page #sidebarMenu .nav-info {
   position: relative; /* Add position relative for the pseudo-element */
-  background: linear-gradient(#6cbdc0, #dffeff);
+  background: linear-gradient(#7cc8ca, #dffeff);
   background-color: #87BFC0;
   padding: 15px;
   display: flex;

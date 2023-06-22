@@ -15,10 +15,15 @@
     align-items: flex-end;
     position: relative;
     border-radius: 10px;
-    font-family: 'Garamond';
+    font-family: "Garamond";
     font-weight: 500;
-    overflow-y: auto; /* Add vertical scrollbar */
     min-height: 88vh;
+    position: relative;
+  }
+
+  #chat-container::before {
+    content: "";
+    flex-grow: 1;
   }
 
   .own-message {
@@ -54,18 +59,17 @@
   }
 
   #chat-form {
-    position:fixed;
-  bottom:0;
-  width: 100%;
-  padding: 10px;
-  background-color: #ff0000;
-  border-top: 2px solid #ccc;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 1; /* Ensure the chat form is on top of the chat container */
+    position: sticky;
+    bottom: -10px;
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(245, 245, 245);
+    border-top: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1; /* Ensure the chat form is on top of the chat container */
   }
-  
 
   #chat-input {
     flex-grow: 1;
