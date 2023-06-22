@@ -1,3 +1,5 @@
+<script src="/resources/lib/multiselect-dropdown.js"></script>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,18 +33,42 @@
           <div class="images-box">
             <h2>Files</h2>
             <div id="filecontainer">
-              <% files.forEach(file => {%>
-                  <a href="/resources/upload/<%=makerMail%>/<%=result.id%>/files/<%=file%>"><%=file%></a><br>
+              <% let link = `/resources/upload/${makerMail}/${result.id}/files/`
+                files.forEach(file => {%>
+                <a href="<%=link + file%>"><%=file%></a><br>
+                <%if(manage){%>
+                  <form action="/project/delete-file" method="post">
+                    <input type="hidden" name="file" value="<%=link + file%>">
+                    <input type="submit" value="X">
+                  </form>
+                <%}%>
               <%});%>
           </div>
         </div>
         </div>
         <div class="info-box">
+        <% if (manage){%>
+          <form action="/project/update" method="post">
+            <input type="text" name="title" placeholder="<%=result.title%>"><br>
+            <select name="courses" id="courseSelect" multiple multiselect-search="true"
+                multiselect-select-all="true">
+                <% resultCourse.data.forEach(row=> { %>
+                    <option value="<%=row.id%>">
+                        <%=row.courseName%>
+                    </option>
+                    <% });%>
+            </select><br>
+            <input type="text" name="description" placeholder="<%=result.description%>">
+            <input type="hidden" name="projectId" value="<%=resultProject.data[0].id%>">
+            <input type="submit" value="Apply">
+          </form>
+        <%}else{%>
           <h1><%=result.title%></h1>
               <% courseListFinal.forEach(course => {%>
                 <li><%=course%></li>
               <%});%>
           <h2><%=result.description%></h2>
+        <%}%>
         </div>
       </div>      
   <div id="chat-container">
