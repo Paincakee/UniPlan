@@ -52,8 +52,8 @@ app.get('/', checkLoggedIn, async (req, res) => {
     const resultProject = await db.sql("global/get_all", {
       table: "projects",
     });
-
-    res.render('project/home', {
+    
+    res.render('project/project-list', {
       resultAccount,
       resultProject, 
       projectList,
@@ -232,10 +232,94 @@ app.route('/my')
       res.redirect(`/project/`);
     }
   })
+
 app.route('/my/:id')
   .get(checkLoggedIn, (req, res) => {
     res.redirect(`/project/${req.params.id}`)
   })
+
+app.route("/applies")
+  .get(checkLoggedIn, async (req, res) => {
+    try {
+      const applies = await db.sql('global/get_user_info', {
+        table: 'projects_applies',
+        type: 'makerId',
+        typeValue: JSON.stringify(req.session.userId)
+      })
+
+      const accounts = await db.sql('global/get_all', {
+        table: "accounts",
+      })
+
+      const projects = await db.sql('global/get_all', {
+        table: "projects",
+      })
+   
+      res.render("project/applies", {
+        admin_: req.session.admin,
+        applies: applies,
+        accounts: accounts,
+        projects: projects
+      })
+      
+    } catch (error) {
+      
+    }
+})
+//Accept project apply
+app.get('/applies/approve/:id',checkLoggedIn, checkMaker, async (req, res) => {
+  const applyId = req.params.id;
+
+  const getApply = await db.sql("global/get_user_info", {
+    table: 'projects_applies',
+    type: 'id',
+    typeValue: applyId
+  });
+
+  const getContributors = await db.sql('global/get_user_info', {
+    table: 'projects',
+    type: 'id',
+    typeValue: JSON.stringify(getApply.data[0].projectId)
+  });
+
+  const contributorsData = getContributors.data[0];
+  let contributors = [];
+
+  if (contributorsData && contributorsData.contributors) {
+    contributors = JSON.parse(contributorsData.contributors);
+    if (!Array.isArray(contributors)) {
+      contributors = [];
+    }
+  }
+
+  contributors.push(getApply.data[0].userId.toString());
+
+  await db.sql('project/update_contributors', {
+    contributors: JSON.stringify(contributors),
+    projectId: JSON.stringify(getApply.data[0].projectId)
+  });
+
+  await db.sql('global/delete_row', {
+    table: "projects_applies",
+    id: applyId
+  })
+  
+  res.redirect("/project/applies")
+});
+
+//Decline project apply
+app.get('/applies/decline/:id',checkLoggedIn, checkMaker, async (req, res) => {
+
+  const applyId = req.params.id;
+
+  await db.sql('global/delete_row', {
+    table: "projects_applies",
+    id: applyId
+  })
+
+  res.redirect("/project/applies")
+  
+})
 //Router for specific project
 app.get('/:id', checkLoggedIn, async (req, res) => {
   try {
@@ -345,5 +429,33 @@ function checkLoggedIn(req, res, next) {
     next();
   }
 }
+
+// This function checks if the user is the maker of the product
+async function checkMaker(req, res, next) {
+  const applyId = req.params.id;
+
+  // Retrieve the apply information from the database
+  const getApply = await db.sql("global/get_user_info", {
+    table: 'projects_applies',
+    type: 'id',
+    typeValue: applyId
+  });
+
+  if (!getApply || getApply.data.length === 0) {
+    // If the apply information is not found, redirect the user
+    res.redirect('/project/applies');
+  } else {
+    const makerId = getApply.data[0].makerId;
+
+    if (makerId === req.session.userId) {
+      // If the user is the maker, proceed to the next middleware/route handler
+      next();
+    } else {
+      // If the user is not the maker, redirect them
+      res.redirect('/project/applies');
+    }
+  }
+}
+
 
 module.exports = app;

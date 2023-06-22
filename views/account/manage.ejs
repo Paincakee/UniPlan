@@ -10,8 +10,8 @@
 </head>
 <body class="navbar-page">
     <div id="navbar-container"></div>
-    <button <%if(locals.wrongpass && wrongpass){%>hidden<%}%> id="showpassform" onclick="passwordform()">Change Password</button>
-    <form <%if(locals.wrongpass && wrongpass){}else{%>hidden<%}%> id="passform" method="post">
+    <button <%if(locals.wrongpass && wrongpass){%>hidden <%}else{%>style="display: block;"<%}%> id="showpassform" onclick="passwordform()">Change Password</button>
+    <form <%if(locals.wrongpass && wrongpass){%>style="display: none;" <%}%>id="passform" method="post" style="display: none;">
         <input name="newpass" type="password" placeholder="New Password"><br>
         <input name="confirmpass" type="password" placeholder="Confirm Password"><br>
         <button type="submit">Submit</button>
@@ -19,6 +19,19 @@
             <label><%=error%></label>
         <%}%>
     </form>
+
+    <div class="waveWrapper waveAnimation">
+        <div class="waveWrapperInner bgTop">
+          <div class="wave waveTop" style="background-image: url('../../public/style/images/wavelijntjeupdate.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgMiddle">
+          <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgBottom">
+          <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+        </div>
+      </div>
+
 </body>
 </html>
 <script>

@@ -80,6 +80,7 @@ router.route('/new')
         // text: "Click the link to verify.", // plain text body
         html: `<h5>Your verification code is: ${req.session.token}</h5>` // html body
       })
+  
       console.log("Message sent: %s", info.messageId);
       //Declare session variables
       req.session.firstName = validator.escape(req.body.firstName);
@@ -104,6 +105,9 @@ router.route('/new')
 
 // Account Verification
 router.route('/verify')
+  .get(async (req, res) =>{
+    res.render('account/verification', { firstName: req.session.firstname, error: 'Invalid input! Try again.' })
+  })
   .post(async (req, res) => {
     console.log(req.body.tokenInput);
     console.log(req.session.token);
@@ -152,8 +156,9 @@ router.route('/login')
       req.session.admin = dbPass.data[0].admin // Set session variable
       req.session.firstName = dbPass.data[0].firstName // Set session variable
       req.session.lastName = dbPass.data[0].lastName // Set session variable
+      req.session.userId = dbPass.data[0].id // Set session variable
       req.session.id = req.body.id // Set session variable
-
+      
       res.redirect('./admin')
     } catch (error) {
       console.error(error)
@@ -231,7 +236,8 @@ router.get('/admin/view/:id', checkAdminAccess, async (req, res) => {
       id,
       makerMail: resultProject.data[0].email,
       firstname: req.session.firstName,
-      lastname: req.session.lastName
+      lastname: req.session.lastName,
+      admin_: req.session.admin
     });
   } catch (error) {
     console.log(error);
@@ -384,6 +390,19 @@ router.get("/admin/decline/project/:id", checkAdminAccess, async (req, res) => {
   }
 });
 
+router.get('/logout', checkLoggedIn, (req, res) => {
+  try {
+    req.session.destroy();
+    
+    console.log("logged out")
+    res.redirect("/account/login")
+  } catch (error) {
+    
+  }
+
+  
+})
+
 // Helper Functions
 
 // Hashes the provided password
@@ -438,7 +457,7 @@ function checkLoggedIn(req, res, next) {
 //This function checks if the user is logged out, if they are logged in go to account page
 function checkNotLoggedInRedirect(req, res, next) {
   // Check if the email session is set
-  if (req.session.email) {
+  if (req.session.loggedIn) {
     // Redirect the user to a specific route if they are logged in
     res.redirect('/account');
   }

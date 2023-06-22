@@ -27,10 +27,9 @@
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    padding-bottom: 20px;
-    padding-left: 70px;
-    padding-right: 70px;
-    width: 400px;
+    padding: 0 40px 20px;
+    width: 460px;
+    height: 500px;
     margin: 0 auto;
     border-radius: 12px;
     overflow-y: auto;
@@ -111,53 +110,22 @@
 
   /* Responsive Styling */
 
-  /* For Mobile Devices - 320px — 480px */
-  @media only screen and (max-width: 480px) {
-    #formregister {
-      width: 90%;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: #ccc #fff;
-    }
-
-    .lblregform input,
-    #selecReg {
-      width: 100%;
-    }
-  }
+  // For Mobile Devices - 320px — 480px
+@media only screen and (max-width: 480px) {
+  
 }
 
-/* For iPads and Tablets - 481px — 768px */
+// For iPads and Tablets - 481px — 768px
 @media only screen and (min-width: 481px) and (max-width: 768px) {
-  #formregister {
-    width: 70%;
-  }
+  
 }
 
-/* For Laptops and small screens - 769px — 1024px */
-@media only screen and (min-width: 769px) and (max-width: 1024px) {
-  #formregister {
-    width: 50%;
-  }
-}
 
-/* For Max Height up to 550px */
-@media only screen and (max-height: 550px) {
+/* Small devices */
+@media screen and (max-height: 600px) {
   #formregister {
-    overflow-y: auto;
-    margin-bottom: 10%;
-  }
-}
-
-/* For Min Height 551px — 1200px */
-@media only screen and (min-height: 551px) and (max-height: 1200px) {
-  #formregister {
+    height: 70%;
     overflow-y: auto;
   }
 }
-
-/* For Min Height 1201px and more */
-@media only screen and (min-height: 1201px) {
 }
-
-

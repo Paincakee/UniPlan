@@ -10,56 +10,68 @@
     <title>Create</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link href="/style/main.css" rel="stylesheet" type="text/css">
-
 </head>
 
 <body id="projectcreatebody" class="navbar-page">
     <div id="navbar-container"></div>
-    <div class="orbs">
-        <div id="orb1"></div>
-        <div id="orb2"></div>
-        <div id="orb3"></div>
-    </div>
-    <div class="orbs2">
-        <div id="orb4"></div>
-        <div id="orb5"></div>
-        <div id="orb6"></div>
-    </div>
+    
 
     <form action="/project/new" method="post" enctype="multipart/form-data" id="createprojectform">
+        <div class="container-main">
+        <h3>Create Project</h3>
+        <div class="container-wrapper">
+        <div id="box-left-createproject">
         <label>Title </label>
         <input type="text" name="title" value="<%= locals.title %>" required id="createprojectinput">
         <label>Description</label>
         <textarea name="description" id="textareacreateproject" cols="30" rows="10" required></textarea>
-
+    
+        
+    </div>
+    <div id="box-right-createproject">
         <label>Contact info</label>
         <input type="text" name="contact" required id="createprojectinput">
-
         <label>Foto's</label>
         <div class="mb-3">
             <input class="form-control" type="file" name="fotos" id="fileInput formFileMultiple" multiple>
         </div>
 
+        
         <label>Additional Files </label>
         <div class="mb-3">
             <input class="form-control" type="file" name="files" id="fileInput formFileMultiple" multiple>
         </div>
 
         <label>Course(s)</label>
-        <select name="courses" id="courseSelect" multiple multiselect-search="true"
-            multiselect-select-all="true">
+        <select name="courses" id="courseSelect" multiple multiselect-search="true" multiselect-select-all="true">
             <% resultCourse.data.forEach(row=> { %>
                 <option value="<%=row.id%>">
                     <%=row.courseName%>
                 </option>
                 <% });%>
         </select>
-        <button type="submit" id="createprojectsubmit" value="Submit">Create</button>
+    </div>
+    </div>
         <span class="ERROR">
             <%= locals.error %>
         </span>
+        <button type="submit" id="createprojectsubmit" value="Submit">Create</button>
+        
+    
+    </div>
     </form>
 
+    <div class="waveWrapper waveAnimation">
+        <div class="waveWrapperInner bgTop">
+          <div class="wave waveTop" style="background-image: url('../../public/style/images/wavelijntjeupdate.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgMiddle">
+          <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgBottom">
+          <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+        </div>
+    </div>
 </body>
 
 </html>

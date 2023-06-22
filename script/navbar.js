@@ -81,7 +81,16 @@ function generateNavbar(name, isAdmin) {
                     <svg id="Layer_1" class="svg" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="m16 16a1 1 0 0 1 -1 1h-2v2a1 1 0 0 1 -2 0v-2h-2a1 1 0 0 1 0-2h2v-2a1 1 0 0 1 2 0v2h2a1 1 0 0 1 1 1zm6-5.515v8.515a5.006 5.006 0 0 1 -5 5h-10a5.006 5.006 0 0 1 -5-5v-14a5.006 5.006 0 0 1 5-5h4.515a6.958 6.958 0 0 1 4.95 2.05l3.484 3.486a6.951 6.951 0 0 1 2.051 4.949zm-6.949-7.021a5.01 5.01 0 0 0 -1.051-.78v4.316a1 1 0 0 0 1 1h4.316a4.983 4.983 0 0 0 -.781-1.05zm4.949 7.021c0-.165-.032-.323-.047-.485h-4.953a3 3 0 0 1 -3-3v-4.953c-.162-.015-.321-.047-.485-.047h-4.515a3 3 0 0 0 -3 3v14a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3z"/></svg>
                     <span>Create</span>
                 </a>
+                <a href="/project/applies" class="" aria-current="true">
+                <svg class="svg" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="m11.696,11.718l-1.862,1.805c-.318.318-.74.478-1.163.478-.427,0-.856-.163-1.183-.489l-.681-.654c-.398-.383-.411-1.016-.028-1.414.383-.398,1.017-.41,1.414-.028l.473.455,1.638-1.588c.396-.383,1.029-.375,1.414.022.384.396.375,1.029-.022,1.414Zm4.304,5.282h-3c-.552,0-1,.448-1,1s.448,1,1,1h3c.552,0,1-.448,1-1s-.448-1-1-1Zm0-12h-3c-.552,0-1,.448-1,1s.448,1,1,1h3c.552,0,1-.448,1-1s-.448-1-1-1Zm0,6h-2c-.552,0-1,.448-1,1s.448,1,1,1h2c.552,0,1-.448,1-1s-.448-1-1-1Zm-7.5,5.5c-.828,0-1.5.672-1.5,1.5s.672,1.5,1.5,1.5,1.5-.672,1.5-1.5-.672-1.5-1.5-1.5Zm0-9c.828,0,1.5-.672,1.5-1.5s-.672-1.5-1.5-1.5-1.5.672-1.5,1.5.672,1.5,1.5,1.5Zm13.5-2.5v14c0,2.757-2.243,5-5,5H7c-2.757,0-5-2.243-5-5V5C2,2.243,4.243,0,7,0h10c2.757,0,5,2.243,5,5Zm-2,0c0-1.654-1.346-3-3-3H7c-1.654,0-3,1.346-3,3v14c0,1.654,1.346,3,3,3h10c1.654,0,3-1.346,3-3V5Z"/></svg>
+                <span>Applies</span>
+                </a>
             </div>
+            <a href="/account/logout" class="nav-link logout-link" aria-current="true">
+                <svg class="svg" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="M11.476,15a1,1,0,0,0-1,1v3a3,3,0,0,1-3,3H5a3,3,0,0,1-3-3V5A3,3,0,0,1,5,2H7.476a3,3,0,0,1,3,3V8a1,1,0,0,0,2,0V5a5.006,5.006,0,0,0-5-5H5A5.006,5.006,0,0,0,0,5V19a5.006,5.006,0,0,0,5,5H7.476a5.006,5.006,0,0,0,5-5V16A1,1,0,0,0,11.476,15Z"/><path d="M22.867,9.879,18.281,5.293a1,1,0,1,0-1.414,1.414L21.13,10.97,6,11a1,1,0,0,0,0,2H6l15.188-.03-4.323,4.323a1,1,0,1,0,1.414,1.414l4.586-4.586A3,3,0,0,0,22.867,9.879Z"/></svg>
+
+                <span>Logout</span>
+            </a>
         </div>
     </nav>
     `;
@@ -117,19 +126,21 @@ function generateNavbar(name, isAdmin) {
 function toggleSubMenu(subMenuId, event) {
     event.preventDefault();
     const subMenu = document.getElementById(subMenuId);
-    const svgArrow = document.querySelector(`#${subMenuId} .svg-arrow`);
+    const svgArrow = event.currentTarget.querySelector(`.svg-arrow`);
     const isSubMenuHidden = subMenu.style.display === "none";
-
-
+    
+  
     if (!subMenu.classList.contains("show")) {
-        subMenu.classList.add("show");
-        event.stopPropagation();
-    }
-    else {
-        subMenu.classList.remove("show");
-
+      subMenu.classList.add("show");
+      svgArrow.classList.add("rotate"); // Add the "rotate" class to rotate the SVG arrow
+      event.stopPropagation();
+    } else {
+      subMenu.classList.remove("show");
+      svgArrow.classList.remove("rotate"); // Remove the "rotate" class to reset the rotation
     }
 }
+
+
 
 // Call the function to generate the navbar
 generateNavbar(title, admin);

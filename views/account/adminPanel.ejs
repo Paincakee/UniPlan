@@ -70,7 +70,7 @@
                             <td>
                                 <a href="admin/approve/account/<%= user.id %>" class="approve-button">Approve</a>
                                 <a href="admin/decline/account/<%= user.id %>" class="decline-button">Decline</a>
-                                <a class="view-button">view</a>
+                                <a class="view-button">View</a>
                             </td>
                         </tr>
                         <% }) %>
@@ -119,7 +119,7 @@
                         <td>
                             <a href="admin/approve/project/<%= project.id %>" class="approve-button">Approve</a>
                             <a href="admin/decline/project/<%= project.id %>" class="decline-button">Decline</a>
-                            <a href="admin/view/<%= project.id %>" class="view-button">view</a>
+                            <a href="admin/view/<%= project.id %>" class="view-button">View</a>
                         </td>
                     </tr>
                     <% }) %>
@@ -130,7 +130,17 @@
         </div>
     </div>
     </div>
-
+    <div class="waveWrapper waveAnimation">
+        <div class="waveWrapperInner bgTop">
+          <div class="wave waveTop" style="background-image: url('../../public/style/images/wavelijntjeupdate.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgMiddle">
+          <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgBottom">
+          <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+        </div>
+      </div>
     <script>
         const admin = "<%= admin_ %>";
     </script>
