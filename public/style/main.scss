@@ -8,6 +8,7 @@
 @use "include/project";
 @use "include/accountManager";
 @use "include/verify";
+@use "include/waves.scss";
 // SCSS code
 textarea:focus,
 input:focus {
@@ -46,18 +47,42 @@ input:focus {
       height: 20px;
     }
     .nav-info {
-      background-color: #a5d4d4;
+      position: relative; /* Add position relative for the pseudo-element */
+      background: linear-gradient(#61aaac, #dffeff);
+      background-color: #87BFC0;
       padding: 15px;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
+      text-align: center;
+    
       .wrapper {
         width: 90%;
+    
         .svg {
           margin-top: -10px !important;
         }
+    
+        span {
+          color: #fff;
+          font-size: 24px;
+          font-weight: bold;
+          margin: 0;
+        }
+      }
+    
+      &::after {
+        
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -200px; /* Adjust the distance from the bottom as needed */
+        width: 100%;
+        height: 200px; /* Adjust the height of the shadow as needed */
+        background: linear-gradient(to bottom, #dffeff, white); /* Gradient from shadow color to transparent */
       }
     }
+    
     .nav-items {
       background-color: white;
       flex-grow: 1;
