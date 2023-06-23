@@ -13,7 +13,6 @@
   }
 
   table {
-    padding: 10px;
     margin-top: 50px;
     width: auto;
     margin-bottom: 20px;
@@ -27,8 +26,11 @@
   }
 
   th {
+    padding-top: 10px;
     background-color: #bcdbdc;
     font-weight: bold;
+    position: sticky;
+    top: 0;
   }
 
   td {
@@ -38,14 +40,6 @@
   a {
     text-decoration: none;
     color: #000;
-  }
-
-  th:first-child {
-    border-top-left-radius: 10px;
-  }
-  
-  th:last-child {
-    border-top-right-radius: 10px;
   }
 
   .approve-button {
@@ -90,5 +84,12 @@
   #nav-profile-tab.active,
   #nav-contact-tab.active {
     color: #000000;
+  }
+
+  .table-container {
+    margin-top: 2%;
+    min-height: 75vh;
+    max-height: 75vh; /* Adjust the maximum height as needed */
+    overflow-y: auto;
   }
 }
