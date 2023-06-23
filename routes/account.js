@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.Router()
+const app = express.Router()
 const bcrypt = require('bcrypt')
 const fs = require('fs');
 
@@ -7,7 +7,7 @@ const saltRounds = 10 // Time for hashing algorithm
 
 const validator = require('validator');
 
-router.route('/')
+app.route('/')
   .get(checkLoggedIn, (req, res) => {
     res.render('account/manage',{
       admin_: req.session.admin
@@ -29,7 +29,7 @@ router.route('/')
       res.render('account/manage', { error: 'New password and confirmed password are not the same! Please try again', wrongpass: true })
     }
   })
-router.post('/setpass', async (req, res) => {
+app.post('/setpass', async (req, res) => {
   if (parseInt(req.body.tokenInput) == req.session.token) {
     await db.sql('global/set_user_info', {
       table: 'accounts',
@@ -46,7 +46,7 @@ router.post('/setpass', async (req, res) => {
 })
 
 // Account Registration
-router.route('/new')
+app.route('/new')
   .get(async (req, res) => {
     res.render('account/register')
   })
@@ -104,7 +104,7 @@ router.route('/new')
 
 
 // Account Verification
-router.route('/verify')
+app.route('/verify')
   .get(async (req, res) =>{
     res.render('account/verification', { firstName: req.session.firstname, error: 'Invalid input! Try again.' })
   })
@@ -128,7 +128,7 @@ router.route('/verify')
   })
 
 // Account Login
-router.route('/login')
+app.route('/login')
   .get(checkNotLoggedInRedirect, (req, res) => {
     res.render('account/login')
   })
@@ -170,7 +170,7 @@ router.route('/login')
   })
 
 // Admin Panel
-router.get('/admin', checkAdminAccess, async (req, res) => {
+app.get('/admin', checkAdminAccess, async (req, res) => {
   try {
 
 
@@ -193,7 +193,7 @@ router.get('/admin', checkAdminAccess, async (req, res) => {
   }
 })
 //View Project
-router.get('/admin/view/:id', checkAdminAccess, async (req, res) => {
+app.get('/admin/view/:id', checkAdminAccess, async (req, res) => {
   try {
     const id = req.params.id;
     let courseListFinal = [];
@@ -246,7 +246,7 @@ router.get('/admin/view/:id', checkAdminAccess, async (req, res) => {
 })
 
 // Approve Account
-router.get("/admin/approve/account/all", checkAdminAccess, async (req, res) => {
+app.get("/admin/approve/account/all", checkAdminAccess, async (req, res) => {
   try {
 
 
@@ -260,7 +260,7 @@ router.get("/admin/approve/account/all", checkAdminAccess, async (req, res) => {
   }
 })
 
-router.get("/admin/approve/account/:id", checkAdminAccess, async (req, res) => {
+app.get("/admin/approve/account/:id", checkAdminAccess, async (req, res) => {
   try {
 
 
@@ -294,8 +294,28 @@ router.get("/admin/approve/account/:id", checkAdminAccess, async (req, res) => {
   }
 })
 
+app.route('/notifications')
+  .get(checkLoggedIn, async (req, res) => {
+    const resultNoti = await db.sql('global/get_all', {
+      table: 'notifications',
+    })
+    console.log(resultNoti);
+    const resultAccount = await db.sql('global/get_user_info', {
+      table: 'accounts',
+      type: 'email',
+      typeValue: req.session.email
+    })
+    let notiList = []
+    resultNoti.data.forEach(row => {
+      if(row.userId == resultAccount.data[0].id){
+        notiList.push(row);
+      }
+    })
+    res.render('account/notifications', {notiList})
+  })
+
 // Decline Account
-router.get("/admin/decline/account/all", checkAdminAccess, async (req, res) => {
+app.get("/admin/decline/account/all", checkAdminAccess, async (req, res) => {
   try {
 
     const deleteAll = await db.sql("global/delete_all", { table: "accounts_pending" })
@@ -307,7 +327,7 @@ router.get("/admin/decline/account/all", checkAdminAccess, async (req, res) => {
   }
 })
 
-router.get("/admin/decline/account/:id", checkAdminAccess, async (req, res) => {
+app.get("/admin/decline/account/:id", checkAdminAccess, async (req, res) => {
   try {
 
 
@@ -326,7 +346,7 @@ router.get("/admin/decline/account/:id", checkAdminAccess, async (req, res) => {
 })
 
 // Approve project
-router.get("/admin/approve/project/all", checkAdminAccess, async (req, res) => {
+app.get("/admin/approve/project/all", checkAdminAccess, async (req, res) => {
   try {
 
 
@@ -340,7 +360,7 @@ router.get("/admin/approve/project/all", checkAdminAccess, async (req, res) => {
   }
 });
 
-router.get("/admin/approve/project/:id", checkAdminAccess, async (req, res) => {
+app.get("/admin/approve/project/:id", checkAdminAccess, async (req, res) => {
   try {
     const projectId = req.params.id;
 
@@ -363,7 +383,7 @@ router.get("/admin/approve/project/:id", checkAdminAccess, async (req, res) => {
 });
 
 // Decline project
-router.get("/admin/decline/project/all", checkAdminAccess, async (req, res) => {
+app.get("/admin/decline/project/all", checkAdminAccess, async (req, res) => {
   try {
 
 
@@ -376,7 +396,7 @@ router.get("/admin/decline/project/all", checkAdminAccess, async (req, res) => {
   }
 });
 
-router.get("/admin/decline/project/:id", checkAdminAccess, async (req, res) => {
+app.get("/admin/decline/project/:id", checkAdminAccess, async (req, res) => {
   try {
     let projectId = req.params.id;
 
@@ -390,7 +410,7 @@ router.get("/admin/decline/project/:id", checkAdminAccess, async (req, res) => {
   }
 });
 
-router.get('/logout', checkLoggedIn, (req, res) => {
+app.get('/logout', checkLoggedIn, (req, res) => {
   try {
     req.session.destroy();
     
@@ -469,4 +489,4 @@ function checkNotLoggedInRedirect(req, res, next) {
 }
 
 
-module.exports = router
+module.exports = app
