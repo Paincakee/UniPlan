@@ -41,7 +41,7 @@ let transporter = nodemailer.createTransport({
   secure: false, // true for 465, false for other ports
   auth: {
     user: 'pixeltrading@outlook.com',
-    pass: 'YEWeyBn3PttehFDE'
+    pass: 'r2R439Sm&R8ALHf'
   }
 });
 
@@ -57,10 +57,6 @@ io.on('connection', (socket) => {
   
   socket.on('send-chat-message', (data) => {
     socket.to(data.roomId).emit('chat-message', { message: data.message, user: users[socket.id] });
-  });
-
-  socket.on('chat-time', (time) => {
-    // console.log(`time: ${time}`);
   });
 });
 

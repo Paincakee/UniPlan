@@ -10,8 +10,8 @@
 </head>
 <body class="navbar-page">
     <div id="navbar-container"></div>
-    <button <%if(locals.wrongpass && wrongpass){%>hidden<%}%> id="showpassform" onclick="passwordform()">Change Password</button>
-    <form <%if(locals.wrongpass && wrongpass){}else{%>hidden<%}%> id="passform" method="post">
+    <button <%if(locals.wrongpass && wrongpass){%>hidden <%}else{%>style="display: block;"<%}%> id="showpassform" onclick="passwordform()">Change Password</button>
+    <form <%if(locals.wrongpass && wrongpass){%>style="display: none;" <%}%>id="passform" method="post" style="display: none;">
         <input name="newpass" type="password" placeholder="New Password"><br>
         <input name="confirmpass" type="password" placeholder="Confirm Password"><br>
         <button type="submit">Submit</button>

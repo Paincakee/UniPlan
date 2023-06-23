@@ -12,8 +12,6 @@
   margin: 0;
   overflow: hidden;
   /* Small devices */
-  /* Medium devices */
-  /* Large devices */
 }
 #login-body .loginForm {
   background-color: #fff;
@@ -22,7 +20,8 @@
   padding-bottom: 20px;
   padding-left: 70px;
   padding-right: 70px;
-  width: 400px;
+  width: 350px;
+  height: 400px;
   margin: 0 auto;
   border-radius: 12px;
   text-align: center;
@@ -96,35 +95,10 @@
     width: 60%;
   }
 }
-@media only screen and (min-width: 769px) and (max-width: 1024px) {
-  #login-body .loginForm {
-    width: 40%;
-  }
-}
-@media only screen and (min-width: 1025px) and (max-width: 1200px) {
-  #login-body .loginForm {
-    width: 30%;
-  }
-}
-@media only screen and (min-width: 1201px) {
-  #login-body .loginForm {
-    width: 30%;
-  }
-}
 @media screen and (max-height: 600px) {
   #login-body .loginForm {
     height: 70%;
     overflow-y: auto;
-  }
-}
-@media screen and (min-height: 601px) and (max-height: 900px) {
-  #login-body .loginForm {
-    height: 55%;
-  }
-}
-@media screen and (min-height: 901px) {
-  #login-body .loginForm {
-    height: 40%;
   }
 }
 
@@ -144,8 +118,6 @@
   text-align: center;
   /* Responsive Styling */
   /* Small devices */
-  /* Medium devices */
-  /* Large devices */
 }
 #register-body #register-bar {
   width: 100%;
@@ -160,10 +132,9 @@
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  padding-bottom: 20px;
-  padding-left: 70px;
-  padding-right: 70px;
-  width: 400px;
+  padding: 0 40px 20px;
+  width: 460px;
+  height: 500px;
   margin: 0 auto;
   border-radius: 12px;
   overflow-y: auto;
@@ -235,45 +206,10 @@
 #register-body #formregister button:hover {
   background-color: #6cb0b2;
 }
-@media only screen and (max-width: 480px) {
-  #register-body #formregister {
-    width: 70%;
-  }
-}
-@media only screen and (min-width: 481px) and (max-width: 768px) {
-  #register-body #formregister {
-    width: 60%;
-  }
-}
-@media only screen and (min-width: 769px) and (max-width: 1024px) {
-  #register-body #formregister {
-    width: 40%;
-  }
-}
-@media only screen and (min-width: 1025px) and (max-width: 1200px) {
-  #register-body #formregister {
-    width: 30%;
-  }
-}
-@media only screen and (min-width: 1201px) {
-  #register-body #formregister {
-    width: 30%;
-  }
-}
 @media screen and (max-height: 600px) {
   #register-body #formregister {
     height: 70%;
     overflow-y: auto;
-  }
-}
-@media screen and (min-height: 601px) and (max-height: 900px) {
-  #register-body #formregister {
-    height: 72%;
-  }
-}
-@media screen and (min-height: 901px) {
-  #register-body #formregister {
-    height: 72%;
   }
 }
 
@@ -375,6 +311,7 @@
   align-items: center;
   text-align: center;
   border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   justify-content: center;
 }
 
@@ -488,85 +425,6 @@
 
 .multiselect-dropdown span.placeholder {
   display: none;
-}
-
-@keyframes move_wave {
-  0% {
-    transform: translateX(0) translateZ(0) scaleY(1);
-  }
-  50% {
-    transform: translateX(-25%) translateZ(0) scaleY(0.55);
-  }
-  100% {
-    transform: translateX(-50%) translateZ(0) scaleY(1);
-  }
-}
-.waveWrapper {
-  overflow: hidden;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  margin: auto;
-  z-index: -1;
-}
-
-.waveWrapperInner {
-  position: absolute;
-  width: 100%;
-  overflow: hidden;
-  height: 100%;
-  bottom: -1px;
-  background-image: linear-gradient(to top, #87BFC0 20%, #ffffff 80%);
-}
-
-.bgTop {
-  z-index: 15;
-  opacity: 0.5;
-}
-
-.bgMiddle {
-  z-index: 10;
-  opacity: 0.75;
-}
-
-.bgBottom {
-  z-index: 5;
-}
-
-.wave {
-  position: absolute;
-  left: 0;
-  width: 200%;
-  height: 100%;
-  background-repeat: repeat no-repeat;
-  background-position: 0 bottom;
-  transform-origin: center bottom;
-}
-
-.waveTop {
-  background-size: 50% 100px;
-}
-
-.waveAnimation .waveTop {
-  animation: move_wave 10s linear infinite;
-}
-
-.waveMiddle {
-  background-size: 50% 120px;
-}
-
-.waveAnimation .waveMiddle {
-  animation: move_wave 10s linear infinite;
-}
-
-.waveBottom {
-  background-size: 50% 100px;
-}
-
-.waveAnimation .waveBottom {
-  animation: move_wave 15s linear infinite;
 }
 
 #projecthome {
@@ -692,8 +550,12 @@ a {
   border-radius: 10px;
   font-family: "Garamond";
   font-weight: 500;
-  overflow-y: auto; /* Add vertical scrollbar */
   min-height: 88vh;
+  position: relative;
+}
+#test-body #chat-container::before {
+  content: "";
+  flex-grow: 1;
 }
 #test-body .own-message {
   margin-bottom: 10px;
@@ -723,11 +585,11 @@ a {
   flex-direction: column;
 }
 #test-body #chat-form {
-  position: fixed;
-  bottom: 0;
+  position: sticky;
+  bottom: -10px;
   width: 100%;
   padding: 10px;
-  background-color: #ff0000;
+  background-color: rgb(245, 245, 245);
   border-top: 2px solid #ccc;
   display: flex;
   align-items: center;
@@ -863,6 +725,85 @@ a {
   font-size: 50px;
 }
 
+@keyframes move_wave {
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-25%) translateZ(0) scaleY(0.55);
+  }
+  100% {
+    transform: translateX(-50%) translateZ(0) scaleY(1);
+  }
+}
+.waveWrapper {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  z-index: -1;
+}
+
+.waveWrapperInner {
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+  bottom: -1px;
+  background-image: linear-gradient(to top, #87BFC0 20%, #ffffff 80%);
+}
+
+.bgTop {
+  z-index: 15;
+  opacity: 0.5;
+}
+
+.bgMiddle {
+  z-index: 10;
+  opacity: 0.75;
+}
+
+.bgBottom {
+  z-index: 5;
+}
+
+.wave {
+  position: absolute;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-repeat: repeat no-repeat;
+  background-position: 0 bottom;
+  transform-origin: center bottom;
+}
+
+.waveTop {
+  background-size: 50% 100px;
+}
+
+.waveAnimation .waveTop {
+  animation: move_wave 10s linear infinite;
+}
+
+.waveMiddle {
+  background-size: 50% 120px;
+}
+
+.waveAnimation .waveMiddle {
+  animation: move_wave 10s linear infinite;
+}
+
+.waveBottom {
+  background-size: 50% 100px;
+}
+
+.waveAnimation .waveBottom {
+  animation: move_wave 15s linear infinite;
+}
+
 textarea:focus,
 input:focus {
   outline: none;
@@ -900,17 +841,35 @@ input:focus {
   height: 20px;
 }
 .navbar-page #sidebarMenu .nav-info {
-  background-color: #a5d4d4;
+  position: relative; /* Add position relative for the pseudo-element */
+  background: linear-gradient(#87BFC0, #b7e8eb);
+  background-color: #87BFC0;
   padding: 15px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
 }
 .navbar-page #sidebarMenu .nav-info .wrapper {
   width: 90%;
 }
 .navbar-page #sidebarMenu .nav-info .wrapper .svg {
   margin-top: -10px !important;
+}
+.navbar-page #sidebarMenu .nav-info .wrapper span {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+.navbar-page #sidebarMenu .nav-info::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px; /* Adjust the distance from the bottom as needed */
+  width: 100%;
+  height: 10px; /* Adjust the height of the shadow as needed */
+  background: linear-gradient(to bottom, #b7e8eb, white); /* Gradient from shadow color to transparent */
 }
 .navbar-page #sidebarMenu .nav-items {
   background-color: white;

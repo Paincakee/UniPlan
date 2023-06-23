@@ -16,8 +16,8 @@
     <div class="content-container " id="projectview"> 
         <% resultProject.data.forEach((row) => { %>
             <div id="<%= row.id %>" class="item" onclick="handleClick('<%= row.id %>')">
-                <div id="pannelcreator">Creator: </div>
-                <div id="panneltitle"><%= row.title %></div>
+                <div id="panneltitle" style="justify-content: flex-start;">Project: <%= row.title %></div>
+                <div id="pannelcreator"><%= row.email %></div>
                 <div id="pannelcontact">Contact Info: <%= row.contactInfo %></div>
                 <div id="pannelprogress">Status: in development</div>
                 <div id="panneljoin">
@@ -53,9 +53,18 @@
         <div class="waveWrapperInner bgBottom">
           <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
         </div>
-      </div>
+    </div>
       <script>
         const admin = "<%= admin_ %>";
+        function handleClick(id) {
+            //handle click
+            console.log(id);
+            link = window.location.href
+            if(link.charAt(link.length -1) === '/'){
+                link = link.slice(0, -1);
+            }
+            window.location.href = link + "/" + id;
+        }
     </script>
 
     <script src="/script/navbar.js"></script>
