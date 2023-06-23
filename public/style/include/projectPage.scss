@@ -56,8 +56,11 @@
   .chat {
     display: flex;
     flex-direction: column;
+    
   }
-
+  .chat-message {
+    word-break: break-word;
+  }
   #chat-form {
     position: sticky;
     bottom: -10px;

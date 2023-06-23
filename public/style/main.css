@@ -582,6 +582,9 @@ a {
   display: flex;
   flex-direction: column;
 }
+#test-body .chat-message {
+  word-break: break-word;
+}
 #test-body #chat-form {
   position: sticky;
   bottom: -10px;
