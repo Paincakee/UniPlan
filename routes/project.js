@@ -141,10 +141,10 @@ app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, 
     typeValue: req.body.projectId
   })
 
-  const resultNoti = await db.sql('global/get_user_info', {
+  await db.sql('notifications/create_notification', {
     userId: resultProject.data[0].userId,
     message: `${resultAccount.email} has applied to your project. click here to view`,
-    redirect: 'project/applies'
+    redirect: '/project/applies'
   })
 
   await db.sql('project/apply_project', {
