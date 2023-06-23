@@ -141,6 +141,12 @@ app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, 
     typeValue: req.body.projectId
   })
 
+  await db.sql('notifications/create_notification', {
+    userId: resultProject.data[0].userId,
+    message: `${resultAccount.data[0].email} has applied to your project. click here to view`,
+    redirect: '/project/applies'
+  })
+
   await db.sql('project/apply_project', {
     userId: JSON.stringify(resultAccount.data[0].id),
     projectId: req.body.projectId,
@@ -151,12 +157,6 @@ app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, 
 })
 //update project
 app.post('/update',checkLoggedIn, async (req, res) =>{
-
-  // const resultAccount = await db.sql('global/get_user_info', {
-  //   table: 'accounts',
-  //   type: 'email',
-  //   typeValue: req.session.email
-  // })
 
   const resultProject = await db.sql('global/get_user_info', {
     table: 'projects',
