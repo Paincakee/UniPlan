@@ -377,14 +377,20 @@ app.get("/admin/approve/project/:id", checkAdminAccess, async (req, res) => {
   try {
     const projectId = req.params.id;
 
-
-
-    const getProject = await db.sql("global/get_user_info", {
+    const project = await db.sql('global/get_user_info', {
       table: "projects_pending",
-      type: 'id',
-      typeValue: projectId,
-    });
-
+      type: "id",
+      typeValue: projectId
+    })
+    
+    
+    await db.sql('notifications/create_notification', {
+      userId: project.data[0].userId,
+      message: `The admin '${req.session.email}' has Accepted your project '${project.data[0].title}'. Click here to view the project details.`,
+      class: "succes",
+      redirect: `/project/${project.data[0].id}`
+    })
+    
     await db.sql("project/move_project", { id: projectId });
     await db.sql("global/delete_row", { table: "projects_pending", id: projectId });
 
