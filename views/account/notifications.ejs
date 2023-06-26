@@ -8,11 +8,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link href="/style/main.css" rel="stylesheet" type="text/css">
 </head>
-<body class="navbar-page">
+<body class="navbar-page notification-body">
     <div id="navbar-container"></div>
-    <%notiList.forEach(item => {%>
-        <a href="<%=item.redirect%>"><%=item.message%></a><br>
-    <%})%>
+    <div class="notification-wrapper">
+      <% notiList.forEach(item => { %>
+        <div class="notification">
+          <a class="<%= item.type %> notification-link" href="<%= item.redirect %>">
+            <span class="text">
+              <% const message = item.message; %>
+              <% const regex = /'(.*?)'/g; %>
+              <% let lastIndex = 0; %>
+              <% let match; %>
+              <% while ((match = regex.exec(message)) !== null) { %>
+                <% const startIndex = match.index + 1; %>
+                <% const endIndex = regex.lastIndex - 1; %>
+                <% const text = message.substring(startIndex, endIndex); %>
+                <%= message.substring(lastIndex, match.index) %>
+                <span class="bold"><%= text %></span>
+                <% lastIndex = regex.lastIndex + 1; %>
+              <% } %>
+              <%= message.substring(lastIndex) %>
+            </span>
+            <svg onclick="handleClear(event, '<%= item.id %>')" class="close-svg" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="m15.707,9.707l-2.293,2.293,2.293,2.293c.391.391.391,1.023,0,1.414-.195.195-.451.293-.707.293s-.512-.098-.707-.293l-2.293-2.293-2.293,2.293c-.195.195-.451.293-.707.293s-.512-.098-.707-.293c-.391-.391-.391-1.023,0-1.414l2.293-2.293-2.293-2.293c-.391-.391-.391-1.023,0-1.414s1.023-.391,1.414,0l2.293,2.293,2.293-2.293c.391-.391,1.023-.391,1.414,0s.391,1.023,0,1.414Zm8.293,2.293c0,6.617-5.383,12-12,12S0,18.617,0,12,5.383,0,12,0s12,5.383,12,12Zm-2,0c0-5.514-4.486-10-10-10S2,6.486,2,12s4.486,10,10,10,10-4.486,10-10Z"/></svg>
+          </a>
+        </div>
+      <% }) %>
+    </div>
 
     <div class="waveWrapper waveAnimation">
         <div class="waveWrapperInner bgTop">
@@ -25,7 +46,15 @@
           <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
         </div>
     </div>
+
 </body>
 </html>
 <script>const admin = "<%= admin_ %>";</script>
 <script src="/script/navbar.js"></script>
+<script>
+  function handleClear(event, id) {
+    event.preventDefault();
+    console.log(id);
+    window.location.replace(`/account/notification/delete/${id}`)
+  }
+</script>

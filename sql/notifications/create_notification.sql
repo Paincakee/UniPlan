@@ -1,2 +1,2 @@
-INSERT INTO `notifications`(`id`, `userId`, `message`, `redirect`)
-VALUES (null, '%userId%', '%message%', '%redirect%');
+INSERT INTO `notifications`(`id`, `userId`, `message`, `redirect`, `type`)
+VALUES (null, '%userId%', '%message%', '%redirect%', '%class%');

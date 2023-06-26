@@ -143,7 +143,8 @@ app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, 
 
   await db.sql('notifications/create_notification', {
     userId: resultProject.data[0].userId,
-    message: `${resultAccount.data[0].email} has applied to your project. click here to view`,
+    message: `'${resultAccount.data[0].email}' has applied to the project '${req.body.projectName}'. click here to view`,
+    class: "apply",
     redirect: '/project/applies'
   })
 
@@ -270,6 +271,25 @@ app.route("/applies")
 app.get('/applies/approve/:id',checkLoggedIn, checkMaker, async (req, res) => {
   const applyId = req.params.id;
 
+  const project_id = await db.sql('global/get_user_info', {
+    table: "projects_applies",
+    type: "id",
+    typeValue: applyId
+  })
+
+  const project_info = await db.sql('global/get_user_info', {
+    table: "projects",
+    type: "id",
+    typeValue: JSON.stringify(project_id.data[0].projectId)
+  })
+
+  await db.sql('notifications/create_notification', {
+    userId: JSON.stringify(project_id.data[0].userId),
+    message: `'${project_info.data[0].email}' has Accepted your application for the project '${project_info.data[0].title}'. Click here to view the project details.`,
+    class: "succes",
+    redirect: `/project/${project_info.data[0].id}`
+  })
+
   const getApply = await db.sql("global/get_user_info", {
     table: 'projects_applies',
     type: 'id',
@@ -311,6 +331,25 @@ app.get('/applies/approve/:id',checkLoggedIn, checkMaker, async (req, res) => {
 app.get('/applies/decline/:id',checkLoggedIn, checkMaker, async (req, res) => {
 
   const applyId = req.params.id;
+
+  const project_id = await db.sql('global/get_user_info', {
+    table: "projects_applies",
+    type: "id",
+    typeValue: applyId
+  })
+
+  const project_info = await db.sql('global/get_user_info', {
+    table: "projects",
+    type: "id",
+    typeValue: JSON.stringify(project_id.data[0].projectId)
+  })
+
+  await db.sql('notifications/create_notification', {
+    userId: JSON.stringify(project_id.data[0].userId),
+    message: `'${project_info.data[0].email}' has declined your application for the project '${project_info.data[0].title}'. Click here to view the project details.`,
+    class: "warning",
+    redirect: `/project/${project_info.data[0].id}`
+  })
 
   await db.sql('global/delete_row', {
     table: "projects_applies",

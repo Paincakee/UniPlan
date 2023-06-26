@@ -299,7 +299,7 @@ app.route('/notifications')
     const resultNoti = await db.sql('global/get_all', {
       table: 'notifications',
     })
-    console.log(resultNoti);
+    
     const resultAccount = await db.sql('global/get_user_info', {
       table: 'accounts',
       type: 'email',
