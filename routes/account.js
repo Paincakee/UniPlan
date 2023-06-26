@@ -311,7 +311,10 @@ app.route('/notifications')
         notiList.push(row);
       }
     })
-    res.render('account/notifications', {notiList})
+    res.render('account/notifications', {
+      notiList,
+      admin_: req.session.admin
+    })
   })
 
 // Decline Account
