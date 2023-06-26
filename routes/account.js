@@ -294,6 +294,7 @@ app.get("/admin/approve/account/:id", checkAdminAccess, async (req, res) => {
   }
 })
 
+//Notification page
 app.route('/notifications')
   .get(checkLoggedIn, async (req, res) => {
     const resultNoti = await db.sql('global/get_all', {
@@ -316,7 +317,16 @@ app.route('/notifications')
       admin_: req.session.admin
     })
   })
-
+  app.route('/notifications/delete/:id')
+  .get(checkLoggedIn, async (req, res) => {
+    const id = req.params.id
+    await db.sql('global/delete_row', {
+      table: 'notifications',
+      id: id
+    })
+    console.log("deleted");
+    res.redirect("/account/notifications")
+  })
 // Decline Account
 app.get("/admin/decline/account/all", checkAdminAccess, async (req, res) => {
   try {
