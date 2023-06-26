@@ -66,8 +66,21 @@
           <h1><%=result.title%></h1>
               <% courseListFinal.forEach(course => {%>
                 <li><%=course%></li>
-              <%});%>
+              <%})%>
           <h2><%=result.description%></h2>
+
+          <section id="image-carousel" class="splide" aria-label="Beautiful Images">
+            <% const link = `/resources/upload/${makerMail}/${resultProject.data[0].id}/fotos/`%>
+            <div class="splide__track">
+              <ul class="splide__list">
+                <% pictures.forEach(picture => {%>
+                <li class="splide__slide">
+                  <img src="<%=link + picture%>" alt="">
+                </li>
+                <%})%>
+              </ul>
+            </div>
+          </section>
         <%}%>
         </div>
       </div>      
