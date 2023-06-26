@@ -68,19 +68,19 @@
                 <li><%=course%></li>
               <%})%>
           <h2><%=result.description%></h2>
+          <% const link = `/resources/upload/${makerMail}/${resultProject.data[0].id}/fotos/`; %>
+          <% let active = true; %>
+          <div class="carousel-container">
+            <div class="carousel">
+              <% pictures.forEach(picture => { %>
+                <img src="<%= link + picture %>" class="slide">
+                <% active = false; %>
+              <% }) %>
 
-          <section id="image-carousel" class="splide" aria-label="Beautiful Images">
-            <% const link = `/resources/upload/${makerMail}/${resultProject.data[0].id}/fotos/`%>
-            <div class="splide__track">
-              <ul class="splide__list">
-                <% pictures.forEach(picture => {%>
-                <li class="splide__slide">
-                  <img src="<%=link + picture%>" alt="">
-                </li>
-                <%})%>
-              </ul>
+              <button class="prev">Previous</button>
+              <button class="next">Next</button>
             </div>
-          </section>
+          </div>
         <%}%>
         </div>
       </div>      
@@ -119,8 +119,8 @@
         <script src="/script/chat/chat.js"></script>
 </body>
 </html>
-
 <script>
   const admin = "<%= admin_ %>";
 </script>
+<script src="/resources/lib/image-carousel.js"></script>
 <script src="/script/navbar.js"></script>
