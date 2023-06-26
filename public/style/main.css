@@ -870,15 +870,15 @@ input[type=number] {
 }
 .notification-body .notification-wrapper .notification .apply {
   border-left: 3px blue solid;
-  background-color: rgba(161, 161, 250, 0.3);
+  background-color: rgb(224, 224, 255);
 }
 .notification-body .notification-wrapper .notification .warning {
   border-left: 3px rgb(201, 5, 5) solid;
-  background-color: rgba(248, 143, 143, 0.3);
+  background-color: rgb(253, 203, 203);
 }
 .notification-body .notification-wrapper .notification .succes {
   border-left: 3px rgb(32, 165, 5) solid;
-  background-color: rgba(138, 248, 134, 0.3);
+  background-color: rgb(210, 255, 209);
 }
 
 textarea:focus,

@@ -1,3 +1,14 @@
+$succes-border: rgb(32, 165, 5);
+$succes: rgb(210, 255, 209);
+
+$apply-border: blue;
+$apply: rgb(224, 224, 255);
+
+
+$warning-border:rgb(201, 5, 5) ;
+$warning: rgb(253, 203, 203);
+
+
 .notification-body {
     display: flex;
     align-items: center;
@@ -40,24 +51,24 @@
             margin-right: 30px;
             z-index: 999;
             &:hover{
-                fill: rgb(201, 5, 5);
+                fill: $warning-border;
             }
           }
         }
   
         .apply {
-          border-left: 3px blue solid;
-          background-color: rgba(161, 161, 250, 0.3);
+          border-left: 3px $apply-border solid;
+          background-color: $apply;
         }
   
         .warning {
-          border-left: 3px rgb(201, 5, 5) solid;
-          background-color: rgba(248, 143, 143, 0.3);
+          border-left: 3px $warning-border solid;
+          background-color: $warning;
         }
   
         .succes {
-          border-left: 3px rgb(32, 165, 5) solid;
-          background-color: rgba(138, 248, 134, 0.3);
+          border-left: 3px $succes-border solid;
+          background-color: $succes;
         }
       }
     }
