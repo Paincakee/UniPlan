@@ -388,7 +388,8 @@ app.get("/admin/approve/project/:id", checkAdminAccess, async (req, res) => {
       userId: project.data[0].userId,
       message: `The admin '${req.session.email}' has accepted your project '${project.data[0].title}'. Click here to view the project details.`,
       class: "succes",
-      redirect: `/project/${project.data[0].id}`
+      redirect: `/project/${project.data[0].id}`,
+      date: getCurrentDate()
     })
     
     await db.sql("project/move_project", { id: projectId });
@@ -429,7 +430,8 @@ app.get("/admin/decline/project/:id", checkAdminAccess, async (req, res) => {
       userId: project.data[0].userId,
       message: `The admin '${req.session.email}' has declined your project '${project.data[0].title}'. Click here to view the project details.`,
       class: "warning",
-      redirect: `/project/${project.data[0].id}`
+      redirect: `/project/${project.data[0].id}`,
+      date: getCurrentDate()
     })
 
 
@@ -519,6 +521,20 @@ function checkNotLoggedInRedirect(req, res, next) {
 
   }
 }
+
+//This function returns the current date in the format "dd/mm/yy hh:mm"
+function getCurrentDate() {
+  const now = new Date();
+  const year = String(now.getFullYear()).padStart(4, "0");
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
+}
+
+
 
 
 module.exports = app

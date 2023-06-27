@@ -145,7 +145,8 @@ app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, 
     userId: resultProject.data[0].userId,
     message: `'${resultAccount.data[0].email}' has applied to the project '${req.body.projectName}'. click here to view`,
     class: "apply",
-    redirect: '/project/applies'
+    redirect: '/project/applies',
+    date: getCurrentDate()
   })
 
   await db.sql('project/apply_project', {
@@ -287,7 +288,8 @@ app.get('/applies/approve/:id',checkLoggedIn, checkMaker, async (req, res) => {
     userId: JSON.stringify(project_id.data[0].userId),
     message: `'${project_info.data[0].email}' has qccepted your application for the project '${project_info.data[0].title}'. Click here to view the project details.`,
     class: "succes",
-    redirect: `/project/${project_info.data[0].id}`
+    redirect: `/project/${project_info.data[0].id}`,
+    date: getCurrentDate()
   })
 
   const getApply = await db.sql("global/get_user_info", {
@@ -348,7 +350,8 @@ app.get('/applies/decline/:id',checkLoggedIn, checkMaker, async (req, res) => {
     userId: JSON.stringify(project_id.data[0].userId),
     message: `'${project_info.data[0].email}' has declined your application for the project '${project_info.data[0].title}'. Click here to view the project details.`,
     class: "warning",
-    redirect: `/project/${project_info.data[0].id}`
+    redirect: `/project/${project_info.data[0].id}`,
+    date: getCurrentDate()
   })
 
   await db.sql('global/delete_row', {
@@ -494,6 +497,18 @@ async function checkMaker(req, res, next) {
       res.redirect('/project/applies');
     }
   }
+}
+
+//This function returns the current date in the format "dd/mm/yy hh:mm"
+function getCurrentDate() {
+  const now = new Date();
+  const year = String(now.getFullYear()).padStart(4, "0");
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 
 
