@@ -24,6 +24,7 @@
                     <%if(!locals.manage){%>
                         <form action="/project/apply" method="post">
                             <input type="hidden" name="projectId" value="<%=row.id%>">
+                            <input type="hidden" name="projectName" value="<%= row.title %>">
                             <%if(resultAccount.data[0].id != row.userId){%>
                                 <%if(projectList.includes(row.id)){%>
                                     <button id="appliedForm" type="button" class="btn btn-success">Applied</button>
