@@ -705,12 +705,12 @@ a {
   border: solid rgb(180, 180, 180) 3px;
 }
 
-.wrapper {
+.wrappernewpass {
   display: flex;
   flex-direction: row;
 }
 
-.left {
+.leftnewpass {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -718,7 +718,7 @@ a {
   right: 10px;
 }
 
-.right {
+.rightnewpass {
   width: 100%;
   display: flex;
   flex-direction: column;

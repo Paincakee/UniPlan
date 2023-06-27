@@ -13,11 +13,11 @@
 <body class="navbar-page">
   <div id="navbar-container"></div>
   <div class="manageaccount">
-    <div class="wrapper">
-      <div class="left">
-        <span class="firstname">Thom</span>
-        <span class="lastname">van der Vorst</span>
-        <span class="email">87606@roc-teraa.nl</span>
+    <div class="wrappernewpass">
+      <div class="leftnewpass">
+        <span class="firstnamenewpass">Thom</span>
+        <span class="lastnamenewpass">van der Vorst</span>
+        <span class="emailnewpass">87606@roc-teraa.nl</span>
         <button <%if(locals.wrongpass && wrongpass){%>hidden <%}else{%>style="display: block;"<%}%> id="showpassform"
           onclick="passwordform()">Change Password</button>
     <form <%if(locals.wrongpass && wrongpass){%>style="display: none;" <%}%>id="passform" method="post"
@@ -32,9 +32,8 @@
           <%}%>
     </form>
       </div>
-      <div class="right">
+      <div class="rightnewpass">
         <textarea class="aboutme" placeholder="About me"></textarea>
-        
       </div>
     </div>
   </div>
