@@ -33,7 +33,7 @@
         <input type="text" name="contact" required id="createprojectinput">
         <label>Foto's</label>
         <div class="mb-3">
-            <input class="form-control" type="file" name="fotos" id="fileInput formFileMultiple" multiple>
+            <input class="form-control" type="file" name="fotos" id="fileInput formFileMultiple" accept="image/*" multiple>
         </div>
 
         
@@ -73,9 +73,10 @@
         </div>
     </div>
 </body>
+<% new Splide( '#image-carousel' ).mount(); %>
 
 </html>
 <script>
-    const admin = "<%= admin_ %>";
+    const admin = "<%= admin_ %>"; 
 </script>
 <script src="/script/navbar.js"></script>
