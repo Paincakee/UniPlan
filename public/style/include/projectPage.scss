@@ -9,7 +9,7 @@
     border: 2px solid #ccc;
     padding: 10px;
     overflow-y: auto;
-    background-color: #f5f5f5;
+    background-color: rgb(255, 255, 255, 0.5);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -99,11 +99,12 @@
     word-break: break-word;
   }
   #chat-form {
+    border-radius: 10px;
     position: sticky;
     bottom: -10px;
     width: 100%;
     padding: 10px;
-    background-color: rgb(245, 245, 245);
+    background-color: rgb(245, 245, 245, 0.3);
     border-top: 2px solid #ccc;
     display: flex;
     align-items: center;
@@ -134,11 +135,12 @@
   }
 
   .info-box {
+    position: relative;
     width: 33vw;
     padding: 20px;
     border-radius: 10px;
     border: 2px solid #ccc;
-    background-color: #f5f5f5;
+    background-color: rgb(255, 255, 255, 0.5);
   }
 
   .container {
@@ -158,18 +160,19 @@
       border-radius: 10px;
       margin-bottom: 20px;
       border: 2px solid #ccc;
-      background-color: #f5f5f5;
+      background-color: rgb(255, 255, 255, 0.5);
       overflow-y: auto; /* Add scrollbar for vertical overflow */
       max-height: 50vh; /* Set maximum height for the description box */
       max-width: 33vw;
     }
 
     .images-box {
+      position: relative;
       flex-grow: 1;
       padding: 20px;
       border-radius: 10px;
       border: 2px solid #ccc;
-      background-color: #f5f5f5;
+      background-color: rgba(255, 255, 255, 0.5);
     }
   }
 
@@ -188,6 +191,36 @@
     padding-right: 5%;
     border-bottom: 1px solid #a5a5a5;
     margin-bottom: 10px;
+  }
+
+  #delete-file {
+    color: #ff0000;
+    font-weight: 700;
+    font-size: small;
+    border: none;
+    background: transparent;
+  }
+
+  #ApplyChanges-Button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 20px;
+    border: none;
+    background-color: #87bfc0;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  #addFiles {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 20px;
+    border: none;
+    background-color: #87bfc0;
+    color: #fff;
+    cursor: pointer;
   }
 }
 
