@@ -466,7 +466,7 @@ h1 {
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add box shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
@@ -751,6 +751,117 @@ a {
   border-radius: 16px;
   border: 3px solid #f5f5f5;
   z-index: 10;
+}
+
+.manageaccount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.85);
+  height: 500px;
+  width: 1000px;
+  margin-top: 150px;
+  border-radius: 15px;
+  border: solid rgb(180, 180, 180) 3px;
+}
+
+.wrappernewpass {
+  display: flex;
+  flex-direction: row;
+}
+
+.leftnewpass {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  right: 10px;
+}
+
+.rightnewpass {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 70px;
+}
+
+#passform {
+  width: 100%;
+}
+
+#showpassform {
+  margin-top: 25px;
+  z-index: 3000;
+  padding: 10px;
+  color: black;
+  opacity: 90%;
+  width: 300px;
+  font-size: larger;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.newpass {
+  margin-top: 25px;
+  padding: 2px 5px 0px 5px;
+  border-radius: 4px;
+  border: solid 1px #ced4da;
+  width: 300px;
+  height: 40px;
+}
+
+.confirmnewpass {
+  padding: 2px 5px 0px 5px;
+  border-radius: 4px;
+  border: solid 1px #ced4da;
+  background-color: white;
+  width: 300px;
+  height: 40px;
+  margin-top: 15px;
+}
+
+.manageaccount span {
+  margin-top: 25px;
+  margin-bottom: 3px;
+  z-index: 3000;
+  padding: 10px;
+  color: black;
+  opacity: 90%;
+  width: 300px;
+  font-size: larger;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: auto;
+}
+
+.submitnewpass {
+  margin-top: 20px;
+  z-index: 3000;
+  padding: 10px;
+  color: black;
+  opacity: 90%;
+  width: 300px;
+  font-size: larger;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.manageaccount textarea {
+  height: 390px;
+  margin-top: 30px;
+  width: 500px;
+  max-width: 80%;
+  max-height: 390px;
+  min-height: 100px;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 #verify-body {
