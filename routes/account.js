@@ -386,7 +386,7 @@ app.get("/admin/approve/project/:id", checkAdminAccess, async (req, res) => {
     
     await db.sql('notifications/create_notification', {
       userId: project.data[0].userId,
-      message: `The admin '${req.session.email}' has Accepted your project '${project.data[0].title}'. Click here to view the project details.`,
+      message: `The admin '${req.session.email}' has accepted your project '${project.data[0].title}'. Click here to view the project details.`,
       class: "succes",
       redirect: `/project/${project.data[0].id}`
     })
@@ -418,6 +418,19 @@ app.get("/admin/decline/project/all", checkAdminAccess, async (req, res) => {
 app.get("/admin/decline/project/:id", checkAdminAccess, async (req, res) => {
   try {
     let projectId = req.params.id;
+
+    const project = await db.sql('global/get_user_info', {
+      table: "projects_pending",
+      type: "id",
+      typeValue: projectId
+    })
+
+    await db.sql('notifications/create_notification', {
+      userId: project.data[0].userId,
+      message: `The admin '${req.session.email}' has declined your project '${project.data[0].title}'. Click here to view the project details.`,
+      class: "warning",
+      redirect: `/project/${project.data[0].id}`
+    })
 
 
     const deleteOld = await db.sql("global/delete_row", { table: "projects_pending", id: projectId });
