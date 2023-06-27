@@ -697,12 +697,12 @@ a {
   align-items: center;
   text-align: center;
   margin: 0 auto;
-  background-color: white;
-  height: 600px;
+  background-color: rgba(255, 255, 255, 0.85);
+  height: 500px;
   width: 1000px;
-  margin-top: 200px;
+  margin-top: 150px;
   border-radius: 15px;
-  border: none;
+  border: solid rgb(180, 180, 180) 3px;
 }
 
 .wrapper {
@@ -791,11 +791,11 @@ a {
 }
 
 .manageaccount textarea {
-  height: 100px;
+  height: 390px;
   margin-top: 30px;
-  width: 400px;
+  width: 500px;
   max-width: 80%;
-  max-height: 120px;
+  max-height: 390px;
   min-height: 100px;
   border: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
