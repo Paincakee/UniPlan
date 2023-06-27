@@ -1,0 +1,78 @@
+$succes-border: rgb(32, 165, 5);
+$succes: rgb(210, 255, 209);
+
+$apply-border: blue;
+$apply: rgb(224, 224, 255);
+
+$warning-border: rgb(201, 5, 5);
+$warning: rgb(253, 203, 203);
+
+.notification-body {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+
+    .notification-wrapper {
+        margin-left: 50px;
+        width: 1150px;
+        height: 800px;
+        max-height: 800px;
+        overflow-y: scroll;
+
+        .notification {
+            border: 1px rgba($color: #000000, $alpha: 0.1) solid;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 5px;
+            height: 50px;
+
+            .notification-link {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+                border: 0;
+
+                .text {
+                    margin-left: 10px;
+                    text-align: left; /* Added text-align property */
+
+                    .bold {
+                        font-weight: bold;
+                    }
+                }
+
+                .date {
+                    margin-left: auto; 
+                    margin-right: 10px;
+                }
+
+                .close-svg {
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 10px;
+                    z-index: 999;
+                    &:hover {
+                        fill: $warning-border;
+                    }
+                }
+            }
+
+            .apply {
+                border-left: 3px $apply-border solid;
+                background-color: $apply;
+            }
+
+            .warning {
+                border-left: 3px $warning-border solid;
+                background-color: $warning;
+            }
+
+            .succes {
+                border-left: 3px $succes-border solid;
+                background-color: $succes;
+            }
+        }
+    }
+}

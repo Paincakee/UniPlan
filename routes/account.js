@@ -111,7 +111,8 @@ app.route('/verify')
   .post(async (req, res) => {
     console.log(req.body.tokenInput);
     console.log(req.session.token);
-    if (parseInt(req.body.tokenInput) == req.session.token) {
+    const fulltoken = req.body.tokenInput1 + req.body.tokenInput2 + req.body.tokenInput3 + req.body.tokenInput4 + req.body.tokenInput5
+    if (parseInt(fulltoken) == req.session.token) {
       await db.sql('account/createAccount', {
         firstName: validator.escape(req.session.firstName),
         lastName: validator.escape(req.session.lastName),
@@ -294,12 +295,13 @@ app.get("/admin/approve/account/:id", checkAdminAccess, async (req, res) => {
   }
 })
 
+//Notification page
 app.route('/notifications')
   .get(checkLoggedIn, async (req, res) => {
     const resultNoti = await db.sql('global/get_all', {
       table: 'notifications',
     })
-    console.log(resultNoti);
+    
     const resultAccount = await db.sql('global/get_user_info', {
       table: 'accounts',
       type: 'email',
@@ -311,9 +313,21 @@ app.route('/notifications')
         notiList.push(row);
       }
     })
-    res.render('account/notifications', {notiList})
+    res.render('account/notifications', {
+      notiList,
+      admin_: req.session.admin
+    })
   })
-
+  app.route('/notifications/delete/:id')
+  .get(checkLoggedIn, async (req, res) => {
+    const id = req.params.id
+    await db.sql('global/delete_row', {
+      table: 'notifications',
+      id: id
+    })
+    console.log("deleted");
+    res.redirect("/account/notifications")
+  })
 // Decline Account
 app.get("/admin/decline/account/all", checkAdminAccess, async (req, res) => {
   try {
@@ -364,14 +378,21 @@ app.get("/admin/approve/project/:id", checkAdminAccess, async (req, res) => {
   try {
     const projectId = req.params.id;
 
-
-
-    const getProject = await db.sql("global/get_user_info", {
+    const project = await db.sql('global/get_user_info', {
       table: "projects_pending",
-      type: 'id',
-      typeValue: projectId,
-    });
-
+      type: "id",
+      typeValue: projectId
+    })
+    
+    
+    await db.sql('notifications/create_notification', {
+      userId: project.data[0].userId,
+      message: `The admin '${req.session.email}' has accepted your project '${project.data[0].title}'. Click here to view the project details.`,
+      class: "succes",
+      redirect: `/project/${project.data[0].id}`,
+      date: getCurrentDate()
+    })
+    
     await db.sql("project/move_project", { id: projectId });
     await db.sql("global/delete_row", { table: "projects_pending", id: projectId });
 
@@ -399,6 +420,20 @@ app.get("/admin/decline/project/all", checkAdminAccess, async (req, res) => {
 app.get("/admin/decline/project/:id", checkAdminAccess, async (req, res) => {
   try {
     let projectId = req.params.id;
+
+    const project = await db.sql('global/get_user_info', {
+      table: "projects_pending",
+      type: "id",
+      typeValue: projectId
+    })
+
+    await db.sql('notifications/create_notification', {
+      userId: project.data[0].userId,
+      message: `The admin '${req.session.email}' has declined your project '${project.data[0].title}'. Click here to view the project details.`,
+      class: "warning",
+      redirect: `/project/${project.data[0].id}`,
+      date: getCurrentDate()
+    })
 
 
     const deleteOld = await db.sql("global/delete_row", { table: "projects_pending", id: projectId });
@@ -487,6 +522,20 @@ function checkNotLoggedInRedirect(req, res, next) {
 
   }
 }
+
+//This function returns the current date in the format "dd/mm/yy hh:mm"
+function getCurrentDate() {
+  const now = new Date();
+  const year = String(now.getFullYear()).padStart(4, "0");
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
+}
+
+
 
 
 module.exports = app

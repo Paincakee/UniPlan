@@ -416,6 +416,7 @@
 }
 
 .multiselect-dropdown {
+  max-width: 320px;
   width: 100% !important;
 }
 
@@ -542,7 +543,7 @@ a {
   border: 2px solid #ccc;
   padding: 10px;
   overflow-y: auto;
-  background-color: #f5f5f5;
+  background-color: rgba(255, 255, 255, 0.5);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -564,6 +565,37 @@ a {
   border-radius: 5px;
   width: fit-content;
   align-self: flex-end;
+}
+#test-body .carousel {
+  position: relative;
+  overflow: hidden;
+}
+#test-body .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+#test-body .slide.active {
+  opacity: 1;
+}
+#test-body .prev,
+#test-body .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+#test-body .prev {
+  left: 10px;
+}
+#test-body .next {
+  right: 10px;
 }
 #test-body .received-message {
   margin-bottom: 10px;
@@ -588,11 +620,12 @@ a {
   word-break: break-word;
 }
 #test-body #chat-form {
+  border-radius: 10px;
   position: sticky;
   bottom: -10px;
   width: 100%;
   padding: 10px;
-  background-color: rgb(245, 245, 245);
+  background-color: rgba(245, 245, 245, 0.3);
   border-top: 2px solid #ccc;
   display: flex;
   align-items: center;
@@ -619,11 +652,12 @@ a {
   background-color: #6ca9aa;
 }
 #test-body .info-box {
+  position: relative;
   width: 33vw;
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #ccc;
-  background-color: #f5f5f5;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 #test-body .container {
   padding-top: 45px;
@@ -642,17 +676,18 @@ a {
   border-radius: 10px;
   margin-bottom: 20px;
   border: 2px solid #ccc;
-  background-color: #f5f5f5;
+  background-color: rgba(255, 255, 255, 0.5);
   overflow-y: auto; /* Add scrollbar for vertical overflow */
   max-height: 50vh; /* Set maximum height for the description box */
   max-width: 33vw;
 }
 #test-body .description-images-container .images-box {
+  position: relative;
   flex-grow: 1;
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #ccc;
-  background-color: #f5f5f5;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 #test-body .images-box img {
   width: 75px;
@@ -668,6 +703,33 @@ a {
   padding-right: 5%;
   border-bottom: 1px solid #a5a5a5;
   margin-bottom: 10px;
+}
+#test-body #delete-file {
+  color: #ff0000;
+  font-weight: 700;
+  font-size: small;
+  border: none;
+  background: transparent;
+}
+#test-body #ApplyChanges-Button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 20px;
+  border: none;
+  background-color: #87bfc0;
+  color: #fff;
+  cursor: pointer;
+}
+#test-body #addFiles {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 20px;
+  border: none;
+  background-color: #87bfc0;
+  color: #fff;
+  cursor: pointer;
 }
 
 /* ===== Scrollbar SCSS ===== */
@@ -934,6 +996,66 @@ input[type=number] {
 
 .waveAnimation .waveBottom {
   animation: move_wave 15s linear infinite;
+}
+
+.notification-body {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+.notification-body .notification-wrapper {
+  margin-left: 50px;
+  width: 1150px;
+  height: 800px;
+  max-height: 800px;
+  overflow-y: scroll;
+}
+.notification-body .notification-wrapper .notification {
+  border: 1px rgba(0, 0, 0, 0.1) solid;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 5px;
+  height: 50px;
+}
+.notification-body .notification-wrapper .notification .notification-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: 0;
+}
+.notification-body .notification-wrapper .notification .notification-link .text {
+  margin-left: 10px;
+  text-align: left; /* Added text-align property */
+}
+.notification-body .notification-wrapper .notification .notification-link .text .bold {
+  font-weight: bold;
+}
+.notification-body .notification-wrapper .notification .notification-link .date {
+  margin-left: auto;
+  margin-right: 10px;
+}
+.notification-body .notification-wrapper .notification .notification-link .close-svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  z-index: 999;
+}
+.notification-body .notification-wrapper .notification .notification-link .close-svg:hover {
+  fill: rgb(201, 5, 5);
+}
+.notification-body .notification-wrapper .notification .apply {
+  border-left: 3px blue solid;
+  background-color: rgb(224, 224, 255);
+}
+.notification-body .notification-wrapper .notification .warning {
+  border-left: 3px rgb(201, 5, 5) solid;
+  background-color: rgb(253, 203, 203);
+}
+.notification-body .notification-wrapper .notification .succes {
+  border-left: 3px rgb(32, 165, 5) solid;
+  background-color: rgb(210, 255, 209);
 }
 
 textarea:focus,
