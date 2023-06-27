@@ -1603,7 +1603,7 @@ code .flickity { text-decoration: underline; }
 /* frames single image in cell */
 
 .carousel-image-cell {
-  width: 66%;
+  width: 230px;
   height: 200px;
   margin-right: 10px;
   background: #222;
