@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%=result.title%></title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/lib/flickity/css/flickity-docs.css" media="screen">
     <link href="/style/main.css" rel="stylesheet" type="text/css">
     <style>
       .highlight {
@@ -66,8 +66,16 @@
           <h1><%=result.title%></h1>
               <% courseListFinal.forEach(course => {%>
                 <li><%=course%></li>
-              <%});%>
+              <%})%>
           <p><%=result.description%></p>
+          <% const link = `/resources/upload/${makerMail}/${resultProject.data[0].id}/fotos/`; %>
+          <% let active = true; %>
+          <div class="main-carousel">
+              <% pictures.forEach(picture => { %>
+                <img src="<%= link + picture %>" class="carousel-cell">
+                <% active = false; %>
+              <% }) %>
+          </div>
         <%}%>
         </div>
       </div>      
@@ -106,8 +114,14 @@
         <script src="/script/chat/chat.js"></script>
 </body>
 </html>
-
+<script src="/resources/lib/flickity/js/flickity-docs.min.js"></script>
 <script>
   const admin = "<%= admin_ %>";
+
+var flkty = new Flickity( '.main-carousel', {
+  contain: true,
+  wrapAround: true,
+  autoPlay: 4000
+});
 </script>
 <script src="/script/navbar.js"></script>
