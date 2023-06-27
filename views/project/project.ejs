@@ -33,35 +33,36 @@
           <div class="images-box">
             <h2>Files</h2>
             <div id="filecontainer">
-              <% let link = `/resources/upload/${makerMail}/${result.id}/files/`
-                files.forEach(file => {%>
-                <a href="<%=link + file%>"><%=file%></a><br>
-                <%if(manage){%>
-                  <form action="/project/delete-file" method="post">
-                    <input type="hidden" name="file" value="<%=link + file%>">
-                    <input type="submit" value="X">
-                  </form>
-                <%}%>
-              <%});%>
-          </div>
+              <% let link = `/resources/upload/${makerMail}/${result.id}/files/`;
+                files.forEach(file => { %>
+                <div>
+                  <a href="<%= link + file %>"><%= file %></a>
+                  <% if (manage) { %>
+                    <form action="/project/delete-file" method="post" style="display: inline;">
+                      <input type="hidden" name="file" value="<%= link + file %>">
+                      <input id="delete-file" type="submit" value="X">
+                    </form>
+                  <% } %>
+                </div>
+              <% }); %>
+              <input id="addFiles" type="submit" value="Add Files">
+            </div>
         </div>
         </div>
         <div class="info-box">
         <% if (manage){%>
           <form action="/project/update" method="post">
-            <input type="text" name="title" placeholder="<%=result.title%>"><br>
-            <select name="courses" id="courseSelect" multiple multiselect-search="true"
-                multiselect-select-all="true">
-                <% resultCourse.data.forEach(row=> { %>
-                    <option value="<%=row.id%>">
-                        <%=row.courseName%>
-                    </option>
-                    <% });%>
-            </select><br>
-            <input type="text" name="description" placeholder="<%=result.description%>">
-            <input type="hidden" name="projectId" value="<%=resultProject.data[0].id%>">
-            <input type="submit" value="Apply">
-          </form>
+  <input type="text" name="title" placeholder="<%= result.title %>"><br>
+  <select name="courses" id="courseSelect" multiple multiselect-search="true" multiselect-select-all="true">
+    <% resultCourse.data.forEach(row => { %>
+    <option value="<%= row.id %>">
+      <%= row.courseName %>
+    </option>
+    <% }); %>
+  </select><br>
+  <input type="text" name="description" placeholder="<%= result.description %>">
+  <input id="ApplyChanges-Button" type="submit" value="Apply Changes">
+</form>
         <%}else{%>
           <h1><%=result.title%></h1>
               <% courseListFinal.forEach(course => {%>
