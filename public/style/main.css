@@ -626,7 +626,7 @@ a {
   bottom: -10px;
   width: 100%;
   padding: 10px;
-  background-color: rgba(245, 245, 245, 0.3);
+  background-color: rgb(245, 245, 245);
   border-top: 2px solid #ccc;
   display: flex;
   align-items: center;
@@ -653,6 +653,7 @@ a {
   background-color: #6ca9aa;
 }
 #test-body .info-box {
+  overflow-y: auto;
   position: relative;
   width: 33vw;
   padding: 20px;
@@ -713,6 +714,7 @@ a {
   background: transparent;
 }
 #test-body #ApplyChanges-Button {
+  padding: 5px;
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -723,6 +725,7 @@ a {
   cursor: pointer;
 }
 #test-body #addFiles {
+  padding: 5px;
   position: absolute;
   bottom: 10px;
   right: 10px;
