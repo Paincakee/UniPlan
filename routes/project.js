@@ -52,7 +52,6 @@ app.get('/', checkLoggedIn, async (req, res) => {
     const resultProject = await db.sql("global/get_all", {
       table: "projects",
     });
-    
     res.render('project/project-list', {
       resultAccount,
       resultProject, 
@@ -363,6 +362,7 @@ app.get('/:id', checkLoggedIn, async (req, res) => {
       table: "courses",
     });
 
+    const pictures = fs.readdirSync(__dirname + `/../resources/upload/${resultProject.data[0].email}/${resultProject.data[0].id}/fotos/`);
     const files = fs.readdirSync(__dirname + `/../resources/upload/${resultProject.data[0].email}/${id}/files`);
 
     if(req.query.manage == ''){
@@ -371,11 +371,11 @@ app.get('/:id', checkLoggedIn, async (req, res) => {
         console.log(`${req.session.email} is managing: ${resultProject.data[0].id}`);
       }
     }
-
     res.render('project/project', {
       resultProject,
       resultCourse,
       files,
+      pictures,
       email: req.session.email,
       courseListFinal,
       history: showChat.data,
