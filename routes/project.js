@@ -142,8 +142,10 @@ app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, 
 
   await db.sql('notifications/create_notification', {
     userId: resultProject.data[0].userId,
-    message: `${resultAccount.data[0].email} has applied to your project. click here to view`,
-    redirect: '/project/applies'
+    message: `'${resultAccount.data[0].email}' has applied to the project '${req.body.projectName}'. click here to view`,
+    class: "apply",
+    redirect: '/project/applies',
+    date: getCurrentDate()
   })
 
   await db.sql('project/apply_project', {
@@ -151,7 +153,7 @@ app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, 
     projectId: req.body.projectId,
     makerId: resultProject.data[0].userId
   })
-  console.log(`${req.session.email}: Applied to a project with the id of: ${req.body.projectId}`);
+  // console.log(`${req.session.email}: Applied to a project with the id of: ${req.body.projectId}`);
   res.redirect('/project')
 })
 //update project
@@ -269,6 +271,26 @@ app.route("/applies")
 app.get('/applies/approve/:id',checkLoggedIn, checkMaker, async (req, res) => {
   const applyId = req.params.id;
 
+  const project_id = await db.sql('global/get_user_info', {
+    table: "projects_applies",
+    type: "id",
+    typeValue: applyId
+  })
+
+  const project_info = await db.sql('global/get_user_info', {
+    table: "projects",
+    type: "id",
+    typeValue: JSON.stringify(project_id.data[0].projectId)
+  })
+
+  await db.sql('notifications/create_notification', {
+    userId: JSON.stringify(project_id.data[0].userId),
+    message: `'${project_info.data[0].email}' has qccepted your application for the project '${project_info.data[0].title}'. Click here to view the project details.`,
+    class: "succes",
+    redirect: `/project/${project_info.data[0].id}`,
+    date: getCurrentDate()
+  })
+
   const getApply = await db.sql("global/get_user_info", {
     table: 'projects_applies',
     type: 'id',
@@ -310,6 +332,26 @@ app.get('/applies/approve/:id',checkLoggedIn, checkMaker, async (req, res) => {
 app.get('/applies/decline/:id',checkLoggedIn, checkMaker, async (req, res) => {
 
   const applyId = req.params.id;
+
+  const project_id = await db.sql('global/get_user_info', {
+    table: "projects_applies",
+    type: "id",
+    typeValue: applyId
+  })
+
+  const project_info = await db.sql('global/get_user_info', {
+    table: "projects",
+    type: "id",
+    typeValue: JSON.stringify(project_id.data[0].projectId)
+  })
+
+  await db.sql('notifications/create_notification', {
+    userId: JSON.stringify(project_id.data[0].userId),
+    message: `'${project_info.data[0].email}' has declined your application for the project '${project_info.data[0].title}'. Click here to view the project details.`,
+    class: "warning",
+    redirect: `/project/${project_info.data[0].id}`,
+    date: getCurrentDate()
+  })
 
   await db.sql('global/delete_row', {
     table: "projects_applies",
@@ -455,6 +497,18 @@ async function checkMaker(req, res, next) {
       res.redirect('/project/applies');
     }
   }
+}
+
+//This function returns the current date in the format "dd/mm/yy hh:mm"
+function getCurrentDate() {
+  const now = new Date();
+  const year = String(now.getFullYear()).padStart(4, "0");
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 
 
