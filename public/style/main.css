@@ -538,8 +538,8 @@ a {
 }
 #test-body #chat-container {
   margin-top: 45px;
-  margin-right: 10px;
-  width: 33vw;
+  margin-right: 20px;
+  width: 33.3%;
   border: 2px solid #ccc;
   padding: 10px;
   overflow-y: auto;
@@ -653,13 +653,14 @@ a {
 }
 #test-body .info-box {
   position: relative;
-  width: 33vw;
+  width: 50%;
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #ccc;
   background-color: rgba(255, 255, 255, 0.5);
 }
-#test-body .container {
+#test-body .wrapper-info {
+  width: 66.6%;
   padding-top: 45px;
   padding-right: 20px;
   display: flex;
@@ -668,9 +669,10 @@ a {
   display: flex;
   flex-direction: column;
   padding-right: 20px;
+  width: 50%;
+  margin-left: 10px;
 }
 #test-body .description-images-container .description-box {
-  width: 30vw;
   flex-grow: 2;
   padding: 20px;
   border-radius: 10px;
