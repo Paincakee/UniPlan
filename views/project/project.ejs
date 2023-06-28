@@ -33,14 +33,14 @@
           <div class="images-box">
             <h2>Files</h2>
             <div id="filecontainer">
-              <% let link = `/resources/upload/${makerMail}/${result.id}/files/`;
+              <% let filelink = `/resources/upload/${makerMail}/${result.id}/files/`;
                 files.forEach(file => { %>
                 <div>
-                  <a href="<%= link + file %>"><%= file %></a>
+                  <a href="<%= filelink + file %>"><%= file %></a>
                   <% if (manage) { %>
                     <form action="/project/delete-file" method="post" style="display: inline;">
-                      <input type="hidden" name="file" value="<%= link + file %>">
-                      <input id="delete-file" type="submit" value="X">
+                      <input type="hidden" name="file" value="<%= filelink + file %>">
+                      <input class="delete-file" type="submit" value="X">
                     </form>
                   <% } %>
                 </div>
@@ -50,6 +50,7 @@
         </div>
         </div>
         <div class="info-box">
+        <% const link = `/resources/upload/${makerMail}/${resultProject.data[0].id}/fotos/`; %>
         <% if (manage){%>
           <form action="/project/update" method="post">
   <input type="text" name="title" placeholder="<%= result.title %>"><br>
@@ -60,7 +61,14 @@
     </option>
     <% }); %>
   </select><br>
-  <input type="text" name="description" placeholder="<%= result.description %>">
+  <input type="text" name="description" placeholder="<%= result.description %>"><br><br>
+  <%pictures.forEach(picture => {%>
+    <a href="<%=link + picture%>"><%=picture%></a>
+    <form action="/project/delete-file" method="post" style="display: inline;">
+      <input type="hidden" name="file" value="<%= link + picture %>">
+      <input class="delete-file" type="submit" value="X">
+    </form>
+  <%})%>
   <input id="ApplyChanges-Button" type="submit" value="Apply Changes">
 </form>
         <%}else{%>
@@ -69,7 +77,6 @@
                 <li><%=course%></li>
               <%})%>
           <p><%=result.description%></p>
-          <% const link = `/resources/upload/${makerMail}/${resultProject.data[0].id}/fotos/`; %>
           <% let active = true; %>
           <div class="main-carousel">
               <% pictures.forEach(picture => { %>
@@ -83,9 +90,29 @@
   <div id="chat-container">
       <% history.sort((a, b) => new Date(a.time) - new Date(b.time)).forEach(chat => { %>
         <% if (chat.userId === email) { %>
-          <div class="own-message chat-message"> <span class="user"><%= chat.fullName %>:</span> <%= chat.chat %></div>
+          <form action="/project/delete-chat" class="form-message">
+            <div class="own-message chat-message" 
+                data-time="<%= chat.time %>" 
+                project-id="<%=resultProject.data[0].id%>"
+                email="<%=chat.userId%>">
+              <span class="user"><%= chat.fullName %>:</span> <%= chat.chat %>
+              <%if(manage){%>
+                <input class="delete-file" type="submit" value="X">
+              <%}%>
+            </div>
+          </form>
         <% } else { %>
-          <div class="received-message chat-message"><span class="user"><%= chat.fullName %>:</span> <%= chat.chat %></div>
+          <form action="/project/delete-chat" class="form-message">
+            <div class="received-message chat-message" 
+                data-time="<%= chat.time %>" 
+                project-id="<%=resultProject.data[0].id%>"
+                email="<%=chat.userId%>">
+              <span class="user"><%= chat.fullName %>:</span> <%= chat.chat %>
+              <%if(manage){%>
+                <input class="delete-file" type="submit" value="X">
+              <%}%>
+            </div>
+          </form>
         <% } %>
     <% }) %>
     <form id="chat-form" method="post">
@@ -112,7 +139,7 @@
           let fname = "<%= firstname %>"
           let lname = "<%= lastname %>"
         </script>
-        <script src="/script/chat/chat.js"></script>
+  <script src="/script/chat/chat.js"></script>
 </body>
 </html>
 <script src="/resources/lib/flickity/js/flickity-docs.min.js"></script>

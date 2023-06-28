@@ -192,8 +192,21 @@ app.post('/update',checkLoggedIn, async (req, res) =>{
 
 app.post('/delete-file', checkLoggedIn, async (req, res) => {
   console.log(`${req.session.email} deleted file: ${req.body.file}`);
-  app.delete(`${__dirname}/..${req.body.file}`);
+  fs.unlink(`${__dirname}/..${req.body.file}`, (err) => {
+    if (err) {
+      console.error('Error deleting file:', err);
+    }
+    console.log('File deleted successfully.');
+  });
   res.redirect('/project');
+})
+
+app.post('/delete-chat', checkLoggedIn, async (req, res) => {
+  console.log(req.body['received-message chat-message-data-time']);
+  // await db.sql('global/delete_row', {
+  //   table: ''
+  // })
+  res.send('sfjasgjkas')
 })
 
 //router for managing projects
