@@ -31,6 +31,9 @@ const validate = (req, res, next) => {
 
 app.get('/', checkLoggedIn, async (req, res) => {
   try {
+    const projects = await db.sql("global/get_all", {
+      table: "projects"
+    })
 
     const resultApply = await db.sql("global/get_all", {
       table: "projects_applies"
@@ -52,11 +55,15 @@ app.get('/', checkLoggedIn, async (req, res) => {
     const resultProject = await db.sql("global/get_all", {
       table: "projects",
     });
+
+    console.log(projects);
     res.render('project/project-list', {
       resultAccount,
       resultProject, 
       projectList,
-      admin_: req.session.admin
+      contributors: projects,
+      admin_: req.session.admin,
+      session_user: req.session.userId
     });
   } catch (error) {
     console.log(error);

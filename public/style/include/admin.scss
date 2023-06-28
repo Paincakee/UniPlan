@@ -13,8 +13,8 @@
   }
 
   table {
-    margin-top: 50px;
     width: auto;
+    margin-top: 50px;
     margin-bottom: 20px;
     margin-left: 5%;
   }
@@ -43,7 +43,8 @@
   }
 
   .approve-button {
-    width: 33%;
+    width: 100px;
+    text-align: center;
     background-color: #5ab395;
     color: white;
     padding: 5px;
@@ -54,7 +55,8 @@
   }
 
   .decline-button {
-    width: 33%;
+    width: 100px;
+    text-align: center;
     background-color: #8bbbbd;
     color: white;
     padding: 5px;
@@ -77,6 +79,8 @@
   #nav-home-tab,
   #nav-profile-tab,
   #nav-contact-tab {
+    width: 860px;
+    margin: 0 auto;
     color: #929191;
   }
 
