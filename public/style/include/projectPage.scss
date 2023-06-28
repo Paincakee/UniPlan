@@ -176,6 +176,9 @@
       border-radius: 10px;
       border: 2px solid #ccc;
       background-color: rgba(255, 255, 255, 0.5);
+      a:hover{
+        color: blue;
+      }
     }
   }
 
@@ -224,6 +227,7 @@
     background-color: #87bfc0;
     color: #fff;
     cursor: pointer;
+    width: 100px;
   }
 }
 

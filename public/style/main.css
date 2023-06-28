@@ -248,7 +248,8 @@
   color: #000;
 }
 #admin-body .approve-button {
-  width: 33%;
+  width: 100px;
+  text-align: center;
   background-color: #5ab395;
   color: white;
   padding: 5px;
@@ -258,7 +259,8 @@
   filter: brightness(85%);
 }
 #admin-body .decline-button {
-  width: 33%;
+  width: 100px;
+  text-align: center;
   background-color: #8bbbbd;
   color: white;
   padding: 5px;
@@ -691,6 +693,9 @@ a {
   border: 2px solid #ccc;
   background-color: rgba(255, 255, 255, 0.5);
 }
+#test-body .description-images-container .images-box a:hover {
+  color: blue;
+}
 #test-body .images-box img {
   width: 75px;
   height: 75px;
@@ -732,6 +737,7 @@ a {
   background-color: #87bfc0;
   color: #fff;
   cursor: pointer;
+  width: 100px;
 }
 
 /* ===== Scrollbar SCSS ===== */

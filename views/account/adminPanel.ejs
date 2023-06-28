@@ -8,140 +8,143 @@
     <link href="/style/main.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <title>Admin Panel</title>
-
-    <style>
-        
-
-      
-    </style>
 </head>
 
 <body id="admin-body" class="navbar-page">
     <div id="navbar-container"></div>
     <div class="content-container">
-    <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-accounts" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Pending accounts</button>
-            
-            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-projects" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Pending projects</button>
-            
-            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
-        </div>
-    </nav>
-    <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-accounts" role="tabpanel" aria-labelledby="nav-home-tab"tabindex="0">
-            <div class="table-container">
-            <table id="accounts-table" class="table" role="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Student Number</th>
-                        <th>Account Type</th>
-                        <th>Admin</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% data_accounts.forEach(user=> { %>
-                        <tr>
-                            <td>
-                                <%= user.id %>
-                            </td>
-                            <td>
-                                <%= user.firstName %>
-                            </td>
-                            <td>
-                                <%= user.lastName %>
-                            </td>
-                            <td>
-                                <%= user.email %>
-                            </td>
-                            <td>
-                                <%= user.studentNumber %>
-                            </td>
-                            <td>
-                                <%= user.accountType %>
-                            </td>
-                            <td>
-                                <%= user.admin %>
-                            </td>
-                            <td>
-                                <a href="admin/approve/account/<%= user.id %>" class="approve-button">Approve</a>
-                                <a href="admin/decline/account/<%= user.id %>" class="decline-button">Decline</a>
-                            </td>
-                        </tr>
-                        <% }) %>
-                </tbody>
-            </table>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-accounts"
+                    type="button" role="tab" aria-controls="nav-home" aria-selected="true">Pending accounts</button>
+
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-projects"
+                    type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Pending projects</button>
+
+                <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
             </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-accounts" role="tabpanel" aria-labelledby="nav-home-tab"
+                tabindex="0">
+                <div class="table-container">
+                    <table id="accounts-table" class="table" role="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Student Number</th>
+                                <th>Account Type</th>
+                                <th>Admin</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% data_accounts.forEach(user=> { %>
+                                <tr>
+                                    <td>
+                                        <%= user.id %>
+                                    </td>
+                                    <td>
+                                        <%= user.firstName %>
+                                    </td>
+                                    <td>
+                                        <%= user.lastName %>
+                                    </td>
+                                    <td>
+                                        <%= user.email %>
+                                    </td>
+                                    <td>
+                                        <%= user.studentNumber %>
+                                    </td>
+                                    <td>
+                                        <%= user.accountType %>
+                                    </td>
+                                    <td>
+                                        <%= user.admin %>
+                                    </td>
+                                    <td>
+                                        <a href="admin/approve/account/<%= user.id %>"
+                                            class="approve-button">Approve</a>
+                                        <a href="admin/decline/account/<%= user.id %>"
+                                            class="decline-button">Decline</a>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="allButtons">
-                    <a href="admin/approve/account/all" class="approve-button-all approve-button" >Approve All</a></th>
+                    <a href="admin/approve/account/all" class="approve-button-all approve-button">Approve All</a></th>
                     <a href="admin/decline/account/all" class="decline-button-all decline-button">Decline All</a></th>
                 </div>
-        </div>
-        <div class="tab-pane fade" id="nav-projects" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
-            <table id="projects-table" class="table">
-            <thead>
-                <!-- <tr>
+            </div>
+            <div class="tab-pane fade" id="nav-projects" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                <table id="projects-table" class="table">
+                    <thead>
+                        <!-- <tr>
                 <th>Projects</th>
                 <th><a href="admin/approve/project/all" class="approve-button-all approve-button">Approve</a></th>
                 <th><a href="admin/decline/project/all" class="decline-button-all decline-button">Decline</a></th>
             </tr> -->
-                <tr>
-                    <th>Email</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>contactInfo</th>
-                    <th>Courses</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% data_projects.forEach(project=> { %>
-                    <tr>
-                        <td>
-                            <%= project.email %>
-                        </td>
-                        <td>
-                            <%= project.title %>
-                        </td>
-                        <td>
-                            <%= project.description %>
-                        </td>
-                        <td>
-                            <%= project.contactInfo %>
-                        </td>
-                        <td>
-                            <%= project.courses %>
-                        </td>
-                        <td>
-                            <a href="admin/approve/project/<%= project.id %>" class="approve-button">Approve</a>
-                            <a href="admin/decline/project/<%= project.id %>" class="decline-button">Decline</a>
-                            <a href="admin/view/<%= project.id %>" class="view-button">View</a>
-                        </td>
-                    </tr>
-                    <% }) %>
-            </tbody>
-        </table>
+                        <tr>
+                            <th>Email</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>contactInfo</th>
+                            <th>Courses</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% data_projects.forEach(project=> { %>
+                            <tr>
+                                <td>
+                                    <%= project.email %>
+                                </td>
+                                <td>
+                                    <%= project.title %>
+                                </td>
+                                <td>
+                                    <%= project.description %>
+                                </td>
+                                <td>
+                                    <%= project.contactInfo %>
+                                </td>
+                                <td>
+                                    <%= project.courses %>
+                                </td>
+                                <td>
+                                    <a href="admin/approve/project/<%= project.id %>" class="approve-button">Approve</a>
+                                    <a href="admin/decline/project/<%= project.id %>" class="decline-button">Decline</a>
+                                    <a href="admin/view/<%= project.id %>" class="view-button">View</a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab"
+                tabindex="0">...
+            </div>
         </div>
-        <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...
-        </div>
-    </div>
     </div>
     <div class="waveWrapper waveAnimation">
         <div class="waveWrapperInner bgTop">
-          <div class="wave waveTop" style="background-image: url('../../public/style/images/wavelijntjeupdate.png')"></div>
+            <div class="wave waveTop" style="background-image: url('../../public/style/images/wavelijntjeupdate.png')">
+            </div>
         </div>
         <div class="waveWrapperInner bgMiddle">
-          <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+            <div class="wave waveMiddle"
+                style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
         </div>
         <div class="waveWrapperInner bgBottom">
-          <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+            <div class="wave waveBottom"
+                style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
         </div>
-      </div>
+    </div>
     <script>
         const admin = "<%= admin_ %>";
     </script>
@@ -150,4 +153,4 @@
 
 </body>
 
-</html>
+</html>a
