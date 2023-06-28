@@ -90,25 +90,27 @@
   <div id="chat-container">
       <% history.sort((a, b) => new Date(a.time) - new Date(b.time)).forEach(chat => { %>
         <% if (chat.userId === email) { %>
-          <form action="/project/delete-chat" class="form-message">
-            <div class="own-message chat-message" 
-                data-time="<%= chat.time %>" 
-                project-id="<%=resultProject.data[0].id%>"
-                email="<%=chat.userId%>">
+          <form action="/project/delete-chat" class="form-message" method="post">
+            <div class="own-message chat-message">
               <span class="user"><%= chat.fullName %>:</span> <%= chat.chat %>
               <%if(manage){%>
+                <input type="hidden" name="time" value="<%= chat.time %>">
+                <input type="hidden" name="projectId" value="<%= resultProject.data[0].id %>">
+                <input type="hidden" name="email" value="<%= chat.userId %>">
+
                 <input class="delete-file" type="submit" value="X">
               <%}%>
             </div>
           </form>
         <% } else { %>
           <form action="/project/delete-chat" class="form-message">
-            <div class="received-message chat-message" 
-                data-time="<%= chat.time %>" 
-                project-id="<%=resultProject.data[0].id%>"
-                email="<%=chat.userId%>">
+            <div class="received-message chat-message">
               <span class="user"><%= chat.fullName %>:</span> <%= chat.chat %>
               <%if(manage){%>
+                <input type="hidden" name="time" value="<%= chat.time %>">
+                <input type="hidden" name="projectId" value="<%= resultProject.data[0].id %>">
+                <input type="hidden" name="email" value="<%= chat.userId %>">
+
                 <input class="delete-file" type="submit" value="X">
               <%}%>
             </div>

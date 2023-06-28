@@ -202,11 +202,17 @@ app.post('/delete-file', checkLoggedIn, async (req, res) => {
 })
 
 app.post('/delete-chat', checkLoggedIn, async (req, res) => {
-  console.log(req.body['received-message chat-message-data-time']);
-  // await db.sql('global/delete_row', {
-  //   table: ''
-  // })
-  res.send('sfjasgjkas')
+  const { time, projectId, email } = req.body;
+  console.log(req.body);
+  console.log(time);
+  console.log(projectId);
+  console.log(email);
+  await db.sql('project/delete_chat', {
+    time: time,
+    projectId: projectId,
+    email: email
+  })
+  res.redirect('/project')
 })
 
 //router for managing projects
