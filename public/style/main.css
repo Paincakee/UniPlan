@@ -547,7 +547,7 @@ a {
   border: 2px solid #ccc;
   padding: 10px;
   overflow-y: auto;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.65);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -624,12 +624,13 @@ a {
   word-break: break-word;
 }
 #test-body #chat-form {
+  max-width: 300px;
   border-radius: 10px;
   position: sticky;
   bottom: -10px;
   width: 100%;
   padding: 10px;
-  background-color: rgba(245, 245, 245, 0.3);
+  background-color: rgb(245, 245, 245);
   border-top: 2px solid #ccc;
   display: flex;
   align-items: center;
@@ -656,12 +657,13 @@ a {
   background-color: #6ca9aa;
 }
 #test-body .info-box {
+  overflow-y: auto;
   position: relative;
   width: 50%;
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #ccc;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.65);
 }
 #test-body .wrapper-info {
   width: 66.6%;
@@ -682,7 +684,7 @@ a {
   border-radius: 10px;
   margin-bottom: 20px;
   border: 2px solid #ccc;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.65);
   overflow-y: auto; /* Add scrollbar for vertical overflow */
   max-height: 50vh; /* Set maximum height for the description box */
   max-width: 33vw;
@@ -693,7 +695,7 @@ a {
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #ccc;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.65);
 }
 #test-body .description-images-container .images-box a:hover {
   color: blue;
@@ -721,6 +723,7 @@ a {
   background: transparent;
 }
 #test-body #ApplyChanges-Button {
+  padding: 5px;
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -731,6 +734,7 @@ a {
   cursor: pointer;
 }
 #test-body #addFiles {
+  padding: 5px;
   position: absolute;
   bottom: 10px;
   right: 10px;
