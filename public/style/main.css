@@ -538,6 +538,24 @@ a {
   color: #000;
 }
 
+#manageButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-container {
+  flex: 1; /* Set flex-grow to allow both containers to expand equally */
+  margin-right: 2px; /* Add some spacing between the buttons */
+}
+
+.delete-file {
+  color: #ff0000;
+  font-weight: 700;
+  font-size: small;
+  border: none;
+  background: transparent;
+}
+
 #test-body {
   display: flex;
   max-height: 95vh;
