@@ -12,40 +12,43 @@
 </head>
 <body class="project-home-body navbar-page">
     <div id="navbar-container"></div>
-    <div class="content-container" id="projectview"> 
-      <% resultProject.data.forEach((row) => { %>
-        <div id="<%= row.id %>" class="item" onclick="handleClick('<%= row.id %>')">
-          <div id="panneltitle" style="justify-content: flex-start;">Project: <%= row.title %></div>
-          <div id="pannelcreator"><%= row.email %></div>
-          <div id="pannelcontact">Contact Info: <%= row.contactInfo %></div>
-          <div id="pannelprogress">Status: in development</div>
-          <div id="panneljoin">
-            <% if (!locals.manage) { %>
-              <form action="/project/apply" method="post">
-                <input type="hidden" name="projectId" value="<%= row.id %>">
-                <input type="hidden" name="projectName" value="<%= row.title %>">
-                <% if (resultAccount.data[0].id != row.userId) { %>
-                  <% if (projectList.includes(row.id)) { %>
-                    <button id="appliedForm" type="button" class="btn btn-success">Applied</button>
-                  <% } else { %>
-                    <% let contributorsArr = row.contributors ? JSON.parse(row.contributors) : []; %>
-                    <% if (contributorsArr.includes(String(session_user))) { %>
-                      <button id="joinedForm" type="button" class="btn btn-success">Joined</button>
-                    <% } else { %>
-                      <button id="applyForm" type="submit" class="btn btn-success">Apply</button>
-                    <% } %>
-                  <% } %>
-                <% } %>
-              </form>
-            <% } if (locals.manage || resultAccount.data[0].id == row.userId) { %>
-              <form action="/project/my" method="post">
-                <input type="hidden" name="projectId" value="<%= row.id %>">
-                <button id="manageForm" type="submit" class="btn btn-success">Manage</button>
-              </form>
-            <% } %>
-          </div>
-        </div>
-      <% }) %>
+    <div class="content-container " id="projectview"> 
+        <% resultProject.data.forEach((row) => { %>
+            <div id="<%= row.id %>" class="item" onclick="handleClick('<%= row.id %>')">
+                <div id="panneltitle" style="justify-content: flex-start;">Project: <%= row.title %></div>
+                <div id="pannelcreator"><%= row.email %></div>
+                <div id="pannelcontact">Contact Info: <%= row.contactInfo %></div>
+                <div id="pannelprogress">Status: in development</div>
+                <div id="panneljoin">
+                    <%if(!locals.manage){%>
+                        <form action="/project/apply" method="post">
+                            <input type="hidden" name="projectId" value="<%=row.id%>">
+                            <input type="hidden" name="projectName" value="<%= row.title %>">
+                            <%if(resultAccount.data[0].id != row.userId){%>
+                                <%if(projectList.includes(row.id)){%>
+                                    <button id="appliedForm" type="button" class="btn btn-success">Applied</button>
+                                    <% } else { %>
+                                      <% let contributorsArr = row.contributors ? JSON.parse(row.contributors) : []; %>
+                                      <% if (contributorsArr.includes(String(session_user))) { %>
+                                        <button id="joinedForm" type="button" class="btn btn-success">Joined</button>
+                                    <%}else{%>
+                                    <button id="applyForm" type="submit" class="btn btn-success">Apply</button>
+                                <%}%>
+                            <%}%>
+                        </form>
+                    <%}if(locals.manage || resultAccount.data[0].id == row.userId){%>
+                        <form action="/project/my" method="post">
+                            <input type="hidden" name="projectId" value="<%=row.id%>">
+                            <button id="manageForm" type="submit" class="btn btn-success">Manage</button>
+                        </form>
+                        <form action="/project/delete-project" method="post">
+                            <input type="hidden" name="projectId" value="<%=row.id%>">
+                            <input class="delete-file" type="submit" value="X">
+                        </form>
+                    <%}%>
+                </div>
+            </div>
+            <% }) %>
     </div>
     
       
