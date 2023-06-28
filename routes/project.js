@@ -215,6 +215,30 @@ app.post('/delete-chat', checkLoggedIn, async (req, res) => {
   res.redirect('/project')
 })
 
+app.post('/delete-project', checkLoggedIn, async (req, res) => {
+
+  const resultProject = await db.sql('global/get_user_info', {
+    table: 'projects',
+    type: 'id',
+    typeValue: req.body.projectId
+  })
+
+  const resultAccount = await db.sql('global/get_user_info', {
+    table: 'accounts',
+    type: 'id',
+    typeValue: resultProject.data[0].userId
+  })
+
+  await db.sql('global/delete_row', {
+    table: 'projects',
+    id: req.body.projectId
+  })
+
+  const link = `/resources/upload/${resultAccount.data[0].email}/${req.body.projectId}`
+  fs.rmSync(`${__dirname}/..${link}`, { recursive: true, force: true });
+  res.redirect('/project')
+})
+
 //router for managing projects
 app.route('/my')
   .get(checkLoggedIn, async (req, res) => {

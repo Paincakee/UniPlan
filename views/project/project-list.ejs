@@ -38,6 +38,10 @@
                             <input type="hidden" name="projectId" value="<%=row.id%>">
                             <button id="manageForm" type="submit" class="btn btn-success">Manage</button>
                         </form>
+                        <form action="/project/delete-project" method="post">
+                            <input type="hidden" name="projectId" value="<%=row.id%>">
+                            <input class="delete-file" type="submit" value="X">
+                        </form>
                     <%}%>
                 </div>
             </div>
