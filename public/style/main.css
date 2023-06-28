@@ -223,8 +223,8 @@
   margin: 5px 0 0 -1px;
 }
 #admin-body table {
-  margin-top: 50px;
   width: auto;
+  margin-top: 50px;
   margin-bottom: 20px;
   margin-left: 5%;
 }
@@ -248,7 +248,8 @@
   color: #000;
 }
 #admin-body .approve-button {
-  width: 33%;
+  width: 100px;
+  text-align: center;
   background-color: #5ab395;
   color: white;
   padding: 5px;
@@ -258,7 +259,8 @@
   filter: brightness(85%);
 }
 #admin-body .decline-button {
-  width: 33%;
+  width: 100px;
+  text-align: center;
   background-color: #8bbbbd;
   color: white;
   padding: 5px;
@@ -279,6 +281,8 @@
 #admin-body #nav-home-tab,
 #admin-body #nav-profile-tab,
 #admin-body #nav-contact-tab {
+  width: 860px;
+  margin: 0 auto;
   color: #929191;
 }
 #admin-body #nav-home-tab.active,
@@ -466,7 +470,7 @@ h1 {
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add box shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
@@ -538,8 +542,8 @@ a {
 }
 #test-body #chat-container {
   margin-top: 45px;
-  margin-right: 10px;
-  width: 33vw;
+  margin-right: 20px;
+  width: 33.3%;
   border: 2px solid #ccc;
   padding: 10px;
   overflow-y: auto;
@@ -655,13 +659,14 @@ a {
 #test-body .info-box {
   overflow-y: auto;
   position: relative;
-  width: 33vw;
+  width: 50%;
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #ccc;
   background-color: rgba(255, 255, 255, 0.65);
 }
-#test-body .container {
+#test-body .wrapper-info {
+  width: 66.6%;
   padding-top: 45px;
   padding-right: 20px;
   display: flex;
@@ -670,9 +675,10 @@ a {
   display: flex;
   flex-direction: column;
   padding-right: 20px;
+  width: 50%;
+  margin-left: 10px;
 }
 #test-body .description-images-container .description-box {
-  width: 30vw;
   flex-grow: 2;
   padding: 20px;
   border-radius: 10px;
@@ -690,6 +696,9 @@ a {
   border-radius: 10px;
   border: 2px solid #ccc;
   background-color: rgba(255, 255, 255, 0.65);
+}
+#test-body .description-images-container .images-box a:hover {
+  color: blue;
 }
 #test-body .images-box img {
   width: 75px;
@@ -734,6 +743,7 @@ a {
   background-color: #87bfc0;
   color: #fff;
   cursor: pointer;
+  width: 100px;
 }
 
 /* ===== Scrollbar SCSS ===== */
@@ -755,6 +765,117 @@ a {
   border-radius: 16px;
   border: 3px solid #f5f5f5;
   z-index: 10;
+}
+
+.manageaccount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.85);
+  height: 500px;
+  width: 1000px;
+  margin-top: 150px;
+  border-radius: 15px;
+  border: solid rgb(180, 180, 180) 3px;
+}
+
+.wrappernewpass {
+  display: flex;
+  flex-direction: row;
+}
+
+.leftnewpass {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  right: 10px;
+}
+
+.rightnewpass {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 70px;
+}
+
+#passform {
+  width: 100%;
+}
+
+#showpassform {
+  margin-top: 25px;
+  z-index: 3000;
+  padding: 10px;
+  color: black;
+  opacity: 90%;
+  width: 300px;
+  font-size: larger;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.newpass {
+  margin-top: 25px;
+  padding: 2px 5px 0px 5px;
+  border-radius: 4px;
+  border: solid 1px #ced4da;
+  width: 300px;
+  height: 40px;
+}
+
+.confirmnewpass {
+  padding: 2px 5px 0px 5px;
+  border-radius: 4px;
+  border: solid 1px #ced4da;
+  background-color: white;
+  width: 300px;
+  height: 40px;
+  margin-top: 15px;
+}
+
+.manageaccount span {
+  margin-top: 25px;
+  margin-bottom: 3px;
+  z-index: 3000;
+  padding: 10px;
+  color: black;
+  opacity: 90%;
+  width: 300px;
+  font-size: larger;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: auto;
+}
+
+.submitnewpass {
+  margin-top: 20px;
+  z-index: 3000;
+  padding: 10px;
+  color: black;
+  opacity: 90%;
+  width: 300px;
+  font-size: larger;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.manageaccount textarea {
+  height: 390px;
+  margin-top: 30px;
+  width: 500px;
+  max-width: 80%;
+  max-height: 390px;
+  min-height: 100px;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 #verify-body {

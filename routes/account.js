@@ -111,7 +111,8 @@ app.route('/verify')
   .post(async (req, res) => {
     console.log(req.body.tokenInput);
     console.log(req.session.token);
-    if (parseInt(req.body.tokenInput) == req.session.token) {
+    const fulltoken = req.body.tokenInput1 + req.body.tokenInput2 + req.body.tokenInput3 + req.body.tokenInput4 + req.body.tokenInput5
+    if (parseInt(fulltoken) == req.session.token) {
       await db.sql('account/createAccount', {
         firstName: validator.escape(req.session.firstName),
         lastName: validator.escape(req.session.lastName),

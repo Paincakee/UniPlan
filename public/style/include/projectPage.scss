@@ -4,8 +4,8 @@
 
   #chat-container {
     margin-top: 45px;
-    margin-right: 10px;
-    width: 33vw;
+    margin-right: 20px;
+    width: 33.3%;
     border: 2px solid #ccc;
     padding: 10px;
     overflow-y: auto;
@@ -138,14 +138,15 @@
   .info-box {
     overflow-y: auto;
     position: relative;
-    width: 33vw;
+    width: 50%;
     padding: 20px;
     border-radius: 10px;
     border: 2px solid #ccc;
     background-color: rgb(255, 255, 255, 0.65);
   }
 
-  .container {
+  .wrapper-info {
+    width: 66.6%;
     padding-top: 45px;
     padding-right: 20px;
     display: flex;
@@ -155,8 +156,10 @@
     display: flex;
     flex-direction: column;
     padding-right: 20px;
+    width: 50%;
+    margin-left: 10px;
     .description-box {
-      width: 30vw;
+
       flex-grow: 2;
       padding: 20px;
       border-radius: 10px;
@@ -175,6 +178,9 @@
       border-radius: 10px;
       border: 2px solid #ccc;
       background-color: rgba(255, 255, 255, 0.65);
+      a:hover{
+        color: blue;
+      }
     }
   }
 
@@ -225,6 +231,7 @@
     background-color: #87bfc0;
     color: #fff;
     cursor: pointer;
+    width: 100px;
   }
 }
 
