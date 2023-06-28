@@ -9,20 +9,23 @@
   }
 
   .content-container{
+   
     margin: 5px 0 0 -1px;
+    margin: 0 auto;
   }
 
   table {
-    margin-top: 50px;
     width: auto;
+    margin-top: 50px;
     margin-bottom: 20px;
     margin-left: 5%;
   }
 
   th,
   td {
-    padding: 5px;
-    text-align: left;
+    text-align: center;
+    width: 250px;
+    border: 1px solid grey;
   }
 
   th {
@@ -43,7 +46,8 @@
   }
 
   .approve-button {
-    width: 33%;
+    width: 100px;
+    text-align: center;
     background-color: #5ab395;
     color: white;
     padding: 5px;
@@ -54,7 +58,8 @@
   }
 
   .decline-button {
-    width: 33%;
+    width: 100px;
+    text-align: center;
     background-color: #8bbbbd;
     color: white;
     padding: 5px;
@@ -77,6 +82,8 @@
   #nav-home-tab,
   #nav-profile-tab,
   #nav-contact-tab {
+    width: 860px;
+    margin: 0 auto;
     color: #929191;
   }
 
@@ -87,9 +94,9 @@
   }
 
   .table-container {
-    margin-top: 2%;
-    min-height: 75vh;
-    max-height: 75vh; /* Adjust the maximum height as needed */
+    display: flex;
+   justify-content: center;
+   align-items: center;
     overflow-y: auto;
   }
 }

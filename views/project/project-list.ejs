@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,7 +27,11 @@
                             <%if(resultAccount.data[0].id != row.userId){%>
                                 <%if(projectList.includes(row.id)){%>
                                     <button id="appliedForm" type="button" class="btn btn-success">Applied</button>
-                                <%}else{%>
+                                    <% } else { %>
+                                      <% let contributorsArr = row.contributors ? JSON.parse(row.contributors) : []; %>
+                                      <% if (contributorsArr.includes(String(session_user))) { %>
+                                        <button id="joinedForm" type="button" class="btn btn-success">Joined</button>
+                                    <%}else{%>
                                     <button id="applyForm" type="submit" class="btn btn-success">Apply</button>
                                 <%}%>
                             <%}%>
@@ -47,7 +50,11 @@
             </div>
             <% }) %>
     </div>
-
+    
+      
+      
+      
+      
     <div class="waveWrapper waveAnimation">
         <div class="waveWrapperInner bgTop">
           <div class="wave waveTop" style="background-image: url('../../public/style/images/wavelijntjeupdate.png')"></div>

@@ -1,45 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <link href="/style/main.css" rel="stylesheet" type="text/css">
-</head>
-<body class="navbar-page">
-    <div id="navbar-container"></div>
-    <button <%if(locals.wrongpass && wrongpass){%>hidden <%}else{%>style="display: block;"<%}%> id="showpassform" onclick="passwordform()">Change Password</button>
-    <form <%if(locals.wrongpass && wrongpass){%>style="display: none;" <%}%>id="passform" method="post" style="display: none;">
-        <input name="newpass" type="password" placeholder="New Password"><br>
-        <input name="confirmpass" type="password" placeholder="Confirm Password"><br>
-        <button type="submit">Submit</button>
-        <%if(locals.error){%>
-            <label><%=error%></label>
-        <%}%>
-    </form>
 
-    <div class="waveWrapper waveAnimation">
-        <div class="waveWrapperInner bgTop">
-          <div class="wave waveTop" style="background-image: url('../../public/style/images/wavelijntjeupdate.png')"></div>
-        </div>
-        <div class="waveWrapperInner bgMiddle">
-          <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
-        </div>
-        <div class="waveWrapperInner bgBottom">
-          <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
-        </div>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <link href="/style/main.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="navbar-page">
+  <div id="navbar-container"></div>
+  <div class="manageaccount">
+    <div class="wrappernewpass">
+      <div class="leftnewpass">
+        <span class="firstnamenewpass"><%= firstName %></span>
+        <span class="lastnamenewpass"><%= lastName %></span>
+        <span class="emailnewpass"><%= email %></span>
+        <button <%if(locals.wrongpass && wrongpass){%>hidden <%}else{%>style="display: block;"<%}%> id="showpassform"
+          onclick="passwordform()">Change Password</button>
+    <form <%if(locals.wrongpass && wrongpass){%>style="display: none;" <%}%>id="passform" method="post"
+        style="display: none;">
+        <input name="newpass" type="password" placeholder="New Password" class="newpass"><br>
+        <input name="confirmpass" type="password" placeholder="Confirm Password" class="confirmnewpass"><br>
+        <button type="submit" class="submitnewpass">Submit</button>
+        <%if(locals.error){%>
+          <label>
+            <%=error%>
+          </label>
+          <%}%>
+    </form>
       </div>
+      <div class="rightnewpass">
+        <textarea class="aboutme" placeholder="About me"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="waveWrapper waveAnimation">
+    <div class="waveWrapperInner bgTop">
+      <div class="wave waveTop" style="background-image: url('../../public/style/images/wavelijntjeupdate.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgMiddle">
+      <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')">
+      </div>
+    </div>
+    <div class="waveWrapperInner bgBottom">
+      <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')">
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
 <script>
-    const admin = "<%= admin_ %>";
+  const admin = "<%= admin_ %>";
 </script>
 <script src="/script/navbar.js"></script>
 <script>
-    function passwordform(){
-        document.getElementById("showpassform").style.display = 'none';
-        document.getElementById("passform").style.display = 'block';
-    }
+  function passwordform() {
+    document.getElementById("showpassform").style.display = 'none';
+    document.getElementById("passform").style.display = 'block';
+  }
 </script>
