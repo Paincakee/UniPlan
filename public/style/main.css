@@ -897,13 +897,14 @@ a {
   border-radius: 10px;
   padding: 20px;
   width: 30%;
-  height: 80%;
+  height: fit-content;
   margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  align-self: center;
 }
 
 .input-container {
@@ -921,6 +922,19 @@ a {
   border-radius: 10px;
   text-align: center;
   font-size: 50px;
+}
+
+#welcomeLabel {
+  font-size: xx-large; /* Increase the font size */
+  font-weight: 800; /* Set the font weight */
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#mailCheckLabel,
+#folderCheckLabel,
+#resendLabel {
+  text-align: center;
 }
 
 input::-webkit-outer-spin-button,
