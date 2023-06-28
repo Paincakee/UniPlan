@@ -10,7 +10,10 @@ const validator = require('validator');
 app.route('/')
   .get(checkLoggedIn, (req, res) => {
     res.render('account/manage',{
-      admin_: req.session.admin
+      admin_: req.session.admin,
+      firstName: req.session.firstName,
+      lastName: req.session.lastName,
+      email: req.session.email
     })
   })
   .post(checkLoggedIn, async (req, res) => {
