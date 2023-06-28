@@ -221,6 +221,7 @@
 }
 #admin-body .content-container {
   margin: 5px 0 0 -1px;
+  margin: 0 auto;
 }
 #admin-body table {
   width: auto;
@@ -625,7 +626,6 @@ a {
   word-break: break-word;
 }
 #test-body #chat-form {
-  max-width: 300px;
   border-radius: 10px;
   position: sticky;
   bottom: -10px;
