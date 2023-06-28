@@ -10,7 +10,9 @@
 </head>
 <body id="verify-body">
     <form class="verifyForm" id="verifyForm" action="/account/verify" method="post">
-        <label class="top-text">Welcome <%=firstName%>, A verification code has been sent to your email address. Please check your inbox for the email. If you haven't received anything, kindly check your spam or junk folder.</label><br>
+          <label id="welcomeLabel">Welcome <%=firstName%>,</label><br>
+          <label id="mailCheckLabel">A verification code has been sent to your email address. Please check your inbox for the email. </label><br>
+          <label id="folderCheckLabel">If you haven't received anything, kindly check your spam or junk folder.</label><br>
         <div class="input-container">
         <input type="text" onkeydown='handleKeyDown(event)' maxlength="1" name="tokenInput1" class="token-input">
         <input type="text" onkeydown='handleKeyDown(event)' maxlength="1" name="tokenInput2" class="token-input">
@@ -21,7 +23,7 @@
         <% if (locals.error){%>
             <label><%=error%></label>
         <%}%>
-        <label class="bottom-text">If you're still unable to locate the email, you can click here to resend the verification code.</label><br>
+        <label id="resendLabel">If you're still unable to locate the email, you can click here to resend the verification code.</label><br>
     </form>
 </body>
 </html>
