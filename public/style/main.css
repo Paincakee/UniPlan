@@ -223,8 +223,8 @@
   margin: 5px 0 0 -1px;
 }
 #admin-body table {
-  margin-top: 50px;
   width: auto;
+  margin-top: 50px;
   margin-bottom: 20px;
   margin-left: 5%;
 }
@@ -281,6 +281,8 @@
 #admin-body #nav-home-tab,
 #admin-body #nav-profile-tab,
 #admin-body #nav-contact-tab {
+  width: 860px;
+  margin: 0 auto;
   color: #929191;
 }
 #admin-body #nav-home-tab.active,

@@ -13,8 +13,8 @@
   }
 
   table {
-    margin-top: 50px;
     width: auto;
+    margin-top: 50px;
     margin-bottom: 20px;
     margin-left: 5%;
   }
@@ -79,6 +79,8 @@
   #nav-home-tab,
   #nav-profile-tab,
   #nav-contact-tab {
+    width: 860px;
+    margin: 0 auto;
     color: #929191;
   }
 
