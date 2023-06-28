@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="filter">
+    <div>
+        <label>
+            <input type="checkbox" id="selectAll" onchange="toggleSelectAll()"> Select All
+        </label>
+    </div>
+    <% resultCourse.data.forEach((row) => { %>
+        <label>
+            <input type="checkbox" class="option-checkbox" value="<%= row.id %>" onchange="updateSelectedOptions(); getSelectedOptions()"> <%= row.courseName %>
+        </label>
+    <% }) %>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <script>
+        var selectAllCheckbox = document.getElementById("selectAll");
+        var optionCheckboxes = document.getElementsByClassName("option-checkbox");
+    
+        function toggleSelectAll() {
+            for (var i = 0; i < optionCheckboxes.length; i++) {
+                optionCheckboxes[i].checked = selectAllCheckbox.checked;
+            }
+        }
+    
+        function updateSelectedOptions() {
+            var selectedOptions = [];
+    
+            for (var i = 0; i < optionCheckboxes.length; i++) {
+                if (optionCheckboxes[i].checked) {
+                    selectedOptions.push(optionCheckboxes[i].value);
+                }
+            }
+    
+            selectAllCheckbox.checked = optionCheckboxes.length === selectedOptions.length;
+        }
+    
+        function getSelectedOptions() {
+            var selectedOptions = [];
+    
+            for (var i = 0; i < optionCheckboxes.length; i++) {
+                if (optionCheckboxes[i].checked) {
+                    selectedOptions.push(optionCheckboxes[i].value);
+                }
+            }
+    
+            console.log(selectedOptions);
+        }
+    
+    </script>
+</body>
+
+</html>

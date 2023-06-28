@@ -1,0 +1,16 @@
+.filter {
+    margin: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+#selectAll {
+    font-weight: bold;
+}

@@ -305,6 +305,16 @@
   height: 97vh;
   overflow: hidden;
 }
+#projectcreatebody .multiselect-dropdown {
+  max-width: 320px;
+  width: 100% !important;
+}
+#projectcreatebody .multiselect-dropdown-list {
+  text-align: left;
+}
+#projectcreatebody .multiselect-dropdown span.placeholder {
+  display: none;
+}
 
 #createprojectform {
   background-color: white;
@@ -419,19 +429,6 @@
   margin: 0 auto;
 }
 
-.multiselect-dropdown {
-  max-width: 320px;
-  width: 100% !important;
-}
-
-.multiselect-dropdown-list {
-  text-align: left;
-}
-
-.multiselect-dropdown span.placeholder {
-  display: none;
-}
-
 #projecthome {
   display: flex;
   overflow: hidden;
@@ -443,6 +440,12 @@
 h1 {
   text-align: center;
   margin-top: 50px;
+}
+
+.filter-project .multiselect-dropdown {
+  min-width: 100px !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 #projectview {

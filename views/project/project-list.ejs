@@ -12,6 +12,14 @@
 </head>
 <body class="project-home-body navbar-page">
     <div id="navbar-container"></div>
+    <div class="filter-projects">
+      <select name="filter" id="">
+        <% resultCourse.data.forEach((row) => { %>
+          <option value="<%= row.id %>"> <%= row.courseName %></option>
+        <% }) %>
+      </select>
+    </div>
+      
     <div class="content-container" id="projectview"> 
       <% resultProject.data.forEach((row) => { %>
         <div id="<%= row.id %>" class="item" onclick="handleClick('<%= row.id %>')">
@@ -48,35 +56,33 @@
       <% }) %>
     </div>
     
-      
-      
-      
-      
-    <div class="waveWrapper waveAnimation">
-        <div class="waveWrapperInner bgTop">
-          <div class="wave waveTop" style="background-image: url('../../public/style/images/wavelijntjeupdate.png')"></div>
-        </div>
-        <div class="waveWrapperInner bgMiddle">
-          <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
-        </div>
-        <div class="waveWrapperInner bgBottom">
-          <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
-        </div>
+  <div class="waveWrapper waveAnimation">
+    <div class="waveWrapperInner bgTop">
+      <div class="wave waveTop" style="background-image: url('../../public/style/images/wavelijntjeupdate.png')"></div>
     </div>
-      <script>
-        const admin = "<%= admin_ %>";
-        function handleClick(id) {
-            //handle click
-            console.log(id);
-            link = window.location.href
-            if(link.charAt(link.length -1) === '/'){
-                link = link.slice(0, -1);
-            }
-            window.location.href = link + "/" + id;
-        }
-    </script>
-
-    <script src="/script/navbar.js"></script>
+    <div class="waveWrapperInner bgMiddle">
+      <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgBottom">
+      <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+    </div>
+  </div>
+      
+    
+    
 </body>
 
 </html>
+<script>
+  const admin = "<%= admin_ %>";
+  function handleClick(id) {
+      //handle click
+      console.log(id);
+      link = window.location.href
+      if(link.charAt(link.length -1) === '/'){
+          link = link.slice(0, -1);
+      }
+      window.location.href = link + "/" + id;
+  }
+</script>
+<script src="/script/navbar.js"></script>

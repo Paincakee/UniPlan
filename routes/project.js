@@ -28,13 +28,24 @@ const validate = (req, res, next) => {
   const extractedErrors = errors.array().map((err) => err.msg);
   res.status(400).json({ errors: extractedErrors });
 };
-
+app.get('/test', async (req, res) => {
+  const resultCourse = await db.sql("global/get_all", {
+    table: "courses",
+  });
+  
+  res.render('project/test', {
+    resultCourse
+  })
+})
 app.get('/', checkLoggedIn, async (req, res) => {
   try {
     const projects = await db.sql("global/get_all", {
       table: "projects"
     })
-
+    const resultCourse = await db.sql("global/get_all", {
+      table: "courses",
+    });
+    
     const resultApply = await db.sql("global/get_all", {
       table: "projects_applies"
     })
@@ -63,7 +74,8 @@ app.get('/', checkLoggedIn, async (req, res) => {
       projectList,
       contributors: projects,
       admin_: req.session.admin,
-      session_user: req.session.userId
+      session_user: req.session.userId,
+      resultCourse
     });
   } catch (error) {
     console.log(error);

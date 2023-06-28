@@ -5,6 +5,17 @@
     justify-content: center;
     height: 97vh;
     overflow: hidden;
+
+    .multiselect-dropdown{
+        max-width: 320px;
+        width: 100% !important;
+    }
+    .multiselect-dropdown-list{
+       text-align: left;
+    }
+    .multiselect-dropdown span.placeholder{
+        display: none;
+    }
 }
 
 #createprojectform {
@@ -119,15 +130,6 @@
     margin: 0 auto;
 }
 
-.multiselect-dropdown{
-    max-width: 320px;
-    width: 100% !important;
-}
-.multiselect-dropdown-list{
-   text-align: left;
-}
-.multiselect-dropdown span.placeholder{
-    display: none;
-}
+
 
 
