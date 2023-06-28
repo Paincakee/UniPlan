@@ -15,9 +15,9 @@
   <div class="manageaccount">
     <div class="wrappernewpass">
       <div class="leftnewpass">
-        <span class="firstnamenewpass">Thom</span>
-        <span class="lastnamenewpass">van der Vorst</span>
-        <span class="emailnewpass">87606@roc-teraa.nl</span>
+        <span class="firstnamenewpass"><%= firstName %></span>
+        <span class="lastnamenewpass"><%= lastName %></span>
+        <span class="emailnewpass"><%= email %></span>
         <button <%if(locals.wrongpass && wrongpass){%>hidden <%}else{%>style="display: block;"<%}%> id="showpassform"
           onclick="passwordform()">Change Password</button>
     <form <%if(locals.wrongpass && wrongpass){%>style="display: none;" <%}%>id="passform" method="post"
