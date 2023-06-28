@@ -230,8 +230,9 @@
 }
 #admin-body th,
 #admin-body td {
-  padding: 5px;
-  text-align: left;
+  text-align: center;
+  width: 250px;
+  border: 1px solid grey;
 }
 #admin-body th {
   padding-top: 10px;
@@ -291,9 +292,9 @@
   color: #000000;
 }
 #admin-body .table-container {
-  margin-top: 2%;
-  min-height: 75vh;
-  max-height: 75vh; /* Adjust the maximum height as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow-y: auto;
 }
 
