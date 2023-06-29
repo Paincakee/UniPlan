@@ -1,76 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/style/main.css" rel="stylesheet" type="text/css">
-    <!-- <link href="/style/main.css" rel="stylesheet" type="text/css"> -->
-    <title>Verify</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/style/main.css" rel="stylesheet" type="text/css">
+  <!-- <link href="/style/main.css" rel="stylesheet" type="text/css"> -->
+  <title>Verify</title>
 </head>
+
 <body id="verify-body">
-    <form class="verifyForm" id="verifyForm" action="/account/verify" method="post">
-          <label id="welcomeLabel">Welcome <%=firstName%>,</label><br>
-          <label id="mailCheckLabel">A verification code has been sent to your email address. Please check your inbox for the email. </label><br>
-          <label id="folderCheckLabel">If you haven't received anything, kindly check your spam or junk folder.</label><br>
-        <div class="input-container">
-        <input type="text" onkeydown='handleKeyDown(event)' maxlength="1" name="tokenInput1" class="token-input">
-        <input type="text" onkeydown='handleKeyDown(event)' maxlength="1" name="tokenInput2" class="token-input">
-        <input type="text" onkeydown='handleKeyDown(event)' maxlength="1" name="tokenInput3" class="token-input">
-        <input type="text" onkeydown='handleKeyDown(event)' maxlength="1" name="tokenInput4" class="token-input">
-        <input type="text" onkeydown='handleKeyDown(event)' maxlength="1" name="tokenInput5" class="token-input"><br>
-        </div>
-        <% if (locals.error){%>
-            <label><%=error%></label>
-        <%}%>
-        <label id="resendLabel">If you're still unable to locate the email, you can click here to resend the verification code.</label><br>
-    </form>
+  <form class="verifyForm" id="verifyForm" action="/account/verify" method="post">
+    <label id="welcomeLabel">Welcome <%=firstName%>,</label><br>
+    <label id="mailCheckLabel">A verification code has been sent to your email address. Please check your inbox for the
+      email.If you haven't received anything, kindly check your spam or junk folder. </label><br>
+    <div class="input-container">
+      <input type="text" onkeydown='handleKeyDown(event)' maxlength="1" name="tokenInput1" class="token-input">
+      <input type="text" onkeydown='handleKeyDown(event)' maxlength="1" name="tokenInput2" class="token-input">
+      <input type="text" onkeydown='handleKeyDown(event)' maxlength="1" name="tokenInput3" class="token-input">
+      <input type="text" onkeydown='handleKeyDown(event)' maxlength="1" name="tokenInput4" class="token-input">
+      <input type="text" onkeydown='handleKeyDown(event)' maxlength="1" name="tokenInput5" class="token-input"><br>
+    </div>
+    <% if (locals.error){%>
+      <%}%>
+        <label id="resendLabel">If you're still unable to locate the email, you can click here to resend the
+          verification code.</label><br>
+  </form>
 </body>
+
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-  $(function() {
-  $(".token-input").on('input', function(e) {
-    $(this).val($(this).val().replace(/[^0-9]/g, ''));
-    checkInputs(); // Call checkInputs() whenever an input event occurs
+  $(function () {
+    $(".token-input").on('input', function (e) {
+      $(this).val($(this).val().replace(/[^0-9]/g, ''));
+      checkInputs(); // Call checkInputs() whenever an input event occurs
+    });
   });
-});
 
-const inputs = document.querySelectorAll(".token-input");
+  const inputs = document.querySelectorAll(".token-input");
 
-inputs.forEach((input, index) => {
-  input.addEventListener("input", (event) => {
-    if (event.target.value.length === 1) {
-      if (index < inputs.length - 1) {
-        inputs[index + 1].focus();
+  inputs.forEach((input, index) => {
+    input.addEventListener("input", (event) => {
+      if (event.target.value.length === 1) {
+        if (index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+      }
+    });
+  });
+
+  function handleKeyDown(event) {
+    if (event.key === "Backspace") {
+      const currentInput = event.target;
+      const previousInput = currentInput.previousElementSibling;
+      if (currentInput.value === "" && previousInput) {
+        previousInput.focus();
       }
     }
-  });
-});
+  }
 
-function handleKeyDown(event) {
-  if (event.key === "Backspace") {
-    const currentInput = event.target;
-    const previousInput = currentInput.previousElementSibling;
-    if (currentInput.value === "" && previousInput) {
-      previousInput.focus();
+  function checkInputs() {
+    let allInputsFilled = true;
+
+    inputs.forEach(input => {
+      if (input.value === "") {
+        allInputsFilled = false;
+      }
+    });
+
+    if (allInputsFilled) {
+      document.getElementById("verifyForm").submit();
     }
   }
-}
 
-function checkInputs() {
-  let allInputsFilled = true;
-
-  inputs.forEach(input => {
-    if (input.value === "") {
-      allInputsFilled = false;
-    }
-  });
-
-  if (allInputsFilled) {
-    document.getElementById("verifyForm").submit();
-  }
-}
-
-checkInputs(); // Initial check when the page loads
+  checkInputs(); // Initial check when the page loads
 </script>

@@ -1,4 +1,5 @@
 #verify-body {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: flex;
     height: 100vh;
     width: 100%;
@@ -12,11 +13,11 @@
 
 .verifyForm {
     border: 2px solid #ccc;
-    background-color: #f5f5f5;
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     padding: 20px;
     width: 30%;
-    height: fit-content;
+    height: 350px;
     margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
@@ -32,9 +33,10 @@
 }
 
 .token-input {
+  color: #ccc;
     width: 35px;
     border: 2px solid #ccc;
-    background-color: #cee1e1;
+    background-color: #87BFC0;
     padding: 5px;
     margin-right: 10px;
     margin-bottom: 5px;
@@ -54,6 +56,8 @@
 #folderCheckLabel,
 #resendLabel{
   text-align: center;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 input::-webkit-outer-spin-button,
