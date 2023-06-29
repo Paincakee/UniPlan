@@ -56,7 +56,6 @@ app.get('/', checkLoggedIn, async (req, res) => {
       table: "projects",
     });
 
-    console.log(projects);
     res.render('project/project-list', {
       resultAccount,
       resultProject, 
@@ -147,6 +146,8 @@ app.post('/apply', checkLoggedIn, projectValidationRules, validate, async (req, 
     typeValue: req.body.projectId
   })
 
+  console.log(req.body.projectId);
+
   await db.sql('notifications/create_notification', {
     userId: resultProject.data[0].userId,
     message: `'${resultAccount.data[0].email}' has applied to the project '${req.body.projectName}'. click here to view`,
@@ -210,10 +211,6 @@ app.post('/delete-file', checkLoggedIn, async (req, res) => {
 
 app.post('/delete-chat', checkLoggedIn, async (req, res) => {
   const { time, projectId, email } = req.body;
-  console.log(req.body);
-  console.log(time);
-  console.log(projectId);
-  console.log(email);
   await db.sql('project/delete_chat', {
     time: time,
     projectId: projectId,
@@ -439,7 +436,6 @@ app.get('/:id', checkLoggedIn, async (req, res) => {
     let courseList = JSON.parse(resultProject.data[0].courses);
     if (courseList.constructor !== Array) {
       courseList = [courseList];
-      console.log(courseList);
     }
     await Promise.all(courseList.map(async (course) => {
       const resultCourse = await db.sql("global/get_user_info", {
