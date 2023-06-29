@@ -200,12 +200,16 @@
     margin-bottom: 10px;
   }
 
-  #delete-file {
+  .delete-file {
     color: #ff0000;
     font-weight: 700;
     font-size: small;
     border: none;
     background: transparent;
+  }
+
+  .form-message{
+    all: unset;
   }
 
   #ApplyChanges-Button {

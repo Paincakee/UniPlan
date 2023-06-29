@@ -199,8 +199,51 @@ app.post('/update',checkLoggedIn, async (req, res) =>{
 
 app.post('/delete-file', checkLoggedIn, async (req, res) => {
   console.log(`${req.session.email} deleted file: ${req.body.file}`);
-  app.delete(`${__dirname}/..${req.body.file}`);
+  fs.unlink(`${__dirname}/..${req.body.file}`, (err) => {
+    if (err) {
+      console.error('Error deleting file:', err);
+    }
+    console.log('File deleted successfully.');
+  });
   res.redirect('/project');
+})
+
+app.post('/delete-chat', checkLoggedIn, async (req, res) => {
+  const { time, projectId, email } = req.body;
+  console.log(req.body);
+  console.log(time);
+  console.log(projectId);
+  console.log(email);
+  await db.sql('project/delete_chat', {
+    time: time,
+    projectId: projectId,
+    email: email
+  })
+  res.redirect('/project')
+})
+
+app.post('/delete-project', checkLoggedIn, async (req, res) => {
+
+  const resultProject = await db.sql('global/get_user_info', {
+    table: 'projects',
+    type: 'id',
+    typeValue: req.body.projectId
+  })
+
+  const resultAccount = await db.sql('global/get_user_info', {
+    table: 'accounts',
+    type: 'id',
+    typeValue: resultProject.data[0].userId
+  })
+
+  await db.sql('global/delete_row', {
+    table: 'projects',
+    id: req.body.projectId
+  })
+
+  const link = `/resources/upload/${resultAccount.data[0].email}/${req.body.projectId}`
+  fs.rmSync(`${__dirname}/..${link}`, { recursive: true, force: true });
+  res.redirect('/project')
 })
 
 //router for managing projects
