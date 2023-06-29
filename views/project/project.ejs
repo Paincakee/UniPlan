@@ -102,7 +102,7 @@
   <div id="chat-container">
     <% history.sort((a, b)=> new Date(a.time) - new Date(b.time)).forEach(chat => { %>
       <% if (chat.userId===email) { %>
-        <form action="/project/delete-chat" class="form-message" method="post">
+        <!-- <form action="/project/delete-chat" class="form-message" method="post"> -->
           <div class="own-message chat-message">
             <span class="user">
               <%= chat.fullName %>:
@@ -116,9 +116,9 @@
                 <input class="delete-file" type="submit" value="X">
                 <%}%>
           </div>
-        </form>
+        <!-- </form> -->
         <% } else { %>
-          <form action="/project/delete-chat" class="form-message">
+          <!-- <form action="/project/delete-chat" class="form-message"> -->
             <div class="received-message chat-message">
               <span class="user">
                 <%= chat.fullName %>:
@@ -132,7 +132,7 @@
                   <input class="delete-file" type="submit" value="X">
                   <%}%>
             </div>
-          </form>
+          <!-- </form> -->
           <% } %>
             <% }) %>
               <form id="chat-form" method="post">
