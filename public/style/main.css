@@ -301,6 +301,14 @@
   overflow-y: auto;
 }
 
+.content-container-applies {
+  margin-top: 75px;
+}
+
+.approve-button {
+  margin-right: 5px;
+}
+
 #projectcreatebody {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;

@@ -12,7 +12,7 @@
 
 <body id="admin-body" class="navbar-page">
     <div id="navbar-container"></div>
-    <div class="content-container" id="projectview">
+    <div class="content-container-applies" id="projectview">
         <% applies.data.forEach((row) => {
           const account = accounts.data.find((acc) => acc.id === row.userId);
           const email = account ? account.email : '';
