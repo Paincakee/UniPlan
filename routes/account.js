@@ -22,7 +22,7 @@ app.route('/')
       req.session.token = Math.floor(Math.random() * 100000 + 10000);
       let info = await global.sender.sendMail({
         from: '"pixeltrading" pixeltrading@outlook.com', // sender address
-        to: email, // receiver
+        to: req.session.email, // receiver
         subject: "UniPlan password reset", // Subject line
         // text: "Click the link to verify.", // plain text body
         html: `<h5>Your verification code is: ${req.session.token}</h5>` // html body
@@ -108,14 +108,15 @@ app.route('/new')
 
 // Account Verification
 app.route('/verify')
-  .get(async (req, res) =>{
+  .get(checkLoggedIn, async (req, res) =>{
     res.render('account/verification', { firstName: req.session.firstname, error: 'Invalid input! Try again.' })
   })
-  .post(async (req, res) => {
-    console.log(req.body.tokenInput);
+  .post(checkLoggedIn, async (req, res) => {
     console.log(req.session.token);
     const fulltoken = req.body.tokenInput1 + req.body.tokenInput2 + req.body.tokenInput3 + req.body.tokenInput4 + req.body.tokenInput5
+    console.log(fulltoken);
     if (parseInt(fulltoken) == req.session.token) {
+      
       await db.sql('account/createAccount', {
         firstName: validator.escape(req.session.firstName),
         lastName: validator.escape(req.session.lastName),
