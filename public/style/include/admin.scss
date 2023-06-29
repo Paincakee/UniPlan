@@ -1,6 +1,5 @@
 
 #admin-body {
-
   .allButtons {
     position: fixed;
     bottom: 2%;
@@ -19,13 +18,17 @@
     margin-top: 50px;
     margin-bottom: 20px;
     margin-left: 5%;
+    
   }
 
   th,
   td {
+    
     text-align: center;
     width: 250px;
     border: 1px solid grey;
+    word-break: break-word;
+    max-width: 250px;
   }
 
   th {
@@ -34,6 +37,7 @@
     font-weight: bold;
     position: sticky;
     top: 0;
+    
   }
 
   td {
@@ -82,7 +86,7 @@
   #nav-home-tab,
   #nav-profile-tab,
   #nav-contact-tab {
-    width: 860px;
+    width: 750px;
     margin: 0 auto;
     color: #929191;
   }

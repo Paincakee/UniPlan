@@ -234,6 +234,8 @@
   text-align: center;
   width: 250px;
   border: 1px solid grey;
+  word-break: break-word;
+  max-width: 250px;
 }
 #admin-body th {
   padding-top: 10px;
@@ -283,7 +285,7 @@
 #admin-body #nav-home-tab,
 #admin-body #nav-profile-tab,
 #admin-body #nav-contact-tab {
-  width: 860px;
+  width: 750px;
   margin: 0 auto;
   color: #929191;
 }
@@ -536,6 +538,24 @@ h1 {
 a {
   text-decoration: none;
   color: #000;
+}
+
+#manageButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-container {
+  flex: 1; /* Set flex-grow to allow both containers to expand equally */
+  margin-right: 2px; /* Add some spacing between the buttons */
+}
+
+.delete-file {
+  color: #ff0000;
+  font-weight: 700;
+  font-size: small;
+  border: none;
+  background: transparent;
 }
 
 #test-body {
