@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <%result = resultProject.data[0]%>
+  <%result=resultProject.data[0]%>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=result.title%></title>
+    <title>
+      <%=result.title%>
+    </title>
     <link rel="stylesheet" href="/resources/lib/flickity/css/flickity-docs.css" media="screen">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link href="/style/main.css" rel="stylesheet" type="text/css">
@@ -17,130 +20,149 @@
         padding: 2px 4px;
         border-radius: 4px;
       }
-
     </style>
 </head>
 
 <body scroll="no" style="overflow: hidden" id="test-body" class="navbar-page">
   <div id="navbar-container"></div>
-    <div class="wrapper-info">
-        <div class="description-images-container">
-          <div class="description-box">
-            <h2>Bedrijf Info</h2>
-            <h3><%=result.contactInfo%></h3>
-          </div>
-          <div class="images-box">
-            <h2>Files</h2>
-            <div id="filecontainer">
-              <% let filelink = `/resources/upload/${makerMail}/${result.id}/files/`;
-                files.forEach(file => { %>
-                <div>
-                  <a href="<%= filelink + file %>"><%= file %></a>
-                  <% if (manage) { %>
-                    <form action="/project/delete-file" method="post" style="display: inline;">
-                      <input type="hidden" name="file" value="<%= filelink + file %>">
-                      <input class="delete-file" type="submit" value="X">
-                    </form>
-                  <% } %>
-                </div>
-              <% }); %>
-              <input id="addFiles" type="submit" value="Add Files">
+  <div class="wrapper-info">
+    <div class="description-images-container">
+      <div class="description-box">
+        <h2>Bedrijf Info</h2>
+        <h3>
+          <%=result.contactInfo%>
+        </h3>
+      </div>
+      <div class="images-box">
+        <h2>Files</h2>
+        <div id="filecontainer">
+          <% let filelink=`/resources/upload/${makerMail}/${result.id}/files/`; files.forEach(file=> { %>
+            <div>
+              <a href="<%= filelink + file %>">
+                <%= file %>
+              </a>
+              <% if (manage) { %>
+                <form action="/project/delete-file" method="post" style="display: inline;">
+                  <input type="hidden" name="file" value="<%= filelink + file %>">
+                  <input class="delete-file" type="submit" value="X">
+                </form>
+                <% } %>
             </div>
+            <% }); %>
+              <input id="addFiles" type="submit" value="Add Files">
         </div>
-        </div>
-        <div class="info-box">
-        <% const link = `/resources/upload/${makerMail}/${resultProject.data[0].id}/fotos/`; %>
+      </div>
+    </div>
+    <div class="info-box">
+      <% const link=`/resources/upload/${makerMail}/${resultProject.data[0].id}/fotos/`; %>
         <% if (manage){%>
           <form action="/project/update" method="post">
-  <input type="text" name="title" placeholder="<%= result.title %>"><br>
-  <select name="courses" id="courseSelect" multiple multiselect-search="true" multiselect-select-all="true">
-    <% resultCourse.data.forEach(row => { %>
-    <option value="<%= row.id %>">
-      <%= row.courseName %>
-    </option>
-    <% }); %>
-  </select><br>
-  <input type="text" name="description" placeholder="<%= result.description %>"><br><br>
-  <%pictures.forEach(picture => {%>
-    <a href="<%=link + picture%>"><%=picture%></a>
-    <form action="/project/delete-file" method="post" style="display: inline;">
-      <input type="hidden" name="file" value="<%= link + picture %>">
-      <input class="delete-file" type="submit" value="X">
-    </form>
-  <%})%>
-  <input id="ApplyChanges-Button" type="submit" value="Apply Changes">
-</form>
-        <%}else{%>
-          <h1><%=result.title%></h1>
-              <% courseListFinal.forEach(course => {%>
-                <li><%=course%></li>
+            <input type="text" name="title" placeholder="<%= result.title %>"><br>
+            <select name="courses" id="courseSelect" multiple multiselect-search="true" multiselect-select-all="true">
+              <% resultCourse.data.forEach(row=> { %>
+                <option value="<%= row.id %>">
+                  <%= row.courseName %>
+                </option>
+                <% }); %>
+            </select><br>
+            <input type="text" name="description" placeholder="<%= result.description %>"><br><br>
+            <%pictures.forEach(picture=> {%>
+              <a href="<%=link + picture%>">
+                <%=picture%>
+              </a>
+              <form action="/project/delete-file" method="post" style="display: inline;">
+                <input type="hidden" name="file" value="<%= link + picture %>">
+                <input class="delete-file" type="submit" value="X">
+              </form>
               <%})%>
-          <p><%=result.description%></p>
-          <% let active = true; %>
-          <div class="main-carousel">
-              <% pictures.forEach(picture => { %>
-                <img src="<%= link + picture %>" class="carousel-cell">
-                <% active = false; %>
-              <% }) %>
-          </div>
-        <%}%>
-        </div>
-      </div>      
+                <input id="ApplyChanges-Button" type="submit" value="Apply Changes">
+          </form>
+          <%}else{%>
+            <h1>
+              <%=result.title%>
+            </h1>
+            <% courseListFinal.forEach(course=> {%>
+              <li>
+                <%=course%>
+              </li>
+              <%})%>
+                <p>
+                  <%=result.description%>
+                </p>
+                <% let active=true; %>
+                  <div class="main-carousel">
+                    <% pictures.forEach(picture=> { %>
+                      <img src="<%= link + picture %>" class="carousel-cell">
+                      <% active=false; %>
+                        <% }) %>
+                  </div>
+                  <%}%>
+    </div>
+  </div>
   <div id="chat-container">
-      <% history.sort((a, b) => new Date(a.time) - new Date(b.time)).forEach(chat => { %>
-        <% if (chat.userId === email) { %>
-          <form action="/project/delete-chat" class="form-message" method="post">
-            <div class="own-message chat-message">
-              <span class="user"><%= chat.fullName %>:</span> <%= chat.chat %>
+    <% history.sort((a, b)=> new Date(a.time) - new Date(b.time)).forEach(chat => { %>
+      <% if (chat.userId===email) { %>
+        <form action="/project/delete-chat" class="form-message" method="post">
+          <div class="own-message chat-message">
+            <span class="user">
+              <%= chat.fullName %>:
+            </span>
+            <%= chat.chat %>
               <%if(manage){%>
                 <input type="hidden" name="time" value="<%= chat.time %>">
                 <input type="hidden" name="projectId" value="<%= resultProject.data[0].id %>">
                 <input type="hidden" name="email" value="<%= chat.userId %>">
 
                 <input class="delete-file" type="submit" value="X">
-              <%}%>
-            </div>
-          </form>
+                <%}%>
+          </div>
+        </form>
         <% } else { %>
           <form action="/project/delete-chat" class="form-message">
             <div class="received-message chat-message">
-              <span class="user"><%= chat.fullName %>:</span> <%= chat.chat %>
-              <%if(manage){%>
-                <input type="hidden" name="time" value="<%= chat.time %>">
-                <input type="hidden" name="projectId" value="<%= resultProject.data[0].id %>">
-                <input type="hidden" name="email" value="<%= chat.userId %>">
+              <span class="user">
+                <%= chat.fullName %>:
+              </span>
+              <%= chat.chat %>
+                <%if(manage){%>
+                  <input type="hidden" name="time" value="<%= chat.time %>">
+                  <input type="hidden" name="projectId" value="<%= resultProject.data[0].id %>">
+                  <input type="hidden" name="email" value="<%= chat.userId %>">
 
-                <input class="delete-file" type="submit" value="X">
-              <%}%>
+                  <input class="delete-file" type="submit" value="X">
+                  <%}%>
             </div>
           </form>
-        <% } %>
-    <% }) %>
-    <form id="chat-form" method="post">
-      <input type="text" name="" id="chat-input" >
-      <button type="submit" id="send-button">Send</button>
-      <input type="hidden" name="time" id="chat-time">
-  </form>
+          <% } %>
+            <% }) %>
+              <form id="chat-form" method="post">
+                <input type="text" name="" id="chat-input">
+                <button type="submit" id="send-button">Send</button>
+                <input type="hidden" name="time" id="chat-time">
+              </form>
   </div>
   <div class="waveWrapper waveAnimation">
     <div class="waveWrapperInner bgTop">
       <div class="wave waveTop" style="background-image: url('../../public/style/images/wavelijntjeupdate.png')"></div>
     </div>
     <div class="waveWrapperInner bgMiddle">
-      <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+      <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')">
+      </div>
     </div>
     <div class="waveWrapperInner bgBottom">
-      <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+      <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')">
+      </div>
     </div>
-</div>
+  </div>
   <script src="/socket.io/socket.io.js"></script>
-        <script>
-          let email = "<%= email %>"
-          let id = "<%= id %>"
-          let fname = "<%= firstname %>"
-          let lname = "<%= lastname %>"
-        </script>
+  <script>
+    let email = "<%= email %>"
+    let id = "<%= id %>"
+    let fname = "<%= firstname %>"
+    let lname = "<%= lastname %>"
+  </script>
 </body>
+
 </html>
 <script src="/script/chat/chat.js"></script>
 <script src="/resources/lib/multiselect-dropdown.js"></script>
@@ -148,10 +170,20 @@
 <script>
   const admin = "<%= admin_ %>";
 
-var flkty = new Flickity( '.main-carousel', {
-  contain: true,
-  wrapAround: true,
-  autoPlay: 4000
-});
+  var flkty = new Flickity('.main-carousel', {
+    contain: true,
+    wrapAround: true,
+    autoPlay: 4000
+  });
+
+  function showPopup(element) {
+    const popup = element.nextElementSibling;
+    popup.style.display = 'block';
+  }
+
+  function hidePopup() {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'none';
+  }
 </script>
 <script src="/script/navbar.js"></script>
