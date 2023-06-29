@@ -39,14 +39,20 @@
                       <% } %>
                     </form>
                   <% } if (locals.manage || resultAccount.data[0].id == row.userId) { %>
-                    <form action="/project/my" method="post">
-                      <input type="hidden" name="projectId" value="<%= row.id %>">
-                      <button id="manageForm" type="submit" class="btn btn-success">Manage</button>
-                    </form>
-                    <form action="/project/delete-project" method="post">
-                        <input type="hidden" name="projectId" value="<%=row.id%>">
-                        <input class="delete-file" type="submit" value="X">
-                    </form>
+                    <div id="manageButtons">
+                      <div class="button-container">
+                        <form action="/project/my" method="post">
+                          <input type="hidden" name="projectId" value="<%=row.id%>">
+                          <button id="manageForm" type="submit" class="btn btn-success">Manage</button>
+                        </form>
+                      </div>
+                      <div class="button-container">
+                        <form action="/project/delete-project" method="post">
+                          <input type="hidden" name="projectId" value="<%=row.id%>">
+                          <input class="delete-file" type="submit" value="X">
+                        </form>
+                      </div>
+                    </div>
                   <% } %>
                 </div>
               </div>
