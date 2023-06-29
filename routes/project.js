@@ -332,7 +332,7 @@ app.get('/applies/approve/:id',checkLoggedIn, checkMaker, async (req, res) => {
 
   await db.sql('notifications/create_notification', {
     userId: JSON.stringify(project_id.data[0].userId),
-    message: `'${project_info.data[0].email}' has qccepted your application for the project '${project_info.data[0].title}'. Click here to view the project details.`,
+    message: `'${project_info.data[0].email}' has accepted your application for the project '${project_info.data[0].title}'. Click here to view the project details.`,
     class: "succes",
     redirect: `/project/${project_info.data[0].id}`,
     date: getCurrentDate()

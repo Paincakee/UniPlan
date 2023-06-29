@@ -18,13 +18,14 @@ h1 {
     flex-direction: column;
     width: 90%;
     margin: 0 auto;
-    margin-top: 15vh;
+    margin-top: 8vh;
     overflow: auto; /* Use 'auto' instead of 'scroll' */
     height: 600px; /* Adjust the height as needed */
     
   }
 
   .item {
+    border: 1px solid rgb( 245, 245, 245);
     z-index: 3000;
     padding: 10px;
     color: black;
