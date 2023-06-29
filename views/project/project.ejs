@@ -41,7 +41,7 @@
               <a href="<%= filelink + file %>">
                 <%= file %>
               </a>
-              <% if (manage) { %>
+              <% if (locals.manage) { %>
                 <form action="/project/delete-file" method="post" style="display: inline;">
                   <input type="hidden" name="file" value="<%= filelink + file %>">
                   <input class="delete-file" type="submit" value="X">
@@ -49,13 +49,13 @@
                 <% } %>
             </div>
             <% }); %>
-              <input id="addFiles" type="submit" value="Add Files">
+              <!-- <input id="addFiles" type="submit" value="Add Files"> -->
         </div>
       </div>
     </div>
     <div class="info-box">
       <% const link=`/resources/upload/${makerMail}/${resultProject.data[0].id}/fotos/`; %>
-        <% if (manage){%>
+        <% if (locals.manage){%>
           <form action="/project/update" method="post">
             <input type="text" name="title" placeholder="<%= result.title %>"><br>
             <select name="courses" id="courseSelect" multiple multiselect-search="true" multiselect-select-all="true">
@@ -108,7 +108,7 @@
               <%= chat.fullName %>:
             </span>
             <%= chat.chat %>
-              <%if(manage){%>
+              <%if(locals.manage){%>
                 <input type="hidden" name="time" value="<%= chat.time %>">
                 <input type="hidden" name="projectId" value="<%= resultProject.data[0].id %>">
                 <input type="hidden" name="email" value="<%= chat.userId %>">
@@ -124,7 +124,7 @@
                 <%= chat.fullName %>:
               </span>
               <%= chat.chat %>
-                <%if(manage){%>
+                <%if(locals.manage){%>
                   <input type="hidden" name="time" value="<%= chat.time %>">
                   <input type="hidden" name="projectId" value="<%= resultProject.data[0].id %>">
                   <input type="hidden" name="email" value="<%= chat.userId %>">
