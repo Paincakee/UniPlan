@@ -41,8 +41,7 @@ let transporter = nodemailer.createTransport({
   port: 587,
   secure: false, // true for 465, false for other ports
   auth: {
-    user: 'pixeltrading@outlook.com',
-    pass: 'r2R439Sm&R8ALHf'
+   
   }
 });
 
